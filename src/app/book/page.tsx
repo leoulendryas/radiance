@@ -1,0 +1,531 @@
+"use client";
+
+import { useState, useMemo, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+import {
+  Calendar,
+  Clock,
+  MapPin,
+  CheckCircle2,
+  Activity,
+  Zap,
+  Sparkles,
+  FileCheck,
+  Stethoscope,
+  Phone,
+  ArrowRight,
+  ArrowLeft,
+  ShieldCheck,
+  AlertCircle
+} from "lucide-react";
+import { ALL_SERVICES, ServiceItem } from "@/data/servicesData";
+import { CLINIC_INFO } from "@/data/clinicInfo";
+import { DOCTORS_DATA } from "@/data/doctorsData";
+
+function BookingWizard() {
+  const searchParams = useSearchParams();
+  const initialServiceId = searchParams.get("service") || "";
+  const initialBranch = searchParams.get("branch") || "adi-dero";
+
+  const [step, setStep] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState<string>("ultrasound");
+  const [selectedServiceId, setSelectedServiceId] = useState<string>(initialServiceId);
+  const [selectedBranch, setSelectedBranch] = useState<string>(initialBranch);
+  const [appointmentDate, setAppointmentDate] = useState<string>("");
+  const [appointmentTime, setAppointmentTime] = useState<string>("09:00 AM");
+  const [patientName, setPatientName] = useState<string>("");
+  const [patientPhone, setPatientPhone] = useState<string>("");
+  const [patientAge, setPatientAge] = useState<string>("");
+  const [referringDoctor, setReferringDoctor] = useState<string>("");
+  const [notes, setNotes] = useState<string>("");
+  const [bookingRef, setBookingRef] = useState<string>("");
+
+  // Filter available services by category
+  const servicesInCategory = useMemo(() => {
+    return ALL_SERVICES.filter((s) => s.category === selectedCategory);
+  }, [selectedCategory]);
+
+  // Find currently selected service object
+  const currentService = useMemo(() => {
+    return ALL_SERVICES.find((s) => s.id === selectedServiceId) || servicesInCategory[0];
+  }, [selectedServiceId, servicesInCategory]);
+
+  const handleNext = () => {
+    if (step === 1 && !selectedServiceId && servicesInCategory.length > 0) {
+      setSelectedServiceId(servicesInCategory[0].id);
+    }
+    if (step < 4) {
+      setStep(step + 1);
+    } else {
+      // Generate booking reference
+      const ref = "RAD-" + Math.floor(100000 + Math.random() * 900000);
+      setBookingRef(ref);
+      setStep(5);
+    }
+  };
+
+  const handleBack = () => {
+    if (step > 1) {
+      setStep(step - 1);
+    }
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
+      {/* Step Indicator Header */}
+      {step < 5 && (
+        <div className="mb-8">
+          <div className="flex items-center justify-between max-w-xl mx-auto mb-3">
+            {[1, 2, 3, 4].map((s) => (
+              <div key={s} className="flex items-center gap-2">
+                <div
+                  className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs transition-colors ${
+                    step === s
+                      ? "bg-[#B61F32] text-white shadow-md"
+                      : step > s
+                      ? "bg-emerald-500 text-white"
+                      : "bg-slate-200 text-slate-500"
+                  }`}
+                >
+                  {step > s ? <CheckCircle2 className="w-4 h-4" /> : s}
+                </div>
+                <span className="hidden sm:inline text-xs font-semibold text-slate-600">
+                  {s === 1 && "Service"}
+                  {s === 2 && "Examination"}
+                  {s === 3 && "Date & Time"}
+                  {s === 4 && "Patient Info"}
+                </span>
+              </div>
+            ))}
+          </div>
+          <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+            <div
+              className="bg-[#B61F32] h-full transition-all duration-300"
+              style={{ width: `${(step / 4) * 100}%` }}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* STEP 1: SELECT CATEGORY */}
+      {step === 1 && (
+        <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl space-y-6">
+          <div className="text-center max-w-xl mx-auto">
+            <span className="text-xs font-bold text-[#B61F32] uppercase tracking-wider">Step 1 of 4</span>
+            <h2 className="text-2xl font-extrabold text-[#002047] mt-1">Select Service Category</h2>
+            <p className="text-xs text-slate-500 mt-1">Choose the type of diagnostic scan or clinical consultation you require.</p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { id: "ultrasound", title: "3G Ultrasound", desc: "27 Scans (3D/4D, Doppler, MSK, TVS)", icon: Activity, count: "27 Scans" },
+              { id: "xray", title: "Digital X-Ray", desc: "24 Full-Body Skeletal Views", icon: Zap, count: "24 Views" },
+              { id: "special-procedure", title: "Special Fluoroscopy", desc: "HSG, IVU, CUG, Barium Studies", icon: Sparkles, count: "5 Procedures" },
+              { id: "ct-mri", title: "CT & MRI Reading", desc: "Consultant Radiologist Second Opinions", icon: FileCheck, count: "Tele-Radiology" },
+              { id: "multispeciality", title: "Doctor Consultation", desc: "Cardiology, OB/GYN, Pediatrics, Ortho", icon: Stethoscope, count: "8 Clinics" },
+              { id: "laboratory", title: "Diagnostic Lab", desc: "Automated CBC, Biochemistry, Hormones", icon: Sparkles, count: "Rapid Panels" },
+            ].map((cat) => {
+              const Icon = cat.icon;
+              const isSelected = selectedCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => {
+                    setSelectedCategory(cat.id);
+                    const firstInCat = ALL_SERVICES.find((s) => s.category === cat.id);
+                    if (firstInCat) setSelectedServiceId(firstInCat.id);
+                  }}
+                  className={`p-5 rounded-2xl text-left border-2 transition-all flex flex-col justify-between ${
+                    isSelected
+                      ? "border-[#B61F32] bg-red-50/50 shadow-md"
+                      : "border-slate-200 hover:border-slate-300 bg-white"
+                  }`}
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-3">
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isSelected ? "bg-[#B61F32] text-white" : "bg-slate-100 text-slate-700"}`}>
+                        <Icon className="w-5 h-5" />
+                      </div>
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">{cat.count}</span>
+                    </div>
+                    <h3 className="font-bold text-sm text-[#002047]">{cat.title}</h3>
+                    <p className="text-xs text-slate-500 mt-1">{cat.desc}</p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="flex justify-end pt-4">
+            <button
+              onClick={handleNext}
+              className="inline-flex items-center gap-2 bg-[#B61F32] hover:bg-[#911624] text-white text-xs font-bold px-6 py-3 rounded-xl shadow-md transition-all"
+            >
+              <span>Continue to Specific Scan</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* STEP 2: SELECT SPECIFIC SCAN / PROCEDURE */}
+      {step === 2 && (
+        <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl space-y-6">
+          <div className="text-center max-w-xl mx-auto">
+            <span className="text-xs font-bold text-[#B61F32] uppercase tracking-wider">Step 2 of 4</span>
+            <h2 className="text-2xl font-extrabold text-[#002047] mt-1">Select Your Specific Examination</h2>
+            <p className="text-xs text-slate-500 mt-1">
+              Select the exact examination specified on your doctor&apos;s request or referral.
+            </p>
+          </div>
+
+          <div className="max-h-[380px] overflow-y-auto space-y-2 pr-1">
+            {servicesInCategory.map((srv) => {
+              const isSelected = selectedServiceId === srv.id;
+              return (
+                <div
+                  key={srv.id}
+                  onClick={() => setSelectedServiceId(srv.id)}
+                  className={`p-4 rounded-xl border-2 cursor-pointer transition-all flex items-start justify-between gap-3 ${
+                    isSelected
+                      ? "border-[#B61F32] bg-red-50/60 shadow-xs"
+                      : "border-slate-200 hover:border-slate-300 bg-white"
+                  }`}
+                >
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <h4 className="font-bold text-sm text-[#002047]">{srv.name}</h4>
+                      {srv.tag && (
+                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-red-100 text-[#B61F32]">
+                          {srv.tag}
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs text-slate-500 mt-0.5">{srv.shortDescription}</p>
+                    <p className="text-[11px] text-slate-400 mt-1">
+                      <strong>Prep:</strong> {srv.preparation}
+                    </p>
+                  </div>
+                  <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center shrink-0 mt-1 ${
+                    isSelected ? "border-[#B61F32] bg-[#B61F32] text-white" : "border-slate-300"
+                  }`}>
+                    {isSelected && <CheckCircle2 className="w-3.5 h-3.5" />}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+            <button
+              onClick={handleBack}
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-800 px-4 py-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Back</span>
+            </button>
+            <button
+              onClick={handleNext}
+              className="inline-flex items-center gap-2 bg-[#B61F32] hover:bg-[#911624] text-white text-xs font-bold px-6 py-3 rounded-xl shadow-md transition-all"
+            >
+              <span>Continue to Schedule</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* STEP 3: BRANCH & TIME */}
+      {step === 3 && (
+        <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl space-y-6">
+          <div className="text-center max-w-xl mx-auto">
+            <span className="text-xs font-bold text-[#B61F32] uppercase tracking-wider">Step 3 of 4</span>
+            <h2 className="text-2xl font-extrabold text-[#002047] mt-1">Choose Location & Date</h2>
+            <p className="text-xs text-slate-500 mt-1">Select your preferred branch and convenient arrival time.</p>
+          </div>
+
+          {/* Branch Selector */}
+          <div>
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+              Select Clinic Center:
+            </label>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <button
+                type="button"
+                onClick={() => setSelectedBranch("adi-dero")}
+                className={`p-4 rounded-2xl border-2 text-left transition-all ${
+                  selectedBranch === "adi-dero"
+                    ? "border-[#B61F32] bg-red-50/50 shadow-xs"
+                    : "border-slate-200 bg-white"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-xs font-bold text-[#B61F32]">Branch 1</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-red-100 text-[#B61F32] font-semibold">
+                    3G Imaging
+                  </span>
+                </div>
+                <h4 className="font-bold text-sm text-[#002047]">3G Diagnostic Imaging (Adi Dero)</h4>
+                <p className="text-[11px] text-slate-500 mt-1 line-clamp-2">
+                  ካብ ላዕለዋይ በሬ ዓዲደሮ ራፈራኤል ሆስፒታል 300 ሜትር ወሪድ
+                </p>
+                <p className="text-[11px] font-bold text-[#002047] mt-2">Tel: 03 42 40 90 43</p>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setSelectedBranch("bahir-dar")}
+                className={`p-4 rounded-2xl border-2 text-left transition-all ${
+                  selectedBranch === "bahir-dar"
+                    ? "border-[#B61F32] bg-red-50/50 shadow-xs"
+                    : "border-slate-200 bg-white"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-xs font-bold text-[#002047]">Branch 2</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded bg-blue-100 text-[#002047] font-semibold">
+                    Multispeciality
+                  </span>
+                </div>
+                <h4 className="font-bold text-sm text-[#002047]">Radiance Clinic (Bahir Dar)</h4>
+                <p className="text-[11px] text-slate-500 mt-1">Bahir Dar, Kebele 14, Ethiopia</p>
+                <p className="text-[11px] font-bold text-[#002047] mt-2">Tel: +251 990 084 747</p>
+              </button>
+            </div>
+          </div>
+
+          {/* Date & Time Picker */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Preferred Date *</label>
+              <input
+                type="date"
+                required
+                value={appointmentDate}
+                onChange={(e) => setAppointmentDate(e.target.value)}
+                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#B61F32]"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Preferred Time Window</label>
+              <select
+                value={appointmentTime}
+                onChange={(e) => setAppointmentTime(e.target.value)}
+                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#B61F32]"
+              >
+                <option>08:00 AM - 10:00 AM (Morning Slot)</option>
+                <option>10:00 AM - 12:00 PM (Midday Slot)</option>
+                <option>01:30 PM - 03:30 PM (Afternoon Slot)</option>
+                <option>03:30 PM - 06:00 PM (Evening Slot)</option>
+                <option>Urgent / Today Walk-In Triage</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+            <button
+              onClick={handleBack}
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-800 px-4 py-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Back</span>
+            </button>
+            <button
+              onClick={handleNext}
+              className="inline-flex items-center gap-2 bg-[#B61F32] hover:bg-[#911624] text-white text-xs font-bold px-6 py-3 rounded-xl shadow-md transition-all"
+            >
+              <span>Continue to Patient Details</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* STEP 4: PATIENT DETAILS */}
+      {step === 4 && (
+        <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl space-y-6">
+          <div className="text-center max-w-xl mx-auto">
+            <span className="text-xs font-bold text-[#B61F32] uppercase tracking-wider">Step 4 of 4</span>
+            <h2 className="text-2xl font-extrabold text-[#002047] mt-1">Patient Information</h2>
+            <p className="text-xs text-slate-500 mt-1">Provide contact details to receive your booking confirmation and preparation instructions.</p>
+          </div>
+
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Patient Full Name *</label>
+                <input
+                  type="text"
+                  required
+                  value={patientName}
+                  onChange={(e) => setPatientName(e.target.value)}
+                  placeholder="e.g. Rahel Hailu"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#B61F32]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Phone Number (WhatsApp for Report) *</label>
+                <input
+                  type="tel"
+                  required
+                  value={patientPhone}
+                  onChange={(e) => setPatientPhone(e.target.value)}
+                  placeholder="09... or 03..."
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#B61F32]"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Age / Gender</label>
+                <input
+                  type="text"
+                  value={patientAge}
+                  onChange={(e) => setPatientAge(e.target.value)}
+                  placeholder="e.g. 28, Female"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#B61F32]"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1">Referring Doctor / Hospital (Optional)</label>
+                <input
+                  type="text"
+                  value={referringDoctor}
+                  onChange={(e) => setReferringDoctor(e.target.value)}
+                  placeholder="e.g. Raphael Hospital / Dr. Kidane"
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#B61F32]"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-700 mb-1">Reason for Scan / Symptoms (Optional)</label>
+              <textarea
+                rows={3}
+                value={notes}
+                onChange={(e) => setNotes(e.target.value)}
+                placeholder="Mention key symptoms or special requests..."
+                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#B61F32]"
+              />
+            </div>
+          </div>
+
+          {/* Booking Summary Box */}
+          <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-1">
+            <p className="font-bold text-[#002047]">Summary:</p>
+            <p className="text-slate-600">
+              <strong className="text-slate-800">Exam:</strong> {currentService?.name}
+            </p>
+            <p className="text-slate-600">
+              <strong className="text-slate-800">Location:</strong> {selectedBranch === "adi-dero" ? "3G Diagnostic Imaging (Adi Dero)" : "Radiance Clinic (Bahir Dar)"}
+            </p>
+            <p className="text-slate-600">
+              <strong className="text-slate-800">Time:</strong> {appointmentDate || "Selected Day"} • {appointmentTime}
+            </p>
+          </div>
+
+          <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+            <button
+              onClick={handleBack}
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-800 px-4 py-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Back</span>
+            </button>
+            <button
+              onClick={handleNext}
+              disabled={!patientName || !patientPhone}
+              className="inline-flex items-center gap-2 bg-[#B61F32] hover:bg-[#911624] disabled:opacity-50 text-white text-xs font-bold px-7 py-3 rounded-xl shadow-md transition-all"
+            >
+              <CheckCircle2 className="w-4 h-4" />
+              <span>Confirm & Book Appointment</span>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* STEP 5: CONFIRMATION & PREPARATION CHECKLIST */}
+      {step === 5 && (
+        <div className="bg-white rounded-3xl p-6 sm:p-10 border-2 border-emerald-200 shadow-2xl space-y-6 text-center">
+          <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-sm">
+            <CheckCircle2 className="w-9 h-9" />
+          </div>
+
+          <div>
+            <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 uppercase tracking-wider">
+              Booking Confirmed
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-[#002047] mt-3">
+              Appointment Scheduled Successfully!
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-600 mt-2 max-w-lg mx-auto">
+              Your appointment request has been registered in our clinical system. Our triage nurse will send an SMS confirmation to <strong className="text-[#002047]">{patientPhone}</strong>.
+            </p>
+          </div>
+
+          {/* Reference badge */}
+          <div className="inline-block p-4 rounded-2xl bg-slate-50 border border-slate-200 text-left max-w-md mx-auto w-full">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-2 mb-2">
+              <span className="text-xs text-slate-400 font-semibold uppercase">Booking Ref:</span>
+              <span className="text-sm font-black text-[#B61F32] tracking-wider">{bookingRef}</span>
+            </div>
+            <div className="space-y-1 text-xs text-slate-600">
+              <p><strong className="text-slate-800">Patient:</strong> {patientName}</p>
+              <p><strong className="text-slate-800">Service:</strong> {currentService?.name}</p>
+              <p>
+                <strong className="text-slate-800">Branch:</strong>{" "}
+                {selectedBranch === "adi-dero" ? "3G Diagnostic Imaging (Adi Dero)" : "Radiance Clinic (Bahir Dar)"}
+              </p>
+              <p><strong className="text-slate-800">Scheduled Time:</strong> {appointmentDate || "Next Available"} • {appointmentTime}</p>
+            </div>
+          </div>
+
+          {/* Critical Preparation Checklist for Selected Exam */}
+          <div className="p-5 rounded-2xl bg-red-50/70 border border-red-200 text-left max-w-md mx-auto">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#B61F32] uppercase mb-1.5">
+              <AlertCircle className="w-4 h-4" />
+              <span>Important Preparation for {currentService?.name}:</span>
+            </div>
+            <p className="text-xs text-slate-700 leading-relaxed font-medium">
+              {currentService?.preparation}
+            </p>
+          </div>
+
+          {/* Action links */}
+          <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 bg-[#002047] hover:bg-[#092f61] text-white text-xs font-bold px-6 py-3 rounded-xl transition-colors"
+            >
+              <span>Return to Home</span>
+            </Link>
+
+            <a
+              href={`tel:${selectedBranch === "adi-dero" ? "0342409043" : "+251990084747"}`}
+              className="inline-flex items-center gap-2 bg-white hover:bg-slate-100 text-[#002047] text-xs font-bold px-6 py-3 rounded-xl border border-slate-300 transition-colors"
+            >
+              <Phone className="w-4 h-4 text-[#B61F32]" />
+              <span>Call Reception ({selectedBranch === "adi-dero" ? "03 42 40 90 43" : "+251 990 084 747"})</span>
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default function BookPage() {
+  return (
+    <div className="min-h-screen bg-slate-50/60">
+      <Suspense fallback={<div className="text-center py-20 text-slate-500">Loading booking wizard...</div>}>
+        <BookingWizard />
+      </Suspense>
+    </div>
+  );
+}
