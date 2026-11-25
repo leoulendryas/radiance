@@ -87,17 +87,17 @@ export default function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-40 transition-all duration-300 ${
+      className={`sticky top-0 z-40 transition-all duration-200 ${
         scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-md py-2.5"
-          : "bg-white py-3.5 border-b border-slate-100"
+          ? "bg-white/95 backdrop-blur-md shadow-md py-1.5"
+          : "bg-white py-2 border-b border-slate-100"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Brand Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative h-11 w-44 sm:h-12 sm:w-52 transition-transform group-hover:scale-102">
+            <div className="relative h-9 w-40 sm:h-10 sm:w-48 transition-transform group-hover:scale-102">
               <Image
                 src="/images/logo.png"
                 alt="Radiance Multispeciality Clinic & 3G Diagnostic Imaging"
@@ -215,21 +215,19 @@ export default function Navbar() {
           </nav>
 
           {/* Desktop Right CTAs */}
-          <div className="hidden lg:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-2.5">
             <a
               href={`tel:${CLINIC_INFO.primaryPhone.replace(/\s+/g, "")}`}
-              className="flex items-center gap-2 text-xs font-bold text-[#002047] hover:text-[#B61F32] px-3 py-2 rounded-lg border border-slate-200 hover:border-[#B61F32]/30 transition-all shadow-xs"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#002047] hover:text-[#B61F32] px-3 py-1.5 rounded-lg border border-slate-200 hover:border-[#B61F32]/30 transition-all h-9"
+              title="Direct Line to 3G Diagnostic Imaging"
             >
               <PhoneCall className="w-3.5 h-3.5 text-[#B61F32]" />
-              <div className="text-left">
-                <span className="block text-[10px] text-slate-400 font-normal uppercase">Direct Line</span>
-                <span>{CLINIC_INFO.primaryPhone}</span>
-              </div>
+              <span className="tracking-wide">{CLINIC_INFO.primaryPhone}</span>
             </a>
 
             <Link
               href="/book"
-              className="inline-flex items-center gap-2 bg-[#B61F32] hover:bg-[#911624] text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+              className="inline-flex items-center gap-1.5 bg-[#B61F32] hover:bg-[#911624] text-white text-xs font-bold px-3.5 py-1.5 rounded-lg shadow-sm hover:shadow transition-all h-9"
             >
               <Calendar className="w-3.5 h-3.5" />
               <span>Book Appointment</span>
