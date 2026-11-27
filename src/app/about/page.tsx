@@ -202,11 +202,17 @@ export default function AboutPage() {
             centered
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-8">
+          {/* Mobile swipe hint */}
+          <div className="md:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 mb-3 px-0.5 mt-6">
+            <span className="font-semibold uppercase tracking-wider">Our Core Values</span>
+            <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe sideways &rarr;</span>
+          </div>
+
+          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 mt-2 md:mt-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-3 md:pb-0">
             {values.map((v, i) => {
               const Icon = v.icon;
               return (
-                <div key={i} className="p-5 rounded-xl bg-slate-50 dark:bg-[#0E1A30] border border-slate-100 dark:border-slate-800 flex flex-col justify-between">
+                <div key={i} className="w-[78vw] max-w-[270px] md:w-auto shrink-0 snap-start p-5 rounded-xl bg-slate-50 dark:bg-[#0E1A30] border border-slate-100 dark:border-slate-800 flex flex-col justify-between">
                   <div>
                     <div className={`w-10 h-10 rounded-lg ${v.color} text-white flex items-center justify-center mb-3 shadow-xs`}>
                       <Icon className="w-5 h-5" />

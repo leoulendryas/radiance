@@ -87,11 +87,11 @@ export default function HomePage() {
               </div>
 
               {/* Stats Bar */}
-              <div className="pt-8 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-6 text-left">
+              <div className="pt-6 sm:pt-8 border-t border-white/10 flex sm:grid sm:grid-cols-4 gap-4 sm:gap-6 text-left overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
                 {CLINIC_INFO.stats.map((st, i) => (
-                  <div key={i}>
-                    <p className="text-2xl font-bold text-white font-mono">{st.value}</p>
-                    <p className="text-xs text-slate-400 mt-0.5">{st.label}</p>
+                  <div key={i} className="min-w-[120px] sm:min-w-0 shrink-0">
+                    <p className="text-xl sm:text-2xl font-bold text-white font-mono">{st.value}</p>
+                    <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5 whitespace-nowrap sm:whitespace-normal">{st.label}</p>
                   </div>
                 ))}
               </div>
@@ -138,12 +138,18 @@ export default function HomePage() {
       {/* ======================================================== */}
       {/* 2. CORE PILLARS: MINIMALIST CARDS */}
       {/* ======================================================== */}
-      <section className="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <section className="py-14 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        {/* Mobile swipe hint */}
+        <div className="sm:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 mb-2.5 px-0.5">
+          <span className="font-semibold uppercase tracking-wider">Core Clinical Pillars</span>
+          <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe sideways &rarr;</span>
+        </div>
+
+        <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 overflow-x-auto sm:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 pb-3 sm:pb-0">
           {/* Card 1 */}
           <Link
             href="/services/ultrasound"
-            className="group p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between"
+            className="w-[82vw] max-w-[300px] sm:w-auto shrink-0 snap-start group p-5 sm:p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between"
           >
             <div>
               <div className="w-10 h-10 rounded-xl bg-red-50 dark:bg-red-950/40 text-[#B61F32] dark:text-red-400 flex items-center justify-center mb-4">
@@ -170,7 +176,7 @@ export default function HomePage() {
           {/* Card 2 */}
           <Link
             href="/services/digital-xray"
-            className="group p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between"
+            className="w-[82vw] max-w-[300px] sm:w-auto shrink-0 snap-start group p-5 sm:p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between"
           >
             <div>
               <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-[#002047] dark:text-blue-400 flex items-center justify-center mb-4">
@@ -197,7 +203,7 @@ export default function HomePage() {
           {/* Card 3 */}
           <Link
             href="/services/digital-xray#special-procedures"
-            className="group p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between"
+            className="w-[82vw] max-w-[300px] sm:w-auto shrink-0 snap-start group p-5 sm:p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between"
           >
             <div>
               <div className="w-10 h-10 rounded-xl bg-red-50 dark:bg-red-950/40 text-[#B61F32] dark:text-red-400 flex items-center justify-center mb-4">
@@ -224,7 +230,7 @@ export default function HomePage() {
           {/* Card 4 */}
           <Link
             href="/services/ct-mri-consultation"
-            className="group p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between"
+            className="w-[82vw] max-w-[300px] sm:w-auto shrink-0 snap-start group p-5 sm:p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between"
           >
             <div>
               <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4">
@@ -263,11 +269,17 @@ export default function HomePage() {
             centered
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {/* Mobile swipe hint */}
+          <div className="md:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 mb-3 px-0.5">
+            <span className="font-semibold uppercase tracking-wider">Precision Modalities</span>
+            <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe sideways &rarr;</span>
+          </div>
+
+          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-3 md:pb-0">
             {ULTRASOUND_SERVICES.slice(0, 6).map((srv) => (
               <div
                 key={srv.id}
-                className="bg-white dark:bg-[#0A1324] rounded-2xl p-6 border border-slate-200/80 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between"
+                className="w-[82vw] max-w-[320px] md:w-auto shrink-0 snap-start bg-white dark:bg-[#0A1324] rounded-2xl p-5 sm:p-6 border border-slate-200/80 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-2.5">
@@ -398,8 +410,14 @@ export default function HomePage() {
             centered
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div className="p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80">
+          {/* Mobile swipe hint */}
+          <div className="md:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 mb-3 px-0.5">
+            <span className="font-semibold uppercase tracking-wider">Healthcare Philosophy</span>
+            <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe sideways &rarr;</span>
+          </div>
+
+          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-3 md:pb-0">
+            <div className="w-[78vw] max-w-[270px] md:w-auto shrink-0 snap-start p-5 sm:p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80">
               <div className="w-9 h-9 rounded-lg bg-red-50 dark:bg-red-950/40 text-[#B61F32] dark:text-red-400 flex items-center justify-center mb-3.5">
                 <Users className="w-4 h-4" />
               </div>
@@ -409,7 +427,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80">
+            <div className="w-[78vw] max-w-[270px] md:w-auto shrink-0 snap-start p-5 sm:p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80">
               <div className="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-[#002047] dark:text-blue-400 flex items-center justify-center mb-3.5">
                 <ShieldCheck className="w-4 h-4" />
               </div>
@@ -419,7 +437,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80">
+            <div className="w-[78vw] max-w-[270px] md:w-auto shrink-0 snap-start p-5 sm:p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80">
               <div className="w-9 h-9 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-3.5">
                 <Sparkles className="w-4 h-4" />
               </div>
@@ -429,7 +447,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80">
+            <div className="w-[78vw] max-w-[270px] md:w-auto shrink-0 snap-start p-5 sm:p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80">
               <div className="w-9 h-9 rounded-lg bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-3.5">
                 <Award className="w-4 h-4" />
               </div>
@@ -454,9 +472,15 @@ export default function HomePage() {
           centered
         />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Mobile swipe hint */}
+        <div className="md:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 mb-3 px-0.5">
+          <span className="font-semibold uppercase tracking-wider">Our Clinic Hubs</span>
+          <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe sideways &rarr;</span>
+        </div>
+
+        <div className="flex md:grid md:grid-cols-2 gap-4 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-3 md:pb-0">
           {/* Adi Dero */}
-          <div className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between">
+          <div className="w-[86vw] max-w-[360px] md:w-auto shrink-0 snap-start p-6 sm:p-8 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between">
             <div>
               <span className="text-[11px] font-bold text-[#B61F32] dark:text-red-400 uppercase tracking-wider block mb-1">
                 Branch 1 • Diagnostic Imaging
@@ -506,7 +530,7 @@ export default function HomePage() {
           </div>
 
           {/* Bahir Dar */}
-          <div className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between">
+          <div className="w-[86vw] max-w-[360px] md:w-auto shrink-0 snap-start p-6 sm:p-8 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between">
             <div>
               <span className="text-[11px] font-bold text-[#002047] dark:text-slate-400 uppercase tracking-wider block mb-1">
                 Branch 2 • Multispeciality Medical Hub

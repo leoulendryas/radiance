@@ -119,7 +119,13 @@ function BookingWizard() {
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Choose the type of diagnostic scan or clinical consultation you require.</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+          {/* Mobile swipe hint */}
+          <div className="sm:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 mb-2.5 px-0.5">
+            <span className="font-semibold uppercase tracking-wider">Service Categories</span>
+            <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe sideways &rarr;</span>
+          </div>
+
+          <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-3.5 overflow-x-auto sm:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 pb-2 sm:pb-0">
             {[
               { id: "ultrasound", title: "3G Ultrasound", desc: "27 Scans (3D/4D, Doppler, MSK, TVS)", icon: Activity, count: "27 Scans" },
               { id: "xray", title: "Digital X-Ray", desc: "24 Full-Body Skeletal Views", icon: Zap, count: "24 Views" },
@@ -139,7 +145,7 @@ function BookingWizard() {
                     const firstInCat = ALL_SERVICES.find((s) => s.category === cat.id);
                     if (firstInCat) setSelectedServiceId(firstInCat.id);
                   }}
-                  className={`p-4 rounded-xl text-left border transition-all flex flex-col justify-between ${
+                  className={`w-[74vw] max-w-[260px] sm:w-auto shrink-0 snap-start p-4 rounded-xl text-left border transition-all flex flex-col justify-between ${
                     isSelected
                       ? "border-[#B61F32] bg-red-50/40 dark:bg-red-950/20 shadow-xs"
                       : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-[#0E1A30]"
@@ -253,11 +259,11 @@ function BookingWizard() {
             <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">
               Select Clinic Center:
             </label>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div className="flex sm:grid sm:grid-cols-2 gap-3.5 overflow-x-auto sm:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 pb-2 sm:pb-0">
               <button
                 type="button"
                 onClick={() => setSelectedBranch("adi-dero")}
-                className={`p-4 rounded-xl border text-left transition-all ${
+                className={`w-[82vw] max-w-[320px] sm:w-auto shrink-0 snap-start p-4 rounded-xl border text-left transition-all ${
                   selectedBranch === "adi-dero"
                     ? "border-[#B61F32] bg-red-50/40 dark:bg-red-950/20 shadow-xs"
                     : "border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0E1A30]"
@@ -279,7 +285,7 @@ function BookingWizard() {
               <button
                 type="button"
                 onClick={() => setSelectedBranch("bahir-dar")}
-                className={`p-4 rounded-xl border text-left transition-all ${
+                className={`w-[82vw] max-w-[320px] sm:w-auto shrink-0 snap-start p-4 rounded-xl border text-left transition-all ${
                   selectedBranch === "bahir-dar"
                     ? "border-[#B61F32] bg-red-50/40 dark:bg-red-950/20 shadow-xs"
                     : "border-slate-200 dark:border-slate-800 bg-white dark:bg-[#0E1A30]"

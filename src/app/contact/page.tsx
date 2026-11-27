@@ -56,10 +56,16 @@ export default function ContactPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 space-y-12">
+        {/* Mobile swipe hint */}
+        <div className="lg:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 -mb-9 px-0.5">
+          <span className="font-semibold uppercase tracking-wider">Our Clinic Locations</span>
+          <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe sideways &rarr;</span>
+        </div>
+
         {/* Dual Location Detailed Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="flex lg:grid lg:grid-cols-2 gap-4 lg:gap-6 overflow-x-auto lg:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 lg:mx-0 lg:px-0 pb-3 lg:pb-0 pt-2 lg:pt-0">
           {/* Location 1: Adi Dero 3G */}
-          <div className="bg-white dark:bg-[#0A1324] rounded-2xl p-6 sm:p-7 border border-slate-200/80 dark:border-slate-800/80 shadow-xs flex flex-col justify-between relative overflow-hidden">
+          <div className="w-[86vw] max-w-[360px] lg:w-auto shrink-0 snap-start bg-white dark:bg-[#0A1324] rounded-2xl p-6 sm:p-7 border border-slate-200/80 dark:border-slate-800/80 shadow-xs flex flex-col justify-between relative overflow-hidden">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B61F32] text-white text-xs font-bold tracking-wide mb-3">
                 <HeartPulse className="w-3.5 h-3.5" />
@@ -135,7 +141,7 @@ export default function ContactPage() {
           </div>
 
           {/* Location 2: Bahir Dar Radiance */}
-          <div className="bg-white dark:bg-[#0A1324] rounded-2xl p-6 sm:p-7 border border-slate-200/80 dark:border-slate-800/80 shadow-xs flex flex-col justify-between relative overflow-hidden">
+          <div className="w-[86vw] max-w-[360px] lg:w-auto shrink-0 snap-start bg-white dark:bg-[#0A1324] rounded-2xl p-6 sm:p-7 border border-slate-200/80 dark:border-slate-800/80 shadow-xs flex flex-col justify-between relative overflow-hidden">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#002047] dark:bg-slate-800 text-white text-xs font-bold tracking-wide mb-3">
                 <Building2 className="w-3.5 h-3.5 text-red-400" />

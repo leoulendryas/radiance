@@ -44,11 +44,17 @@ export default function DoctorsPage() {
 
       {/* Main Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 space-y-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Mobile swipe hint */}
+        <div className="md:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 -mb-9 px-0.5">
+          <span className="font-semibold uppercase tracking-wider">Our Healthcare Team</span>
+          <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe profiles &rarr;</span>
+        </div>
+
+        <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-3 md:pb-0 pt-2 md:pt-0">
           {DOCTORS_DATA.map((doc) => (
             <div
               key={doc.id}
-              className="bg-white dark:bg-[#0A1324] rounded-2xl overflow-hidden shadow-xs hover:border-[#B61F32]/50 transition-all border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between group"
+              className="w-[84vw] max-w-[320px] md:w-auto shrink-0 snap-start bg-white dark:bg-[#0A1324] rounded-2xl overflow-hidden shadow-xs hover:border-[#B61F32]/50 transition-all border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between group"
             >
               <div>
                 {/* Image & Badge */}

@@ -131,12 +131,12 @@ export default function DigitalXrayPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <div className="flex lg:grid lg:grid-cols-2 gap-4 lg:gap-5 overflow-x-auto lg:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 lg:mx-0 lg:px-0 pb-2 lg:pb-0">
             {SPECIAL_PROCEDURES.map((proc) => (
               <div
                 key={proc.id}
                 id={proc.id}
-                className="p-5 rounded-xl bg-slate-50/60 dark:bg-slate-900/40 border border-slate-200/60 dark:border-slate-800/60 flex flex-col justify-between"
+                className="w-[84vw] max-w-[320px] lg:w-auto shrink-0 snap-start p-5 rounded-xl bg-slate-50/60 dark:bg-slate-900/40 border border-slate-200/60 dark:border-slate-800/60 flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
@@ -204,17 +204,20 @@ export default function DigitalXrayPage() {
                         {regionGroup.region}
                       </h3>
                     </div>
-                    <span className="text-xs font-mono text-slate-400">
-                      {regionServices.length} Views
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="sm:hidden text-[10px] text-[#B61F32] dark:text-red-400 font-medium">Swipe views &rarr;</span>
+                      <span className="text-xs font-mono text-slate-400">
+                        {regionServices.length} Views
+                      </span>
+                    </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                  <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-3.5 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-2 md:pb-0">
                     {regionServices.map((srv) => (
                       <div
                         key={srv.id}
                         id={srv.id}
-                        className="p-3.5 rounded-xl bg-slate-50/60 dark:bg-slate-900/40 border border-slate-200/60 dark:border-slate-800/60 flex flex-col justify-between"
+                        className="w-[72vw] max-w-[260px] md:w-auto shrink-0 snap-start p-3.5 rounded-xl bg-slate-50/60 dark:bg-slate-900/40 border border-slate-200/60 dark:border-slate-800/60 flex flex-col justify-between"
                       >
                         <div>
                           <div className="flex items-start justify-between">

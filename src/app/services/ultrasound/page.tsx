@@ -133,8 +133,8 @@ export default function UltrasoundPage() {
 
       {/* Preparation Quick Reference Strip */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-5 relative z-10">
-        <div className="bg-white dark:bg-[#0A1324] rounded-2xl shadow-xs border border-slate-200/80 dark:border-slate-800 p-4 grid grid-cols-1 md:grid-cols-3 gap-4 transition-colors">
-          <div className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50">
+        <div className="bg-white dark:bg-[#0A1324] rounded-2xl shadow-xs border border-slate-200/80 dark:border-slate-800 p-4 flex md:grid md:grid-cols-3 gap-3 md:gap-4 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar transition-colors">
+          <div className="w-[76vw] max-w-[280px] md:w-auto shrink-0 snap-start flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50">
             <Info className="w-4 h-4 text-[#B61F32] shrink-0 mt-0.5" />
             <div>
               <h4 className="text-xs font-bold text-[#002047] dark:text-white uppercase">Abdominal Scans</h4>
@@ -144,7 +144,7 @@ export default function UltrasoundPage() {
             </div>
           </div>
 
-          <div className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50">
+          <div className="w-[76vw] max-w-[280px] md:w-auto shrink-0 snap-start flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50">
             <Waves className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
             <div>
               <h4 className="text-xs font-bold text-[#002047] dark:text-white uppercase">Pelvic & Early Pregnancy</h4>
@@ -154,7 +154,7 @@ export default function UltrasoundPage() {
             </div>
           </div>
 
-          <div className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50">
+          <div className="w-[76vw] max-w-[280px] md:w-auto shrink-0 snap-start flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 dark:bg-slate-900/50">
             <Clock className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
             <div>
               <h4 className="text-xs font-bold text-[#002047] dark:text-white uppercase">Same-Day Reporting</h4>
@@ -187,17 +187,20 @@ export default function UltrasoundPage() {
                     {group.desc}
                   </p>
                 </div>
-                <span className="text-xs font-semibold text-slate-400 font-mono">
-                  {groupServices.length} Scans
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="sm:hidden text-[10px] text-[#B61F32] dark:text-red-400 font-medium">Swipe scans &rarr;</span>
+                  <span className="text-xs font-semibold text-slate-400 font-mono">
+                    {groupServices.length} Scans
+                  </span>
+                </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex md:grid md:grid-cols-2 gap-4 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-2 md:pb-0">
                 {groupServices.map((srv) => (
                   <div
                     key={srv.id}
                     id={srv.id}
-                    className="p-4 rounded-xl bg-slate-50/60 dark:bg-slate-900/40 border border-slate-200/60 dark:border-slate-800/60 flex flex-col justify-between"
+                    className="w-[84vw] max-w-[320px] md:w-auto shrink-0 snap-start p-4 rounded-xl bg-slate-50/60 dark:bg-slate-900/40 border border-slate-200/60 dark:border-slate-800/60 flex flex-col justify-between"
                   >
                     <div>
                       <div className="flex items-center justify-between">

@@ -135,11 +135,17 @@ export default function MultispecialityPage() {
             subtitle="Experienced medical specialists collaborating to treat complex acute and chronic conditions."
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+          {/* Mobile swipe hint */}
+          <div className="md:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 mb-3 px-0.5">
+            <span className="font-semibold uppercase tracking-wider">Clinical Specialties</span>
+            <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe sideways &rarr;</span>
+          </div>
+
+          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-3 md:pb-0">
             {MULTISPECIALITY_SERVICES.map((clinic) => (
               <div
                 key={clinic.id}
-                className="bg-white dark:bg-[#0A1324] rounded-2xl p-5 border border-slate-200/80 dark:border-slate-800/80 shadow-xs hover:border-[#B61F32]/40 transition-all flex flex-col justify-between group"
+                className="w-[78vw] max-w-[280px] md:w-auto shrink-0 snap-start bg-white dark:bg-[#0A1324] rounded-2xl p-5 border border-slate-200/80 dark:border-slate-800/80 shadow-xs hover:border-[#B61F32]/40 transition-all flex flex-col justify-between group"
               >
                 <div>
                   <div className="w-9 h-9 rounded-lg bg-red-50 dark:bg-red-950/40 text-[#B61F32] flex items-center justify-center mb-3 group-hover:bg-[#B61F32] group-hover:text-white transition-colors">
@@ -247,11 +253,17 @@ export default function MultispecialityPage() {
             centered
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Mobile swipe hint */}
+          <div className="md:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 mb-3 px-0.5">
+            <span className="font-semibold uppercase tracking-wider">Preventive Packages</span>
+            <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe sideways &rarr;</span>
+          </div>
+
+          <div className="flex md:grid md:grid-cols-3 gap-5 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-3 md:pb-0">
             {checkupPackages.map((pkg, i) => (
               <div
                 key={i}
-                className={`bg-white dark:bg-[#0A1324] rounded-2xl p-6 border transition-all flex flex-col justify-between ${
+                className={`w-[84vw] max-w-[320px] md:w-auto shrink-0 snap-start bg-white dark:bg-[#0A1324] rounded-2xl p-6 border transition-all flex flex-col justify-between ${
                   pkg.badge
                     ? "border-[#B61F32] shadow-sm relative"
                     : "border-slate-200/80 dark:border-slate-800/80 shadow-xs"

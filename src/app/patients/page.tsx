@@ -191,10 +191,10 @@ export default function PatientsPage() {
             </div>
 
             {/* Tab switchers */}
-            <div className="flex flex-wrap items-center gap-1.5">
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar -mx-2 px-2 pb-1">
               <button
                 onClick={() => setActiveTab("ultrasound")}
-                className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
                   activeTab === "ultrasound"
                     ? "bg-[#B61F32] text-white shadow-xs"
                     : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200"
@@ -236,9 +236,9 @@ export default function PatientsPage() {
           </div>
 
           {/* Tab Content Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="flex md:grid md:grid-cols-2 gap-4 md:gap-5 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-2 md:pb-0">
             {prepGuides[activeTab].map((item, idx) => (
-              <div key={idx} className="p-5 rounded-xl bg-slate-50 dark:bg-[#0E1A30] border border-slate-100 dark:border-slate-800 flex flex-col justify-between">
+              <div key={idx} className="w-[84vw] max-w-[320px] md:w-auto shrink-0 snap-start p-5 rounded-xl bg-slate-50 dark:bg-[#0E1A30] border border-slate-100 dark:border-slate-800 flex flex-col justify-between">
                 <div>
                   <h3 className="text-sm sm:text-base font-bold text-[#002047] dark:text-white mb-2.5 flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-[#B61F32]" />
@@ -278,8 +278,14 @@ export default function PatientsPage() {
             subtitle="Choose the most convenient way to receive your imaging results and formal radiological interpretations."
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#0E1A30] border border-slate-100 dark:border-slate-800">
+          {/* Mobile swipe hint */}
+          <div className="sm:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 mb-3 px-0.5">
+            <span className="font-semibold uppercase tracking-wider">Report Channels</span>
+            <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe sideways &rarr;</span>
+          </div>
+
+          <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 overflow-x-auto sm:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 pb-2 sm:pb-0">
+            <div className="w-[74vw] max-w-[260px] sm:w-auto shrink-0 snap-start p-4 rounded-xl bg-slate-50 dark:bg-[#0E1A30] border border-slate-100 dark:border-slate-800">
               <span className="w-8 h-8 rounded-lg bg-red-100 dark:bg-red-950/60 text-[#B61F32] flex items-center justify-center font-bold text-xs mb-2.5">
                 01
               </span>
@@ -289,7 +295,7 @@ export default function PatientsPage() {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#0E1A30] border border-slate-100 dark:border-slate-800">
+            <div className="w-[74vw] max-w-[260px] sm:w-auto shrink-0 snap-start p-4 rounded-xl bg-slate-50 dark:bg-[#0E1A30] border border-slate-100 dark:border-slate-800">
               <span className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-950/60 text-[#002047] dark:text-blue-300 flex items-center justify-center font-bold text-xs mb-2.5">
                 02
               </span>
@@ -299,7 +305,7 @@ export default function PatientsPage() {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#0E1A30] border border-slate-100 dark:border-slate-800">
+            <div className="w-[74vw] max-w-[260px] sm:w-auto shrink-0 snap-start p-4 rounded-xl bg-slate-50 dark:bg-[#0E1A30] border border-slate-100 dark:border-slate-800">
               <span className="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 flex items-center justify-center font-bold text-xs mb-2.5">
                 03
               </span>
@@ -309,7 +315,7 @@ export default function PatientsPage() {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#0E1A30] border border-slate-100 dark:border-slate-800">
+            <div className="w-[74vw] max-w-[260px] sm:w-auto shrink-0 snap-start p-4 rounded-xl bg-slate-50 dark:bg-[#0E1A30] border border-slate-100 dark:border-slate-800">
               <span className="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-950/60 text-indigo-800 dark:text-indigo-300 flex items-center justify-center font-bold text-xs mb-2.5">
                 04
               </span>
