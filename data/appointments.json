@@ -1,0 +1,17 @@
+[
+  {
+    "id": "apt_test_1",
+    "bookingRef": "RAD-782910",
+    "patientName": "Abebe Kebede",
+    "patientPhone": "+251990084747",
+    "patientAge": "34, Male",
+    "serviceId": "abd-us",
+    "serviceName": "Abdominal Ultrasound",
+    "branch": "adi-dero",
+    "appointmentDate": "2026-11-30",
+    "appointmentTime": "09:00 AM",
+    "notes": "Routine checkup",
+    "status": "pending",
+    "createdAt": "2026-11-27T10:00:00.000Z"
+  }
+]

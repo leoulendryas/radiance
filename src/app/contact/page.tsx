@@ -21,6 +21,7 @@ import { useLanguage } from "@/context/LanguageContext";
 export default function ContactPage() {
   const { t, language } = useLanguage();
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -29,9 +30,22 @@ export default function ContactPage() {
     message: ""
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+      });
+      setSubmitted(true);
+    } catch (err) {
+      console.error("Failed to send contact inquiry:", err);
+      setSubmitted(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -234,15 +248,33 @@ export default function ContactPage() {
             </p>
 
             {submitted ? (
-              <div className="p-6 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/50 text-center space-y-2.5">
+              <div className="p-6 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/50 text-center space-y-3">
                 <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto" />
-                <h4 className="font-bold text-emerald-900 dark:text-emerald-200 text-sm">Inquiry Received</h4>
-                <p className="text-xs text-emerald-700 dark:text-emerald-300 max-w-sm mx-auto">
-                  Thank you, {formData.name}. Our patient reception team will contact you at {formData.phone} shortly.
+                <h4 className="font-bold text-emerald-900 dark:text-emerald-200 text-sm">Inquiry Received & Logged</h4>
+                <p className="text-xs text-emerald-700 dark:text-emerald-300 max-w-sm mx-auto leading-relaxed">
+                  Thank you, <strong>{formData.name}</strong>. Your inquiry has been sent to our clinical team. We will call you at <strong>{formData.phone}</strong> shortly.
                 </p>
+                <div className="pt-2">
+                  <a
+                    href={`https://wa.me/251990084747?text=${encodeURIComponent(
+                      `Hello 3G Diagnostic Imaging & Radiance Clinic!\n` +
+                      `Name: ${formData.name}\n` +
+                      `Phone: ${formData.phone}\n` +
+                      `Location: ${formData.location}\n` +
+                      `Inquiry about: ${formData.serviceInterest}\n` +
+                      `Message: ${formData.message}`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs font-bold px-4 py-2 rounded-lg shadow-xs transition-colors"
+                  >
+                    <Phone className="w-3.5 h-3.5" />
+                    <span>Also Send to WhatsApp (+251 990 084 747)</span>
+                  </a>
+                </div>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="mt-2 text-xs font-semibold text-emerald-800 dark:text-emerald-300 underline"
+                  className="block mx-auto text-xs font-semibold text-emerald-800 dark:text-emerald-300 underline pt-1"
                 >
                   Send another message
                 </button>

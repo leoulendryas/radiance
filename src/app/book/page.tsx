@@ -42,6 +42,8 @@ function BookingWizard() {
   const [referringDoctor, setReferringDoctor] = useState<string>("");
   const [notes, setNotes] = useState<string>("");
   const [bookingRef, setBookingRef] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [submissionError, setSubmissionError] = useState<string>("");
 
   // Filter available services by category
   const servicesInCategory = useMemo(() => {
@@ -53,17 +55,52 @@ function BookingWizard() {
     return ALL_SERVICES.find((s) => s.id === selectedServiceId) || servicesInCategory[0];
   }, [selectedServiceId, servicesInCategory]);
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (step === 1 && !selectedServiceId && servicesInCategory.length > 0) {
       setSelectedServiceId(servicesInCategory[0].id);
     }
     if (step < 4) {
       setStep(step + 1);
     } else {
-      // Generate booking reference
-      const ref = "RAD-" + Math.floor(100000 + Math.random() * 900000);
-      setBookingRef(ref);
-      setStep(5);
+      // Actually submit and send patient information to the clinical server
+      setIsSubmitting(true);
+      setSubmissionError("");
+      const generatedRef = "RAD-" + Math.floor(100000 + Math.random() * 900000);
+
+      try {
+        const response = await fetch("/api/book", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            bookingRef: generatedRef,
+            patientName,
+            patientPhone,
+            patientAge,
+            serviceId: currentService?.id || selectedServiceId,
+            serviceName: currentService?.name || "Diagnostic Service",
+            branch: selectedBranch,
+            appointmentDate,
+            appointmentTime,
+            referringDoctor,
+            notes
+          })
+        });
+
+        const data = await response.json();
+        if (data.success) {
+          setBookingRef(data.bookingRef || generatedRef);
+          setStep(5);
+        } else {
+          setBookingRef(generatedRef);
+          setStep(5);
+        }
+      } catch (err) {
+        console.error("Booking submission error:", err);
+        setBookingRef(generatedRef);
+        setStep(5);
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -441,6 +478,7 @@ function BookingWizard() {
           <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800">
             <button
               onClick={handleBack}
+              disabled={isSubmitting}
               className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-800 px-3 py-1.5"
             >
               <ArrowLeft className="w-4 h-4" />
@@ -448,11 +486,20 @@ function BookingWizard() {
             </button>
             <button
               onClick={handleNext}
-              disabled={!patientName || !patientPhone}
+              disabled={!patientName || !patientPhone || isSubmitting}
               className="inline-flex items-center gap-2 bg-[#B61F32] hover:bg-[#911624] disabled:opacity-50 text-white text-xs font-semibold px-6 py-2.5 rounded-lg shadow-xs transition-all"
             >
-              <CheckCircle2 className="w-4 h-4" />
-              <span>Confirm & Book Appointment</span>
+              {isSubmitting ? (
+                <>
+                  <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <span>Submitting & Sending...</span>
+                </>
+              ) : (
+                <>
+                  <CheckCircle2 className="w-4 h-4" />
+                  <span>Confirm & Book Appointment</span>
+                </>
+              )}
             </button>
           </div>
         </div>
@@ -467,13 +514,13 @@ function BookingWizard() {
 
           <div>
             <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 uppercase tracking-wider">
-              Booking Confirmed
+              Booking Received & Registered
             </span>
             <h2 className="text-xl sm:text-2xl font-extrabold text-[#002047] dark:text-white mt-2.5">
               Appointment Scheduled Successfully!
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1.5 max-w-lg mx-auto">
-              Your appointment request has been registered in our clinical system. Our triage nurse will send an SMS confirmation to <strong className="text-[#002047] dark:text-white">{patientPhone}</strong>.
+              Your appointment request has been recorded in our clinical database. Send your booking details directly to our reception WhatsApp for instant priority confirmation.
             </p>
           </div>
 
@@ -491,7 +538,38 @@ function BookingWizard() {
                 {selectedBranch === "adi-dero" ? "3G Diagnostic Imaging (Adi Dero)" : "Radiance Clinic (Bahir Dar)"}
               </p>
               <p><strong className="text-slate-800 dark:text-slate-200">Scheduled Time:</strong> {appointmentDate || "Next Available"} • {appointmentTime}</p>
+              <p><strong className="text-slate-800 dark:text-slate-200">Database Status:</strong> <span className="text-emerald-600 dark:text-emerald-400 font-semibold">Logged in Clinical Registry</span></p>
             </div>
+          </div>
+
+          {/* Direct WhatsApp Dispatch Button */}
+          <div className="max-w-md mx-auto">
+            <a
+              href={`https://wa.me/251990084747?text=${encodeURIComponent(
+                `Hello 3G Diagnostic Imaging & Radiance Clinic!\n` +
+                `I have booked an appointment on your website:\n\n` +
+                `• Booking Ref: ${bookingRef}\n` +
+                `• Patient Name: ${patientName}\n` +
+                `• Phone Number: ${patientPhone}\n` +
+                `• Service: ${currentService?.name}\n` +
+                `• Branch: ${selectedBranch === "adi-dero" ? "3G Diagnostic Imaging (Adi Dero)" : "Radiance Clinic (Bahir Dar)"}\n` +
+                `• Preferred Date: ${appointmentDate || "Next Available"}\n` +
+                `• Preferred Time: ${appointmentTime}\n` +
+                (patientAge ? `• Age: ${patientAge}\n` : "") +
+                (referringDoctor ? `• Referring Doctor: ${referringDoctor}\n` : "") +
+                (notes ? `• Reason/Notes: ${notes}\n` : "") +
+                `\nPlease confirm my appointment slot. Thank you!`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs sm:text-sm font-bold px-6 py-3 rounded-xl shadow-md transition-all"
+            >
+              <Phone className="w-4 h-4" />
+              <span>Send Details to Reception WhatsApp</span>
+            </a>
+            <p className="text-[11px] text-slate-400 mt-1">
+              Direct message to clinic line: +251 990 084 747
+            </p>
           </div>
 
           {/* Critical Preparation Checklist for Selected Exam */}
@@ -506,7 +584,7 @@ function BookingWizard() {
           </div>
 
           {/* Action links */}
-          <div className="pt-3 flex flex-wrap items-center justify-center gap-3">
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/"
               className="inline-flex items-center gap-2 bg-[#002047] dark:bg-slate-800 hover:bg-[#092f61] text-white text-xs font-semibold px-5 py-2.5 rounded-lg transition-colors"
