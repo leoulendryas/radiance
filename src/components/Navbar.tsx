@@ -17,12 +17,18 @@ import {
   Sparkles
 } from "lucide-react";
 import { CLINIC_INFO } from "@/data/clinicInfo";
+import { useLanguage } from "@/context/LanguageContext";
+import { useTheme } from "@/context/ThemeContext";
+import ThemeToggle from "./ThemeToggle";
+import LanguageToggle from "./LanguageToggle";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [servicesDropdown, setServicesDropdown] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const { t } = useLanguage();
+  const { theme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -32,224 +38,227 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on page change
   useEffect(() => {
     setIsOpen(false);
     setServicesDropdown(false);
   }, [pathname]);
 
-  const navLinks = [
-    { label: "Home", href: "/" },
+  const serviceItems = [
     {
-      label: "Diagnostic & Clinical Services",
+      name: t.nav.services + " Catalog",
       href: "/services",
-      isDropdown: true,
-      children: [
-        {
-          name: "All Services Directory",
-          href: "/services",
-          desc: "Complete 50+ scan & consultation catalog",
-          icon: Sparkles
-        },
-        {
-          name: "3G Ultrasound Center",
-          href: "/services/ultrasound",
-          desc: "27 sonography modalities (Doppler, 3D/4D, MSK)",
-          icon: Activity,
-          badge: "27 Services"
-        },
-        {
-          name: "Digital X-Ray & Special Procedures",
-          href: "/services/digital-xray",
-          desc: "24 digital x-ray views + HSG, IVU, Barium",
-          icon: Zap,
-          badge: "29 Services"
-        },
-        {
-          name: "CT & MRI Scan Reading",
-          href: "/services/ct-mri-consultation",
-          desc: "Second opinions & radiological consults",
-          icon: FileCheck
-        },
-        {
-          name: "Multispeciality Clinics & Lab",
-          href: "/services/multispeciality",
-          desc: "Cardiology, OB/GYN, Pediatrics, Ortho & Lab",
-          icon: Stethoscope
-        }
-      ]
+      desc: "50+ complete ultrasound, x-ray & lab list",
+      icon: Sparkles
     },
-    { label: "About Radiance", href: "/about" },
-    { label: "Our Doctors", href: "/doctors" },
-    { label: "Patient Guide & Prep", href: "/patients" },
-    { label: "Locations & Contact", href: "/contact" }
+    {
+      name: t.nav.ultrasound,
+      href: "/services/ultrasound",
+      desc: "27 sonography modalities & 4D imaging",
+      icon: Activity,
+      badge: "27 Scans"
+    },
+    {
+      name: t.nav.xray,
+      href: "/services/digital-xray",
+      desc: "24 digital views + HSG, IVU & Barium",
+      icon: Zap,
+      badge: "29 Views"
+    },
+    {
+      name: t.nav.ctMri,
+      href: "/services/ct-mri-consultation",
+      desc: "Consultant second opinions & tele-radiology",
+      icon: FileCheck
+    },
+    {
+      name: t.nav.multispeciality,
+      href: "/services/multispeciality",
+      desc: "Cardiology, OB/GYN, Pediatrics & Lab",
+      icon: Stethoscope
+    }
   ];
 
   return (
     <header
       className={`sticky top-0 z-40 transition-all duration-200 ${
         scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-md py-1.5"
-          : "bg-white py-2 border-b border-slate-100"
+          ? "bg-white/95 dark:bg-[#070F1E]/95 backdrop-blur-md shadow-xs py-2 border-b border-slate-200/80 dark:border-slate-800"
+          : "bg-white dark:bg-[#050B14] py-2.5 border-b border-slate-100 dark:border-slate-800/60"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Brand Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative h-9 w-40 sm:h-10 sm:w-48 transition-transform group-hover:scale-102">
+            <div className="relative h-9 w-38 sm:h-10 sm:w-44 transition-opacity group-hover:opacity-90">
               <Image
-                src="/images/logo.png"
-                alt="Radiance Multispeciality Clinic & 3G Diagnostic Imaging"
+                src={theme === "dark" ? "/images/logo-white.png" : "/images/logo.png"}
+                alt="Radiance & 3G Diagnostic Imaging"
                 fill
                 priority
                 className="object-contain object-left"
-                sizes="(max-width: 640px) 180px, 220px"
+                sizes="(max-width: 640px) 150px, 180px"
               />
             </div>
           </Link>
 
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
-            {navLinks.map((link) => {
-              const isActive =
-                link.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(link.href);
+            <Link
+              href="/"
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
+                pathname === "/"
+                  ? "text-[#B61F32] dark:text-red-400 bg-red-50/70 dark:bg-red-950/30"
+                  : "text-slate-600 dark:text-slate-300 hover:text-[#002047] dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50"
+              }`}
+            >
+              {t.nav.home}
+            </Link>
 
-              if (link.isDropdown) {
-                return (
-                  <div
-                    key={link.label}
-                    className="relative group"
-                    onMouseEnter={() => setServicesDropdown(true)}
-                    onMouseLeave={() => setServicesDropdown(false)}
-                  >
-                    <Link
-                      href={link.href}
-                      className={`inline-flex items-center gap-1 px-3 py-2 text-sm font-semibold rounded-lg transition-colors ${
-                        isActive
-                          ? "text-[#B61F32] bg-red-50/60"
-                          : "text-slate-700 hover:text-[#002047] hover:bg-slate-50"
-                      }`}
-                    >
-                      <span>{link.label}</span>
-                      <ChevronDown
-                        className={`w-4 h-4 transition-transform duration-200 ${
-                          servicesDropdown ? "rotate-180 text-[#B61F32]" : "text-slate-400"
+            {/* Services Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setServicesDropdown(true)}
+              onMouseLeave={() => setServicesDropdown(false)}
+            >
+              <Link
+                href="/services"
+                className={`inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
+                  pathname.startsWith("/services")
+                    ? "text-[#B61F32] dark:text-red-400 bg-red-50/70 dark:bg-red-950/30"
+                    : "text-slate-600 dark:text-slate-300 hover:text-[#002047] dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50"
+                }`}
+              >
+                <span>{t.nav.services}</span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                    servicesDropdown ? "rotate-180 text-[#B61F32] dark:text-red-400" : "text-slate-400"
+                  }`}
+                />
+              </Link>
+
+              {servicesDropdown && (
+                <div className="absolute left-0 top-full mt-1 w-88 rounded-2xl bg-white dark:bg-[#0B1528] shadow-xl border border-slate-200/80 dark:border-slate-800 p-2 z-50">
+                  {serviceItems.map((child) => {
+                    const Icon = child.icon;
+                    const isChildActive = pathname === child.href;
+                    return (
+                      <Link
+                        key={child.href}
+                        href={child.href}
+                        className={`flex items-start gap-3 p-2.5 rounded-xl transition-colors ${
+                          isChildActive
+                            ? "bg-red-50/80 dark:bg-red-950/40 text-[#002047] dark:text-white"
+                            : "hover:bg-slate-50 dark:hover:bg-slate-800/60 text-slate-700 dark:text-slate-300"
                         }`}
-                      />
-                    </Link>
-
-                    {/* Dropdown Menu */}
-                    {servicesDropdown && (
-                      <div className="absolute left-0 top-full mt-1 w-96 rounded-2xl bg-white shadow-2xl border border-slate-100 p-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                        <div className="px-3 py-2 mb-1 bg-slate-50 rounded-xl border border-slate-100">
-                          <p className="text-xs font-bold text-[#002047] uppercase tracking-wider">
-                            Comprehensive Diagnostic Hub
-                          </p>
-                          <p className="text-[11px] text-slate-500">
-                            3G Imaging + Multispeciality Medical Services
+                      >
+                        <div
+                          className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${
+                            isChildActive
+                              ? "bg-[#B61F32] text-white"
+                              : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
+                          }`}
+                        >
+                          <Icon className="w-4 h-4" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between gap-1">
+                            <span className="text-xs font-bold truncate">
+                              {child.name}
+                            </span>
+                            {child.badge && (
+                              <span className="px-1.5 py-0.5 text-[10px] font-semibold rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                                {child.badge}
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-snug line-clamp-1">
+                            {child.desc}
                           </p>
                         </div>
-                        {link.children?.map((child) => {
-                          const Icon = child.icon;
-                          const isChildActive = pathname === child.href;
-                          return (
-                            <Link
-                              key={child.href}
-                              href={child.href}
-                              className={`flex items-start gap-3 p-2.5 rounded-xl transition-all ${
-                                isChildActive
-                                  ? "bg-red-50/80 text-[#002047]"
-                                  : "hover:bg-slate-50 text-slate-700 hover:text-[#002047]"
-                              }`}
-                            >
-                              <div
-                                className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5 ${
-                                  isChildActive
-                                    ? "bg-[#B61F32] text-white"
-                                    : "bg-slate-100 text-[#002047] group-hover:bg-[#002047] group-hover:text-white"
-                                }`}
-                              >
-                                <Icon className="w-4 h-4" />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-center justify-between gap-1">
-                                  <span className="text-xs font-bold truncate">
-                                    {child.name}
-                                  </span>
-                                  {child.badge && (
-                                    <span className="px-1.5 py-0.5 text-[10px] font-bold rounded bg-[#B61F32]/10 text-[#B61F32]">
-                                      {child.badge}
-                                    </span>
-                                  )}
-                                </div>
-                                <p className="text-[11px] text-slate-500 leading-snug line-clamp-1">
-                                  {child.desc}
-                                </p>
-                              </div>
-                            </Link>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </div>
-                );
-              }
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
 
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`px-3 py-2 text-sm font-semibold rounded-lg transition-colors ${
-                    isActive
-                      ? "text-[#B61F32] bg-red-50/60"
-                      : "text-slate-700 hover:text-[#002047] hover:bg-slate-50"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
+            <Link
+              href="/about"
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
+                pathname === "/about"
+                  ? "text-[#B61F32] dark:text-red-400 bg-red-50/70 dark:bg-red-950/30"
+                  : "text-slate-600 dark:text-slate-300 hover:text-[#002047] dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50"
+              }`}
+            >
+              {t.nav.about}
+            </Link>
+
+            <Link
+              href="/doctors"
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
+                pathname === "/doctors"
+                  ? "text-[#B61F32] dark:text-red-400 bg-red-50/70 dark:bg-red-950/30"
+                  : "text-slate-600 dark:text-slate-300 hover:text-[#002047] dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50"
+              }`}
+            >
+              {t.nav.doctors}
+            </Link>
+
+            <Link
+              href="/patients"
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
+                pathname === "/patients"
+                  ? "text-[#B61F32] dark:text-red-400 bg-red-50/70 dark:bg-red-950/30"
+                  : "text-slate-600 dark:text-slate-300 hover:text-[#002047] dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50"
+              }`}
+            >
+              {t.nav.patients}
+            </Link>
+
+            <Link
+              href="/contact"
+              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
+                pathname === "/contact"
+                  ? "text-[#B61F32] dark:text-red-400 bg-red-50/70 dark:bg-red-950/30"
+                  : "text-slate-600 dark:text-slate-300 hover:text-[#002047] dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50"
+              }`}
+            >
+              {t.nav.contact}
+            </Link>
           </nav>
 
           {/* Desktop Right CTAs */}
           <div className="hidden lg:flex items-center gap-2.5">
             <a
-              href={`tel:${CLINIC_INFO.primaryPhone.replace(/\s+/g, "")}`}
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#002047] hover:text-[#B61F32] px-3 py-1.5 rounded-lg border border-slate-200 hover:border-[#B61F32]/30 transition-all h-9"
-              title="Direct Line to 3G Diagnostic Imaging"
+              href={`tel:${CLINIC_INFO.phone1.replace(/\s+/g, "")}`}
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#002047] dark:text-slate-200 hover:text-[#B61F32] dark:hover:text-red-400 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-all h-9 bg-white dark:bg-slate-900/60"
+              title="Call Direct"
             >
-              <PhoneCall className="w-3.5 h-3.5 text-[#B61F32]" />
-              <span className="tracking-wide">{CLINIC_INFO.primaryPhone}</span>
+              <PhoneCall className="w-3.5 h-3.5 text-[#B61F32] dark:text-red-400" />
+              <span className="tracking-wide font-mono text-[11px]">{CLINIC_INFO.phone1}</span>
             </a>
 
             <Link
               href="/book"
-              className="inline-flex items-center gap-1.5 bg-[#B61F32] hover:bg-[#911624] text-white text-xs font-bold px-3.5 py-1.5 rounded-lg shadow-sm hover:shadow transition-all h-9"
+              className="inline-flex items-center gap-1.5 bg-[#B61F32] hover:bg-[#8F1726] text-white text-xs font-semibold px-3.5 py-1.5 rounded-lg shadow-xs hover:shadow transition-all h-9"
             >
               <Calendar className="w-3.5 h-3.5" />
-              <span>Book Appointment</span>
+              <span>{t.nav.book}</span>
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Right Controls */}
           <div className="flex items-center gap-2 lg:hidden">
-            <a
-              href={`tel:${CLINIC_INFO.primaryPhone.replace(/\s+/g, "")}`}
-              className="p-2 rounded-lg bg-red-50 text-[#B61F32] hover:bg-red-100 transition-colors"
-              aria-label="Call clinic"
-            >
-              <PhoneCall className="w-5 h-5" />
-            </a>
+            <LanguageToggle />
+            <ThemeToggle />
 
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg text-slate-700 hover:bg-slate-100 transition-colors"
+              className="p-1.5 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               aria-label="Toggle navigation"
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
@@ -257,126 +266,87 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {isOpen && (
-        <div className="lg:hidden border-t border-slate-100 bg-white px-4 pt-3 pb-6 max-h-[85vh] overflow-y-auto shadow-xl">
+        <div className="lg:hidden border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-[#070F1E] px-4 pt-3 pb-6 max-h-[85vh] overflow-y-auto shadow-xl">
           <div className="flex flex-col gap-1">
             <Link
               href="/"
-              className={`p-3 rounded-xl font-bold text-sm ${
-                pathname === "/" ? "bg-red-50 text-[#B61F32]" : "text-slate-800 hover:bg-slate-50"
+              className={`p-2.5 rounded-xl font-semibold text-xs ${
+                pathname === "/" ? "bg-red-50 dark:bg-red-950/40 text-[#B61F32] dark:text-red-400" : "text-slate-800 dark:text-slate-200"
               }`}
             >
-              Home
+              {t.nav.home}
             </Link>
 
-            <div className="py-2 border-y border-slate-100 my-1">
-              <p className="px-3 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
-                Diagnostic & Clinical Services
+            <div className="py-2 border-y border-slate-100 dark:border-slate-800 my-1 space-y-1">
+              <p className="px-2.5 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                {t.nav.services}
               </p>
-              <div className="space-y-1">
+              {serviceItems.map((s) => (
                 <Link
-                  href="/services"
-                  className={`flex items-center justify-between p-2.5 rounded-xl text-xs font-semibold ${
-                    pathname === "/services" ? "bg-red-50 text-[#B61F32]" : "text-slate-700 hover:bg-slate-50"
-                  }`}
+                  key={s.href}
+                  href={s.href}
+                  className="flex items-center justify-between p-2 rounded-lg text-xs text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/60"
                 >
-                  <span>All Services Directory</span>
-                  <span className="text-[10px] text-slate-400">50+ Services</span>
+                  <span>{s.name}</span>
+                  {s.badge && (
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">
+                      {s.badge}
+                    </span>
+                  )}
                 </Link>
-                <Link
-                  href="/services/ultrasound"
-                  className={`flex items-center justify-between p-2.5 rounded-xl text-xs font-semibold ${
-                    pathname === "/services/ultrasound" ? "bg-red-50 text-[#B61F32]" : "text-slate-700 hover:bg-slate-50"
-                  }`}
-                >
-                  <span className="flex items-center gap-2">
-                    <Activity className="w-3.5 h-3.5 text-[#B61F32]" />
-                    3G Ultrasound Center
-                  </span>
-                  <span className="px-1.5 py-0.5 rounded bg-red-100 text-[#B61F32] text-[10px]">27 Scans</span>
-                </Link>
-                <Link
-                  href="/services/digital-xray"
-                  className={`flex items-center justify-between p-2.5 rounded-xl text-xs font-semibold ${
-                    pathname === "/services/digital-xray" ? "bg-red-50 text-[#B61F32]" : "text-slate-700 hover:bg-slate-50"
-                  }`}
-                >
-                  <span className="flex items-center gap-2">
-                    <Zap className="w-3.5 h-3.5 text-[#002047]" />
-                    Digital X-Ray & Procedures (HSG/IVU)
-                  </span>
-                  <span className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 text-[10px]">29 Views</span>
-                </Link>
-                <Link
-                  href="/services/ct-mri-consultation"
-                  className={`flex items-center gap-2 p-2.5 rounded-xl text-xs font-semibold ${
-                    pathname === "/services/ct-mri-consultation" ? "bg-red-50 text-[#B61F32]" : "text-slate-700 hover:bg-slate-50"
-                  }`}
-                >
-                  <FileCheck className="w-3.5 h-3.5 text-[#002047]" />
-                  <span>CT & MRI Scan Reading</span>
-                </Link>
-                <Link
-                  href="/services/multispeciality"
-                  className={`flex items-center gap-2 p-2.5 rounded-xl text-xs font-semibold ${
-                    pathname === "/services/multispeciality" ? "bg-red-50 text-[#B61F32]" : "text-slate-700 hover:bg-slate-50"
-                  }`}
-                >
-                  <Stethoscope className="w-3.5 h-3.5 text-[#002047]" />
-                  <span>Multispeciality Clinics & Lab</span>
-                </Link>
-              </div>
+              ))}
             </div>
 
             <Link
               href="/about"
-              className={`p-3 rounded-xl font-bold text-sm ${
-                pathname === "/about" ? "bg-red-50 text-[#B61F32]" : "text-slate-800 hover:bg-slate-50"
+              className={`p-2.5 rounded-xl font-semibold text-xs ${
+                pathname === "/about" ? "bg-red-50 dark:bg-red-950/40 text-[#B61F32] dark:text-red-400" : "text-slate-800 dark:text-slate-200"
               }`}
             >
-              About Radiance & 3G
+              {t.nav.about}
             </Link>
 
             <Link
               href="/doctors"
-              className={`p-3 rounded-xl font-bold text-sm ${
-                pathname === "/doctors" ? "bg-red-50 text-[#B61F32]" : "text-slate-800 hover:bg-slate-50"
+              className={`p-2.5 rounded-xl font-semibold text-xs ${
+                pathname === "/doctors" ? "bg-red-50 dark:bg-red-950/40 text-[#B61F32] dark:text-red-400" : "text-slate-800 dark:text-slate-200"
               }`}
             >
-              Our Medical Specialists
+              {t.nav.doctors}
             </Link>
 
             <Link
               href="/patients"
-              className={`p-3 rounded-xl font-bold text-sm ${
-                pathname === "/patients" ? "bg-red-50 text-[#B61F32]" : "text-slate-800 hover:bg-slate-50"
+              className={`p-2.5 rounded-xl font-semibold text-xs ${
+                pathname === "/patients" ? "bg-red-50 dark:bg-red-950/40 text-[#B61F32] dark:text-red-400" : "text-slate-800 dark:text-slate-200"
               }`}
             >
-              Patient Preparation & Guide
+              {t.nav.patients}
             </Link>
 
             <Link
               href="/contact"
-              className={`p-3 rounded-xl font-bold text-sm ${
-                pathname === "/contact" ? "bg-red-50 text-[#B61F32]" : "text-slate-800 hover:bg-slate-50"
+              className={`p-2.5 rounded-xl font-semibold text-xs ${
+                pathname === "/contact" ? "bg-red-50 dark:bg-red-950/40 text-[#B61F32] dark:text-red-400" : "text-slate-800 dark:text-slate-200"
               }`}
             >
-              Locations & Contact
+              {t.nav.contact}
             </Link>
 
             {/* Mobile Actions */}
-            <div className="pt-4 mt-2 border-t border-slate-100 flex flex-col gap-2">
+            <div className="pt-3 mt-2 border-t border-slate-100 dark:border-slate-800 flex flex-col gap-2">
               <Link
                 href="/book"
-                className="w-full text-center bg-[#B61F32] text-white font-bold py-3 rounded-xl text-sm shadow-md"
+                className="w-full text-center bg-[#B61F32] text-white font-semibold py-2.5 rounded-xl text-xs shadow-xs"
               >
-                Book Appointment / Scan
+                {t.nav.book}
               </Link>
               <a
-                href={`tel:${CLINIC_INFO.primaryPhone.replace(/\s+/g, "")}`}
-                className="w-full flex items-center justify-center gap-2 border border-slate-300 text-[#002047] font-bold py-2.5 rounded-xl text-sm"
+                href={`tel:${CLINIC_INFO.phone1.replace(/\s+/g, "")}`}
+                className="w-full flex items-center justify-center gap-2 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 font-semibold py-2 rounded-xl text-xs"
               >
-                <PhoneCall className="w-4 h-4 text-[#B61F32]" />
-                <span>Call {CLINIC_INFO.primaryPhone}</span>
+                <PhoneCall className="w-3.5 h-3.5 text-[#B61F32]" />
+                <span className="font-mono">{CLINIC_INFO.phone1}</span>
               </a>
             </div>
           </div>

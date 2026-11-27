@@ -1,8 +1,18 @@
 import type { Metadata } from "next";
+import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/context/LanguageContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 import TopBar from "@/components/TopBar";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -21,8 +31,7 @@ export const metadata: Metadata = {
     "MRI Second Opinion",
     "4D Ultrasound",
     "Echocardiography",
-    "Doppler Ultrasound",
-    "3ጂ ንድሕነት ሕክምና ቅድሚያ ይሀብ"
+    "Doppler Ultrasound"
   ],
   icons: {
     icon: "/images/logo-icon.png",
@@ -36,12 +45,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full antialiased scroll-smooth">
-      <body className="min-h-full flex flex-col bg-slate-50/50 text-slate-800 selection:bg-[#B61F32] selection:text-white">
-        <TopBar />
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+    <html lang="en" className={`${plusJakarta.variable} h-full antialiased scroll-smooth`} suppressHydrationWarning>
+      <body className="min-h-full flex flex-col bg-[#FBFCFE] dark:bg-[#050B14] text-slate-800 dark:text-slate-100 selection:bg-[#B61F32] selection:text-white">
+        <ThemeProvider>
+          <LanguageProvider>
+            <TopBar />
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -9,165 +11,120 @@ import {
   Calendar,
   Clock,
   ShieldCheck,
-  HeartPulse,
-  Award,
-  Users,
   CheckCircle2,
   ArrowRight,
   Sparkles,
   MapPin,
   ChevronRight,
-  Eye,
-  Microscope,
-  Baby,
-  HeartHandshake
+  HeartPulse,
+  Award,
+  Users
 } from "lucide-react";
 import { CLINIC_INFO } from "@/data/clinicInfo";
 import { ULTRASOUND_SERVICES, SPECIAL_PROCEDURES } from "@/data/servicesData";
 import { DOCTORS_DATA } from "@/data/doctorsData";
-import EcgDivider from "@/components/EcgDivider";
+import { useLanguage } from "@/context/LanguageContext";
 import SectionHeading from "@/components/SectionHeading";
+import EcgDivider from "@/components/EcgDivider";
 
 export default function HomePage() {
+  const { t, language } = useLanguage();
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* ======================================================== */}
-      {/* 1. HERO SECTION WITH AUTHENTIC BRAND GUIDE VISUALS */}
+      {/* 1. HERO SECTION: MINIMALIST, REFINED & AIRY */}
       {/* ======================================================== */}
-      <section className="relative bg-gradient-to-br from-[#001533] via-[#002047] to-[#082a57] text-white pt-10 pb-20 lg:pt-16 lg:pb-28 overflow-hidden">
-        {/* Decorative Wave & Light Orbs */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-
-        {/* Dynamic Curved Red Ribbon Motif */}
-        <div className="absolute -bottom-10 left-0 right-0 h-16 bg-white rounded-t-[50px] z-10 hidden md:block" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+      <section className="relative bg-[#00142E] dark:bg-[#030812] text-white pt-12 pb-20 lg:pt-18 lg:pb-24 border-b border-white/5 transition-colors">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left Content (7 Cols) */}
+            {/* Left Content */}
             <div className="lg:col-span-7 space-y-6">
-              {/* Tigrinya Tagline Pill */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#B61F32] text-white font-bold text-xs sm:text-sm tracking-wide shadow-lg border border-red-400/30">
-                <HeartPulse className="w-4 h-4 animate-pulse" />
-                <span>3ጂ ንድሕነት ሕክምና ቅድሚያ ይሀብ!</span>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B61F32] text-white font-medium text-xs tracking-wide">
+                <HeartPulse className="w-3.5 h-3.5" />
+                <span>{t.hero.badge}</span>
               </div>
 
-              {/* Main Headline */}
               <div className="space-y-2">
-                <p className="text-sm sm:text-base font-bold uppercase tracking-widest text-red-300">
-                  Radiance Multispeciality Clinic & Diagnostic Center
-                </p>
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
-                  Your Health, <br />
-                  <span className="text-[#B61F32] bg-white px-2 py-0.5 rounded-lg inline-block my-1 shadow-sm">
-                    Our Priority
-                  </span>
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
+                  {t.hero.titleLine1}{" "}
+                  <span className="text-red-400 font-extrabold">{t.hero.titleHighlight}</span>
                 </h1>
-                <p className="text-lg sm:text-xl text-slate-200 font-medium pt-1">
-                  Better Health. Brighter Tomorrow.
+                <p className="text-base sm:text-lg text-slate-300 font-medium">
+                  {t.motto}
                 </p>
               </div>
 
-              <p className="text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
-                Welcome to <strong>3G Diagnostic Imaging & Radiance Clinic</strong>. We provide comprehensive, safe, and precise medical care under one roof—powered by 27+ ultrasound modalities, 24 digital X-rays, specialized fertility fluoroscopy (HSG), and senior consultant radiologist readings in Adi Dero and Bahir Dar.
+              <p className="text-sm text-slate-300 max-w-xl leading-relaxed">
+                {t.hero.description}
               </p>
 
               {/* Action Buttons */}
               <div className="flex flex-wrap items-center gap-3 pt-2">
                 <Link
                   href="/book"
-                  className="inline-flex items-center gap-2.5 bg-[#B61F32] hover:bg-[#911624] text-white font-bold text-sm sm:text-base px-6 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-2 bg-[#B61F32] hover:bg-[#8F1726] text-white font-semibold text-xs sm:text-sm px-5 py-3 rounded-xl shadow-xs transition-all"
                 >
                   <Calendar className="w-4 h-4" />
-                  <span>Book Scan or Visit</span>
+                  <span>{t.hero.bookCta}</span>
                 </Link>
 
                 <a
-                  href={`tel:${CLINIC_INFO.primaryPhone.replace(/\s+/g, "")}`}
-                  className="inline-flex items-center gap-2.5 bg-white/10 hover:bg-white/20 text-white font-bold text-sm sm:text-base px-6 py-3.5 rounded-xl border border-white/20 backdrop-blur-sm transition-all"
+                  href={`tel:${CLINIC_INFO.phone1.replace(/\s+/g, "")}`}
+                  className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 text-white font-semibold text-xs sm:text-sm px-5 py-3 rounded-xl border border-white/15 transition-all"
                 >
                   <Phone className="w-4 h-4 text-red-400" />
-                  <span>Call {CLINIC_INFO.primaryPhone}</span>
+                  <span className="font-mono">{CLINIC_INFO.phone1}</span>
                 </a>
 
                 <Link
                   href="/services"
-                  className="inline-flex items-center gap-1.5 text-slate-300 hover:text-white font-semibold text-sm px-4 py-3 transition-colors"
+                  className="inline-flex items-center gap-1.5 text-slate-300 hover:text-white font-medium text-xs sm:text-sm px-3 py-2 transition-colors"
                 >
-                  <span>Explore 50+ Services</span>
-                  <ArrowRight className="w-4 h-4 text-red-400" />
+                  <span>{t.hero.exploreCta}</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-red-400" />
                 </Link>
               </div>
 
-              {/* Trust Indicators */}
-              <div className="pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-4 text-left">
-                <div>
-                  <p className="text-2xl font-black text-white">27+</p>
-                  <p className="text-xs text-slate-300 font-medium">Ultrasound Types</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-black text-white">24+</p>
-                  <p className="text-xs text-slate-300 font-medium">Digital X-Ray Views</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-black text-white">Same-Day</p>
-                  <p className="text-xs text-slate-300 font-medium">Rapid Reporting</p>
-                </div>
-                <div>
-                  <p className="text-2xl font-black text-white">24/7</p>
-                  <p className="text-xs text-slate-300 font-medium">Emergency Triage</p>
-                </div>
+              {/* Stats Bar */}
+              <div className="pt-8 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-6 text-left">
+                {CLINIC_INFO.stats.map((st, i) => (
+                  <div key={i}>
+                    <p className="text-2xl font-bold text-white font-mono">{st.value}</p>
+                    <p className="text-xs text-slate-400 mt-0.5">{st.label}</p>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Right Media / Visual Card (5 Cols) */}
-            <div className="lg:col-span-5 relative">
+            {/* Right Media Card */}
+            <div className="lg:col-span-5">
               <div className="relative mx-auto max-w-md lg:max-w-none">
-                {/* Glow ring */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-[#B61F32]/30 to-blue-500/20 rounded-3xl filter blur-2xl transform scale-95" />
-
-                {/* Main Visual Frame */}
-                <div className="relative rounded-3xl overflow-hidden border-2 border-white/20 shadow-2xl bg-[#001533]">
-                  <div className="relative h-[380px] sm:h-[450px] w-full">
+                <div className="relative rounded-2xl overflow-hidden border border-white/15 bg-[#001026] shadow-xl">
+                  <div className="relative h-[340px] sm:h-[400px] w-full">
                     <Image
                       src="/images/photo-doctor-hero.jpg"
-                      alt="Radiance Clinic Doctor"
+                      alt="Radiance Clinic Senior Doctor"
                       fill
                       priority
                       className="object-cover object-top"
-                      sizes="(max-width: 1024px) 100vw, 450px"
+                      sizes="(max-width: 1024px) 100vw, 420px"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#001533] via-transparent to-transparent opacity-90" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#001026] via-transparent to-transparent opacity-70" />
                   </div>
 
-                  {/* Overlay Badges */}
-                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-[#002047] p-3 rounded-2xl shadow-lg border border-white/50 max-w-[210px]">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-[#B61F32] text-white flex items-center justify-center shrink-0">
-                        <Sparkles className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <p className="text-xs font-bold leading-tight">3D/4D Live Imaging</p>
-                        <p className="text-[10px] text-slate-500">Expert Fetal Sonography</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="absolute bottom-4 left-4 right-4 bg-[#001533]/90 backdrop-blur-md border border-white/15 p-4 rounded-2xl text-white">
+                  <div className="p-4 bg-[#001026] text-white border-t border-white/10">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-xs font-semibold text-red-300">Adi Dero • 3G Imaging Center</p>
-                        <p className="text-sm font-bold">Call 03 42 40 90 43</p>
-                        <p className="text-[11px] text-slate-300 line-clamp-1">
-                          ካብ ላዕለዋይ በሬ ዓዲደሮ ራፈራኤል ሆስፒታል 300 ሜትር
-                        </p>
+                        <p className="text-xs font-semibold text-red-300">{t.branches.adiDeroTitle}</p>
+                        <p className="text-xs text-slate-300 font-mono mt-0.5">{CLINIC_INFO.phone1}</p>
                       </div>
                       <Link
                         href="/contact"
-                        className="p-2 rounded-xl bg-[#B61F32] hover:bg-[#911624] text-white transition-colors"
-                        aria-label="Directions"
+                        className="text-xs font-medium text-slate-300 hover:text-white flex items-center gap-1"
                       >
-                        <MapPin className="w-4 h-4" />
+                        <span>{t.common.directions}</span>
+                        <ChevronRight className="w-3.5 h-3.5" />
                       </Link>
                     </div>
                   </div>
@@ -179,172 +136,175 @@ export default function HomePage() {
       </section>
 
       {/* ======================================================== */}
-      {/* 2. QUICK ACCESS CARDS: THE 4 CORE DIAGNOSTIC PILLARS */}
+      {/* 2. CORE PILLARS: MINIMALIST CARDS */}
       {/* ======================================================== */}
-      <section className="relative z-30 -mt-10 sm:-mt-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <section className="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {/* Card 1 */}
           <Link
             href="/services/ultrasound"
-            className="group bg-white rounded-2xl p-5 shadow-lg hover:shadow-2xl border-t-4 border-[#B61F32] transition-all transform hover:-translate-y-1.5 flex flex-col justify-between"
+            className="group p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between"
           >
             <div>
-              <div className="w-12 h-12 rounded-xl bg-red-50 text-[#B61F32] flex items-center justify-center mb-3 group-hover:bg-[#B61F32] group-hover:text-white transition-colors">
-                <Activity className="w-6 h-6" />
+              <div className="w-10 h-10 rounded-xl bg-red-50 dark:bg-red-950/40 text-[#B61F32] dark:text-red-400 flex items-center justify-center mb-4">
+                <Activity className="w-5 h-5" />
               </div>
               <div className="flex items-center justify-between">
-                <h3 className="font-extrabold text-[#002047] text-base group-hover:text-[#B61F32] transition-colors">
+                <h3 className="font-bold text-sm sm:text-base text-[#002047] dark:text-white group-hover:text-[#B61F32] dark:group-hover:text-red-400 transition-colors">
                   3G Ultrasound Suite
                 </h3>
-                <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-red-100 text-[#B61F32]">
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
                   27 Scans
                 </span>
               </div>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                Abdominal, Doppler hemodynamics, 3D/4D fetal scans, MSK, Echo, and FNAC biopsy.
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+                Abdominal, vascular Doppler, 3D/4D fetal scans, MSK, pediatric hip screening, and echocardiography.
               </p>
             </div>
-            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#B61F32]">
-              <span>Explore Sonography</span>
-              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <div className="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-xs font-semibold text-[#B61F32] dark:text-red-400">
+              <span>View Ultrasound</span>
+              <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </div>
           </Link>
 
           {/* Card 2 */}
           <Link
             href="/services/digital-xray"
-            className="group bg-white rounded-2xl p-5 shadow-lg hover:shadow-2xl border-t-4 border-[#002047] transition-all transform hover:-translate-y-1.5 flex flex-col justify-between"
+            className="group p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between"
           >
             <div>
-              <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#002047] flex items-center justify-center mb-3 group-hover:bg-[#002047] group-hover:text-white transition-colors">
-                <Zap className="w-6 h-6" />
+              <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-[#002047] dark:text-blue-400 flex items-center justify-center mb-4">
+                <Zap className="w-5 h-5" />
               </div>
               <div className="flex items-center justify-between">
-                <h3 className="font-extrabold text-[#002047] text-base group-hover:text-[#B61F32] transition-colors">
+                <h3 className="font-bold text-sm sm:text-base text-[#002047] dark:text-white group-hover:text-[#B61F32] dark:group-hover:text-red-400 transition-colors">
                   Digital X-Ray
                 </h3>
-                <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
                   24 Views
                 </span>
               </div>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                Low-dose digital skull, sinus, chest (CXR), spine, pelvic, and full extremity views.
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+                High-definition digital skeletal imaging for chest, skull, spine, pelvis, and limbs with minimal radiation.
               </p>
             </div>
-            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#002047]">
-              <span>View Anatomical Catalog</span>
-              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <div className="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-xs font-semibold text-[#002047] dark:text-slate-300">
+              <span>Skeletal Catalog</span>
+              <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </div>
           </Link>
 
           {/* Card 3 */}
           <Link
             href="/services/digital-xray#special-procedures"
-            className="group bg-white rounded-2xl p-5 shadow-lg hover:shadow-2xl border-t-4 border-[#B61F32] transition-all transform hover:-translate-y-1.5 flex flex-col justify-between"
+            className="group p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between"
           >
             <div>
-              <div className="w-12 h-12 rounded-xl bg-red-50 text-[#B61F32] flex items-center justify-center mb-3 group-hover:bg-[#B61F32] group-hover:text-white transition-colors">
-                <Sparkles className="w-6 h-6" />
+              <div className="w-10 h-10 rounded-xl bg-red-50 dark:bg-red-950/40 text-[#B61F32] dark:text-red-400 flex items-center justify-center mb-4">
+                <Sparkles className="w-5 h-5" />
               </div>
               <div className="flex items-center justify-between">
-                <h3 className="font-extrabold text-[#002047] text-base group-hover:text-[#B61F32] transition-colors">
+                <h3 className="font-bold text-sm sm:text-base text-[#002047] dark:text-white group-hover:text-[#B61F32] dark:group-hover:text-red-400 transition-colors">
                   Special Procedures
                 </h3>
-                <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-red-100 text-[#B61F32]">
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
                   Fluoroscopy
                 </span>
               </div>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                HSG fertility tubal patency, IVU/IVP kidneys, CUG bladder, Barium swallow & enema.
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+                HSG fertility tubal patency evaluation, IVU/IVP urinary studies, CUG, and Barium swallow/enema.
               </p>
             </div>
-            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#B61F32]">
-              <span>Infertility & GI Procedures</span>
-              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <div className="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-xs font-semibold text-[#B61F32] dark:text-red-400">
+              <span>Fertility & GI</span>
+              <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </div>
           </Link>
 
           {/* Card 4 */}
           <Link
             href="/services/ct-mri-consultation"
-            className="group bg-white rounded-2xl p-5 shadow-lg hover:shadow-2xl border-t-4 border-[#002047] transition-all transform hover:-translate-y-1.5 flex flex-col justify-between"
+            className="group p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between"
           >
             <div>
-              <div className="w-12 h-12 rounded-xl bg-blue-50 text-[#002047] flex items-center justify-center mb-3 group-hover:bg-[#002047] group-hover:text-white transition-colors">
-                <FileCheck className="w-6 h-6" />
+              <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-4">
+                <FileCheck className="w-5 h-5" />
               </div>
               <div className="flex items-center justify-between">
-                <h3 className="font-extrabold text-[#002047] text-base group-hover:text-[#B61F32] transition-colors">
+                <h3 className="font-bold text-sm sm:text-base text-[#002047] dark:text-white group-hover:text-[#B61F32] dark:group-hover:text-red-400 transition-colors">
                   CT & MRI Reading
                 </h3>
-                <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
-                  Expert Consult
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                  Second Opinions
                 </span>
               </div>
-              <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-                Senior consultant radiologist second opinions, cross-sectional review, and tele-radiology.
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+                Subspecialty tele-radiology interpretation and case discussions with Senior Consultant Radiologists.
               </p>
             </div>
-            <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#002047]">
-              <span>Second Opinions</span>
-              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <div className="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-xs font-semibold text-[#002047] dark:text-slate-300">
+              <span>Request Review</span>
+              <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </div>
           </Link>
         </div>
       </section>
 
       {/* ======================================================== */}
-      {/* 3. 3G ULTRASOUND SHOWCASE: 27 MODALITIES */}
+      {/* 3. 3G ULTRASOUND SERVICES: 27 MODALITIES OVERVIEW */}
       {/* ======================================================== */}
-      <section className="py-20 bg-slate-50 relative">
+      <section className="py-16 sm:py-20 bg-slate-100/60 dark:bg-[#070F1E] border-y border-slate-200/60 dark:border-slate-800/80 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="Ultrasound Center of Excellence"
+            badge="Diagnostic Sonography"
             title="3G Ultrasound Services:"
             highlightText="27 Precision Modalities"
-            subtitle="From obstetric 3D/4D scans and cardiovascular Doppler to neonatal cranial and musculoskeletal sonography, our expert radiologists deliver high diagnostic accuracy."
+            subtitle="From obstetric 3D/4D scans and vascular Doppler to neonatal neuro-sonography and guided FNAC biopsy."
             centered
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {ULTRASOUND_SERVICES.slice(0, 6).map((srv) => (
               <div
                 key={srv.id}
-                className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all border border-slate-100 flex flex-col justify-between group"
+                className="bg-white dark:bg-[#0A1324] rounded-2xl p-6 border border-slate-200/80 dark:border-slate-800/80 hover:border-slate-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs font-bold text-[#B61F32] uppercase tracking-wider">
+                  <div className="flex items-center justify-between mb-2.5">
+                    <span className="text-[10px] font-semibold uppercase tracking-wider text-[#B61F32] dark:text-red-400">
                       {srv.tag || "Sonography"}
                     </span>
-                    <span className="text-[11px] text-slate-400 font-medium">
-                      ~{srv.durationMinutes} mins
+                    <span className="text-[11px] text-slate-400 font-mono">
+                      ~{srv.durationMinutes} min
                     </span>
                   </div>
-                  <h3 className="text-lg font-bold text-[#002047] group-hover:text-[#B61F32] transition-colors">
+
+                  <h3 className="text-base font-bold text-[#002047] dark:text-white">
                     {srv.name}
                   </h3>
-                  <p className="text-xs text-slate-600 mt-2.5 leading-relaxed">
+
+                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
                     {srv.shortDescription}
                   </p>
 
-                  <div className="mt-4 pt-3 border-t border-slate-100">
-                    <p className="text-[11px] font-bold text-slate-700 uppercase">Preparation:</p>
-                    <p className="text-xs text-slate-500 mt-0.5">{srv.preparation}</p>
+                  <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/60 text-xs text-slate-500 dark:text-slate-400">
+                    <strong className="text-slate-700 dark:text-slate-300">Prep: </strong>
+                    <span>{srv.preparation}</span>
                   </div>
                 </div>
 
-                <div className="mt-6 pt-3 flex items-center justify-between">
+                <div className="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between">
                   <Link
                     href={`/services/ultrasound#${srv.id}`}
-                    className="text-xs font-bold text-[#002047] hover:text-[#B61F32] flex items-center gap-1"
+                    className="text-xs font-semibold text-[#002047] dark:text-slate-300 hover:text-[#B61F32] dark:hover:text-red-400 flex items-center gap-1"
                   >
-                    <span>Full Details</span>
+                    <span>Details</span>
                     <ChevronRight className="w-3.5 h-3.5" />
                   </Link>
+
                   <Link
                     href={`/book?service=${srv.id}`}
-                    className="text-xs font-bold bg-[#B61F32]/10 hover:bg-[#B61F32] text-[#B61F32] hover:text-white px-3 py-1.5 rounded-lg transition-colors"
+                    className="text-xs font-semibold bg-[#B61F32] hover:bg-[#8F1726] text-white px-3 py-1.5 rounded-lg transition-colors"
                   >
                     Book Scan
                   </Link>
@@ -353,340 +313,12 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* CTA to view all 27 ultrasound types */}
-          <div className="mt-12 text-center">
-            <div className="inline-flex flex-col sm:flex-row items-center gap-4 bg-white p-4 sm:px-6 sm:py-3 rounded-2xl shadow-md border border-slate-200">
-              <span className="text-xs sm:text-sm font-semibold text-slate-700">
-                Need MSK, Carotid/Renal Doppler, Neonatal Cranial, or FNAC Biopsy?
-              </span>
-              <Link
-                href="/services/ultrasound"
-                className="inline-flex items-center gap-2 bg-[#002047] hover:bg-[#092f61] text-white text-xs sm:text-sm font-bold px-4 py-2 rounded-xl transition-colors"
-              >
-                <span>View All 27 Ultrasound Exams</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ======================================================== */}
-      {/* 4. CLINICAL HIGHLIGHT: HSG & SPECIAL PROCEDURES */}
-      {/* ======================================================== */}
-      <section className="py-20 bg-white border-y border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-6 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 text-[#B61F32] text-xs font-bold">
-                <Sparkles className="w-3.5 h-3.5" />
-                <span>Specialized Diagnostic Fluoroscopy</span>
-              </div>
-
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#002047] leading-tight">
-                Advanced Special Procedures: <br />
-                <span className="text-[#B61F32]">HSG, IVU, CUG & Barium Studies</span>
-              </h2>
-
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                When standard imaging requires functional contrast visualization, our experienced radiologists perform specialized fluoroscopic investigations with meticulous patient comfort and rapid turnarounds:
-              </p>
-
-              <div className="space-y-3.5">
-                {SPECIAL_PROCEDURES.slice(0, 4).map((proc) => (
-                  <div key={proc.id} className="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-100">
-                    <CheckCircle2 className="w-5 h-5 text-[#B61F32] shrink-0 mt-0.5" />
-                    <div>
-                      <h4 className="text-sm font-bold text-[#002047]">{proc.name}</h4>
-                      <p className="text-xs text-slate-500 mt-0.5">{proc.shortDescription}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="pt-2 flex items-center gap-4">
-                <Link
-                  href="/services/digital-xray#special-procedures"
-                  className="inline-flex items-center gap-2 bg-[#B61F32] hover:bg-[#911624] text-white text-sm font-bold px-5 py-3 rounded-xl transition-all shadow-md"
-                >
-                  <span>Learn About Preparation & Booking</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-            </div>
-
-            <div className="lg:col-span-6">
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-slate-100 bg-slate-100">
-                <div className="relative h-80 sm:h-96 w-full">
-                  <Image
-                    src="/images/photo-ultrasound.jpg"
-                    alt="Special Procedure & Ultrasound Examination"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-6 bg-[#001533] text-white">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-xs font-semibold text-red-300">Fertility & Fluoroscopy Unit</p>
-                      <h4 className="text-base font-bold">Compassionate, Patient-Centered Care</h4>
-                    </div>
-                    <span className="px-2.5 py-1 rounded bg-[#B61F32] text-white text-xs font-bold">
-                      Strict Dignity Protocol
-                    </span>
-                  </div>
-                  <p className="text-xs text-slate-300 mt-2">
-                    Our team provides gentle handling, pre-procedure counseling, and immediate clinical discussion with referring physicians.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ======================================================== */}
-      {/* 5. WHY CHOOSE RADIANCE (FROM BRAND GUIDELINES) */}
-      {/* ======================================================== */}
-      <section className="py-20 bg-gradient-to-b from-[#001533] to-[#002047] text-white relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            badge="The Radiance Advantage"
-            title="Our Healthcare Philosophy &"
-            highlightText="Core Values"
-            subtitle="Guided by our official company profile: Delivering safe, accurate, and empathetic medical care to improve community well-being in Bahir Dar and Adi Dero."
-            centered
-            dark
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Value 1 */}
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all">
-              <div className="w-12 h-12 rounded-xl bg-[#B61F32] text-white flex items-center justify-center mb-4 shadow-md">
-                <Users className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold text-white">Patient-First Care</h3>
-              <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-                We put the health, safety, and well-being of our patients at the center of everything we do, offering personalized and respectful service at every visit.
-              </p>
-            </div>
-
-            {/* Value 2 */}
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all">
-              <div className="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center mb-4 shadow-md">
-                <ShieldCheck className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold text-white">Quality & Patient Safety</h3>
-              <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-                We uphold high standards of medical care, rigorous diagnostic calibration, and sterile hygienic clinical environments for all examinations.
-              </p>
-            </div>
-
-            {/* Value 3 */}
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all">
-              <div className="w-12 h-12 rounded-xl bg-amber-500 text-white flex items-center justify-center mb-4 shadow-md">
-                <Award className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold text-white">Professional Integrity</h3>
-              <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-                We act with transparency, honest medical advice, strict patient confidentiality, and unwavering ethical standards across all consultations.
-              </p>
-            </div>
-
-            {/* Value 4 */}
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all">
-              <div className="w-12 h-12 rounded-xl bg-emerald-500 text-white flex items-center justify-center mb-4 shadow-md">
-                <Sparkles className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold text-white">Modern Innovation</h3>
-              <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-                We invest in modern imaging systems, digital low-dose radiography, 3D/4D sonography, and automated laboratory diagnostics.
-              </p>
-            </div>
-
-            {/* Value 5 */}
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all">
-              <div className="w-12 h-12 rounded-xl bg-indigo-500 text-white flex items-center justify-center mb-4 shadow-md">
-                <HeartHandshake className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold text-white">Collaborative Teamwork</h3>
-              <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-                Our radiologists, clinical specialists, nurses, and laboratory scientists collaborate closely to deliver cohesive patient care and clear answers.
-              </p>
-            </div>
-
-            {/* Value 6 */}
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all">
-              <div className="w-12 h-12 rounded-xl bg-[#B61F32] text-white flex items-center justify-center mb-4 shadow-md">
-                <HeartPulse className="w-6 h-6" />
-              </div>
-              <h3 className="text-lg font-bold text-white">Community Commitment</h3>
-              <p className="text-xs text-slate-300 mt-2 leading-relaxed">
-                Dedicated to improving healthcare accessibility, maternal-fetal health, and preventive check-ups in Adi Dero, Bahir Dar, and beyond.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ======================================================== */}
-      {/* 6. MODERN CLINIC FACILITIES & VIRTUAL TOUR */}
-      {/* ======================================================== */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            badge="World-Class Facilities"
-            title="State-of-the-Art"
-            highlightText="Diagnostic Environments"
-            subtitle="Designed for patient comfort, pristine hygiene, and rapid diagnostic workflows."
-            centered
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {/* Facility 1 */}
-            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-shadow group">
-              <div className="relative h-48 w-full bg-slate-100">
-                <Image
-                  src="/images/photo-reception.jpg"
-                  alt="Modern Clinic Reception Desk"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <div className="p-4">
-                <h4 className="font-bold text-[#002047] text-sm">Welcoming Reception</h4>
-                <p className="text-xs text-slate-500 mt-1">
-                  Comfortable patient waiting areas and prompt administrative triage.
-                </p>
-              </div>
-            </div>
-
-            {/* Facility 2 */}
-            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-shadow group">
-              <div className="relative h-48 w-full bg-slate-100">
-                <Image
-                  src="/images/photo-ultrasound.jpg"
-                  alt="3G Ultrasound Suite"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <div className="p-4">
-                <h4 className="font-bold text-[#002047] text-sm">Advanced 3G Sonography</h4>
-                <p className="text-xs text-slate-500 mt-1">
-                  Private exam rooms with multi-probe 3D/4D ultrasound systems.
-                </p>
-              </div>
-            </div>
-
-            {/* Facility 3 */}
-            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-shadow group">
-              <div className="relative h-48 w-full bg-slate-100">
-                <Image
-                  src="/images/photo-ct-mri.jpg"
-                  alt="CT and MRI Suite"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <div className="p-4">
-                <h4 className="font-bold text-[#002047] text-sm">CT & MRI Reading Desk</h4>
-                <p className="text-xs text-slate-500 mt-1">
-                  High-definition PACS diagnostic monitors for subspecialty analysis.
-                </p>
-              </div>
-            </div>
-
-            {/* Facility 4 */}
-            <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md transition-shadow group">
-              <div className="relative h-48 w-full bg-slate-100">
-                <Image
-                  src="/images/photo-lab.jpg"
-                  alt="Automated Clinical Laboratory"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <div className="p-4">
-                <h4 className="font-bold text-[#002047] text-sm">Automated Diagnostic Lab</h4>
-                <p className="text-xs text-slate-500 mt-1">
-                  Automated hematology, biochemistry, and hormone analyzers with rapid results.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ======================================================== */}
-      {/* 7. MEET OUR MEDICAL SPECIALISTS */}
-      {/* ======================================================== */}
-      <section className="py-20 bg-slate-50 border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            badge="Consultant Team"
-            title="Experienced Healthcare"
-            highlightText="Professionals"
-            subtitle="Led by Senior Consultant Radiologists, specialized sonologists, cardiologists, and pediatricians committed to accurate diagnosis."
-            centered
-          />
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {DOCTORS_DATA.slice(0, 3).map((doc) => (
-              <div
-                key={doc.id}
-                className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-200 flex flex-col justify-between"
-              >
-                <div>
-                  <div className="relative h-56 w-full bg-slate-200">
-                    <Image
-                      src={doc.avatarUrl}
-                      alt={doc.name}
-                      fill
-                      className="object-cover object-top"
-                    />
-                    {doc.badge && (
-                      <span className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-[#B61F32] text-white text-[10px] font-bold tracking-wide shadow-md">
-                        {doc.badge}
-                      </span>
-                    )}
-                  </div>
-
-                  <div className="p-5">
-                    <h3 className="text-base font-bold text-[#002047]">{doc.name}</h3>
-                    <p className="text-xs font-semibold text-[#B61F32] mt-0.5">{doc.title}</p>
-                    <p className="text-xs text-slate-600 mt-2 line-clamp-3">{doc.bio}</p>
-
-                    <div className="mt-4 pt-3 border-t border-slate-100 space-y-1 text-[11px] text-slate-500">
-                      <p>
-                        <strong className="text-slate-700">Schedule:</strong> {doc.schedule}
-                      </p>
-                      <p>
-                        <strong className="text-slate-700">Languages:</strong> {doc.languages.join(", ")}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="p-5 pt-0">
-                  <Link
-                    href={`/book?doctor=${doc.id}`}
-                    className="w-full inline-flex items-center justify-center gap-2 bg-[#002047] hover:bg-[#B61F32] text-white text-xs font-bold py-2.5 rounded-xl transition-colors"
-                  >
-                    <Calendar className="w-3.5 h-3.5" />
-                    <span>Request Consultation</span>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-
           <div className="mt-10 text-center">
             <Link
-              href="/doctors"
-              className="inline-flex items-center gap-2 text-sm font-bold text-[#002047] hover:text-[#B61F32] transition-colors"
+              href="/services/ultrasound"
+              className="inline-flex items-center gap-2 bg-[#002047] dark:bg-slate-800 hover:bg-[#001838] dark:hover:bg-slate-700 text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors"
             >
-              <span>View Full Medical Team & Qualifications</span>
+              <span>Explore All 27 Ultrasound Modalities</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -694,127 +326,59 @@ export default function HomePage() {
       </section>
 
       {/* ======================================================== */}
-      {/* 8. DUAL LOCATION SPOTLIGHT (ADI DERO & BAHIR DAR) */}
+      {/* 4. CLINICAL FOCUS: HSG & SPECIAL PROCEDURES */}
       {/* ======================================================== */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            badge="Convenient Locations"
-            title="Visit Our Centers in"
-            highlightText="Adi Dero & Bahir Dar"
-            subtitle="Providing accessible diagnostic imaging and multispeciality clinical care with dedicated direct phone lines."
-            centered
-          />
+      <section className="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          <div className="lg:col-span-6 space-y-5">
+            <span className="text-xs font-semibold px-2.5 py-1 rounded-md bg-red-50 dark:bg-red-950/40 text-[#B61F32] dark:text-red-400 border border-red-200/50 dark:border-red-900/40 uppercase tracking-wider">
+              Specialized Fluoroscopy
+            </span>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Adi Dero Center */}
-            <div className="bg-gradient-to-br from-red-50 to-white rounded-3xl p-6 sm:p-8 border-2 border-red-100 shadow-md flex flex-col justify-between">
-              <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B61F32] text-white text-xs font-bold mb-4">
-                  <HeartPulse className="w-3.5 h-3.5" />
-                  <span>3G Diagnostic Imaging • Adi Dero</span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#002047] dark:text-white leading-tight">
+              Special Procedures: <br />
+              <span className="text-[#B61F32] dark:text-red-400">HSG, IVU, CUG & Barium Series</span>
+            </h2>
+
+            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+              When standard non-contrast imaging requires functional visualization, our radiologists perform fluoroscopic investigations with patient dignity, comfort, and immediate report turnaround.
+            </p>
+
+            <div className="space-y-3 pt-1">
+              {SPECIAL_PROCEDURES.slice(0, 3).map((proc) => (
+                <div key={proc.id} className="p-3.5 rounded-xl bg-slate-50 dark:bg-[#0A1324] border border-slate-200/70 dark:border-slate-800/80">
+                  <h4 className="text-xs font-bold text-[#002047] dark:text-white">{proc.name}</h4>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">{proc.shortDescription}</p>
                 </div>
-
-                <h3 className="text-xl font-extrabold text-[#002047]">
-                  3G Diagnostic Imaging Center
-                </h3>
-
-                {/* Tigrinya directions emphasized */}
-                <div className="mt-4 p-4 rounded-2xl bg-white border border-red-200">
-                  <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
-                    አድራሻ (Tigrinya Directions):
-                  </p>
-                  <p className="text-sm font-bold text-[#002047] leading-relaxed">
-                    ካብ ላዕለዋይ በሬ ዓዲደሮ ራፈራኤል ሆስፒታል ናብ መስመር ዓዲሹም 300 ሜትር ወሪድ ኢልካ ይርከብ
-                  </p>
-                  <p className="text-xs text-slate-500 mt-1">
-                    (300 meters down from Upper Gate Adi Dero Raphael Hospital towards Adi Shum)
-                  </p>
-                  <p className="text-xs font-bold text-[#B61F32] mt-2">
-                    3ጂ ንድሕነት ሕክምና ቅድሚያ ይሀብ!
-                  </p>
-                </div>
-
-                <div className="mt-4 space-y-2 text-xs text-slate-700">
-                  <p className="flex items-center gap-2 font-bold text-base text-[#002047]">
-                    <Phone className="w-4 h-4 text-[#B61F32]" />
-                    <span>03 42 40 90 43</span>
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-slate-400" />
-                    <span>Monday – Sunday: 7:30 AM – 8:30 PM (24/7 Emergency On-Call)</span>
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-red-100 flex items-center gap-3">
-                <a
-                  href="tel:0342409043"
-                  className="flex-1 text-center bg-[#B61F32] hover:bg-[#911624] text-white text-xs font-bold py-2.5 rounded-xl transition-colors"
-                >
-                  Call Adi Dero Direct
-                </a>
-                <Link
-                  href="/contact"
-                  className="px-4 py-2.5 border border-slate-300 hover:border-[#002047] text-[#002047] text-xs font-bold rounded-xl transition-colors"
-                >
-                  Directions
-                </Link>
-              </div>
+              ))}
             </div>
 
-            {/* Bahir Dar Center */}
-            <div className="bg-gradient-to-br from-blue-50 to-white rounded-3xl p-6 sm:p-8 border-2 border-blue-100 shadow-md flex flex-col justify-between">
-              <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#002047] text-white text-xs font-bold mb-4">
-                  <Stethoscope className="w-3.5 h-3.5" />
-                  <span>Multispeciality Hub • Bahir Dar</span>
-                </div>
+            <div className="pt-2">
+              <Link
+                href="/services/digital-xray#special-procedures"
+                className="inline-flex items-center gap-2 bg-[#B61F32] hover:bg-[#8F1726] text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-colors"
+              >
+                <span>Preparation & Procedure Guides</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          </div>
 
-                <h3 className="text-xl font-extrabold text-[#002047]">
-                  Radiance Multispeciality Clinic
-                </h3>
-
-                <div className="mt-4 p-4 rounded-2xl bg-white border border-blue-200">
-                  <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
-                    Address:
-                  </p>
-                  <p className="text-sm font-bold text-[#002047]">
-                    Bahir Dar, Kebele 14, Ethiopia
-                  </p>
-                  <p className="text-xs text-slate-500 mt-1">
-                    Multispeciality consultations, laboratory diagnostics, preventive checkups, and radiology.
-                  </p>
-                  <p className="text-xs font-bold text-[#002047] mt-2">
-                    “Better Health. Brighter Tomorrow.”
-                  </p>
-                </div>
-
-                <div className="mt-4 space-y-2 text-xs text-slate-700">
-                  <p className="flex items-center gap-2 font-bold text-base text-[#002047]">
-                    <Phone className="w-4 h-4 text-[#B61F32]" />
-                    <span>+251 990 084 747 / +251 985 414 949</span>
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-slate-400" />
-                    <span>Monday – Saturday: 8:00 AM – 8:00 PM | Sunday: 8:30 AM – 5:00 PM</span>
-                  </p>
-                </div>
+          <div className="lg:col-span-6">
+            <div className="relative rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-800 shadow-sm bg-white dark:bg-[#0A1324]">
+              <div className="relative h-72 sm:h-80 w-full">
+                <Image
+                  src="/images/photo-ultrasound.jpg"
+                  alt="Special Procedure & Sonography Suite"
+                  fill
+                  className="object-cover"
+                />
               </div>
-
-              <div className="mt-6 pt-4 border-t border-blue-100 flex items-center gap-3">
-                <a
-                  href="tel:+251990084747"
-                  className="flex-1 text-center bg-[#002047] hover:bg-[#092f61] text-white text-xs font-bold py-2.5 rounded-xl transition-colors"
-                >
-                  Call Bahir Dar Direct
-                </a>
-                <Link
-                  href="/book"
-                  className="px-4 py-2.5 border border-slate-300 hover:border-[#002047] text-[#002047] text-xs font-bold rounded-xl transition-colors"
-                >
-                  Book Visit
-                </Link>
+              <div className="p-5">
+                <h4 className="text-sm font-bold text-[#002047] dark:text-white">Gentle, Dignified Patient Handling</h4>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                  Private exam environments, compassionate clinical team, and direct coordination with your referring physician.
+                </p>
               </div>
             </div>
           </div>
@@ -822,33 +386,205 @@ export default function HomePage() {
       </section>
 
       {/* ======================================================== */}
-      {/* 9. ECG HEARTBEAT ACCENT & FINAL CTA */}
+      {/* 5. WHY RADIANCE & CORE VALUES (CLEAN & NON-AI) */}
       {/* ======================================================== */}
-      <section className="py-12 bg-slate-50">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+      <section className="py-16 sm:py-20 bg-slate-100/60 dark:bg-[#070F1E] border-y border-slate-200/60 dark:border-slate-800/80 transition-colors">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            badge="The Radiance Standard"
+            title="Our Healthcare Philosophy &"
+            highlightText="Core Values"
+            subtitle="Guided by our company profile: high standards of diagnostic accuracy, patient safety, and compassionate care."
+            centered
+          />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80">
+              <div className="w-9 h-9 rounded-lg bg-red-50 dark:bg-red-950/40 text-[#B61F32] dark:text-red-400 flex items-center justify-center mb-3.5">
+                <Users className="w-4 h-4" />
+              </div>
+              <h3 className="font-bold text-sm text-[#002047] dark:text-white">Patient-First Care</h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
+                Prioritizing patient comfort, clear communication, and personalized dignity at every step of diagnosis.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80">
+              <div className="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-[#002047] dark:text-blue-400 flex items-center justify-center mb-3.5">
+                <ShieldCheck className="w-4 h-4" />
+              </div>
+              <h3 className="font-bold text-sm text-[#002047] dark:text-white">Quality & Safety</h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
+                Strict acoustic transducer hygiene, ALARA radiation safety, and daily laboratory calibration controls.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80">
+              <div className="w-9 h-9 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-3.5">
+                <Sparkles className="w-4 h-4" />
+              </div>
+              <h3 className="font-bold text-sm text-[#002047] dark:text-white">Modern Technology</h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
+                High-frequency linear and 3D/4D matrix transducers, digital flat-panel X-rays, and automated analyzers.
+              </p>
+            </div>
+
+            <div className="p-6 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80">
+              <div className="w-9 h-9 rounded-lg bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-3.5">
+                <Award className="w-4 h-4" />
+              </div>
+              <h3 className="font-bold text-sm text-[#002047] dark:text-white">Clinical Integrity</h3>
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
+                Honest clinical recommendations, transparent second opinions, and reliable written radiological reporting.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================== */}
+      {/* 6. DUAL LOCATION DIRECTORY */}
+      {/* ======================================================== */}
+      <section className="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <SectionHeading
+          badge="Our Locations"
+          title="Visit Our Diagnostic Centers in"
+          highlightText="Adi Dero & Bahir Dar"
+          subtitle="Direct phone lines and coordinated patient care across both facilities."
+          centered
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Adi Dero */}
+          <div className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between">
+            <div>
+              <span className="text-[11px] font-bold text-[#B61F32] dark:text-red-400 uppercase tracking-wider block mb-1">
+                Branch 1 • Diagnostic Imaging
+              </span>
+              <h3 className="text-lg sm:text-xl font-bold text-[#002047] dark:text-white">
+                {t.branches.adiDeroTitle}
+              </h3>
+
+              <div className="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800">
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">
+                  Address & Directions:
+                </p>
+                <p className="text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 leading-relaxed">
+                  {t.branches.adiDeroAddress}
+                </p>
+                <p className="text-[11px] font-semibold text-[#B61F32] dark:text-red-400 mt-2">
+                  {t.branches.adiDeroTagline}
+                </p>
+              </div>
+
+              <div className="mt-4 space-y-1.5 text-xs text-slate-600 dark:text-slate-400">
+                <p className="flex items-center gap-2 font-mono font-bold text-slate-900 dark:text-white text-sm">
+                  <Phone className="w-3.5 h-3.5 text-[#B61F32]" />
+                  <span>{CLINIC_INFO.phone1}</span>
+                </p>
+                <p className="flex items-center gap-2">
+                  <Clock className="w-3.5 h-3.5 text-slate-400" />
+                  <span>Mon - Sun: 7:30 AM - 8:30 PM (24/7 Emergency Support)</span>
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800/60 flex items-center gap-3">
+              <a
+                href={`tel:${CLINIC_INFO.phone1.replace(/\s+/g, "")}`}
+                className="flex-1 text-center bg-[#B61F32] hover:bg-[#8F1726] text-white text-xs font-semibold py-2.5 rounded-xl transition-colors"
+              >
+                Call {CLINIC_INFO.phone1}
+              </a>
+              <Link
+                href="/book?branch=adi-dero"
+                className="px-4 py-2.5 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/60 rounded-xl transition-colors"
+              >
+                Book in Adi Dero
+              </Link>
+            </div>
+          </div>
+
+          {/* Bahir Dar */}
+          <div className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between">
+            <div>
+              <span className="text-[11px] font-bold text-[#002047] dark:text-slate-400 uppercase tracking-wider block mb-1">
+                Branch 2 • Multispeciality Medical Hub
+              </span>
+              <h3 className="text-lg sm:text-xl font-bold text-[#002047] dark:text-white">
+                {t.branches.bahirDarTitle}
+              </h3>
+
+              <div className="mt-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800">
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">
+                  Address:
+                </p>
+                <p className="text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200">
+                  {t.branches.bahirDarAddress}
+                </p>
+                <p className="text-[11px] font-semibold text-slate-600 dark:text-slate-400 mt-2">
+                  {t.branches.bahirDarTagline}
+                </p>
+              </div>
+
+              <div className="mt-4 space-y-1.5 text-xs text-slate-600 dark:text-slate-400">
+                <p className="flex items-center gap-2 font-mono font-bold text-slate-900 dark:text-white text-sm">
+                  <Phone className="w-3.5 h-3.5 text-[#B61F32]" />
+                  <span>{CLINIC_INFO.phone2}</span>
+                </p>
+                <p className="flex items-center gap-2">
+                  <Clock className="w-3.5 h-3.5 text-slate-400" />
+                  <span>Mon - Sat: 8:00 AM - 8:00 PM | Sun: 8:30 AM - 5:00 PM</span>
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800/60 flex items-center gap-3">
+              <a
+                href={`tel:${CLINIC_INFO.phone2.replace(/\s+/g, "")}`}
+                className="flex-1 text-center bg-[#002047] dark:bg-slate-800 hover:bg-[#001838] dark:hover:bg-slate-700 text-white text-xs font-semibold py-2.5 rounded-xl transition-colors"
+              >
+                Call {CLINIC_INFO.phone2}
+              </a>
+              <Link
+                href="/book?branch=bahir-dar"
+                className="px-4 py-2.5 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/60 rounded-xl transition-colors"
+              >
+                Book in Bahir Dar
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ======================================================== */}
+      {/* 7. BOTTOM CTA */}
+      {/* ======================================================== */}
+      <section className="py-12 bg-slate-50 dark:bg-[#070F1E] border-t border-slate-200/60 dark:border-slate-800/80 transition-colors">
+        <div className="max-w-3xl mx-auto px-4 text-center">
           <EcgDivider />
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#002047] mt-4">
-            Ready to Schedule Your Scan or Doctor Consultation?
+          <h2 className="text-xl sm:text-2xl font-bold text-[#002047] dark:text-white mt-3">
+            Schedule an Ultrasound, Digital X-Ray or Doctor Consultation
           </h2>
-          <p className="text-slate-600 text-sm max-w-xl mx-auto mt-2">
-            No long queues. Fast-track appointments, verified preparation instructions, and digital report delivery straight to your phone.
+          <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm mt-1.5">
+            Verified scan preparation instructions, experienced radiologists, and same-day digital reports.
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
+          <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/book"
-              className="inline-flex items-center gap-2 bg-[#B61F32] hover:bg-[#911624] text-white text-sm font-bold px-7 py-3.5 rounded-xl shadow-lg hover:shadow-xl transition-all"
+              className="inline-flex items-center gap-2 bg-[#B61F32] hover:bg-[#8F1726] text-white text-xs font-semibold px-5 py-2.5 rounded-xl shadow-xs transition-colors"
             >
-              <Calendar className="w-4 h-4" />
+              <Calendar className="w-3.5 h-3.5" />
               <span>Book Appointment Online</span>
             </Link>
 
             <a
-              href="tel:0342409043"
-              className="inline-flex items-center gap-2 bg-white hover:bg-slate-100 text-[#002047] text-sm font-bold px-6 py-3.5 rounded-xl border border-slate-300 shadow-sm transition-all"
+              href={`tel:${CLINIC_INFO.phone1.replace(/\s+/g, "")}`}
+              className="inline-flex items-center gap-2 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-[#002047] dark:text-slate-200 text-xs font-semibold px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 transition-colors"
             >
-              <Phone className="w-4 h-4 text-[#B61F32]" />
-              <span>Call 03 42 40 90 43</span>
+              <Phone className="w-3.5 h-3.5 text-[#B61F32]" />
+              <span className="font-mono">{CLINIC_INFO.phone1}</span>
             </a>
           </div>
         </div>

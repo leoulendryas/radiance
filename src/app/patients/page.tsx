@@ -19,8 +19,10 @@ import {
 } from "lucide-react";
 import { CLINIC_INFO } from "@/data/clinicInfo";
 import SectionHeading from "@/components/SectionHeading";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function PatientsPage() {
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState<"ultrasound" | "xray" | "special" | "lab">("ultrasound");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -155,10 +157,10 @@ export default function PatientsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50/60 pb-24">
+    <div className="min-h-screen bg-slate-50 dark:bg-[#070D18] pb-24 text-slate-800 dark:text-slate-100 transition-colors">
       {/* Header */}
-      <div className="bg-[#002047] text-white py-14 sm:py-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-600/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="bg-gradient-to-br from-[#001229] via-[#002047] to-[#0A2540] text-white py-14 sm:py-18 relative overflow-hidden border-b border-slate-800">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl space-y-3">
@@ -168,64 +170,64 @@ export default function PatientsPage() {
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
               Patient Preparation & Guide
             </h1>
-            <p className="text-base sm:text-lg text-slate-200 leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-200 leading-relaxed">
               Proper preparation ensures crisp diagnostic clarity and reduces unnecessary scan repeats. Review our step-by-step instructions before your scan.
             </p>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 space-y-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 space-y-14">
         {/* Preparation Guide Interactive Tabs */}
-        <section className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-xl">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-4 border-b border-slate-100">
+        <section className="bg-white dark:bg-[#0A1324] rounded-2xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800/80 shadow-xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
             <div>
               <span className="text-xs font-bold text-[#B61F32] uppercase tracking-wider">
                 Pre-Examination Instructions
               </span>
-              <h2 className="text-2xl font-extrabold text-[#002047] mt-1">
+              <h2 className="text-xl sm:text-2xl font-extrabold text-[#002047] dark:text-white mt-1">
                 How to Prepare for Your Examination
               </h2>
             </div>
 
             {/* Tab switchers */}
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-center gap-1.5">
               <button
                 onClick={() => setActiveTab("ultrasound")}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                   activeTab === "ultrasound"
-                    ? "bg-[#B61F32] text-white shadow-md"
-                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                    ? "bg-[#B61F32] text-white shadow-xs"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200"
                 }`}
               >
                 Ultrasound (27 Scans)
               </button>
               <button
                 onClick={() => setActiveTab("special")}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                   activeTab === "special"
-                    ? "bg-[#B61F32] text-white shadow-md"
-                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                    ? "bg-[#B61F32] text-white shadow-xs"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200"
                 }`}
               >
                 Special Procedures (HSG/Barium)
               </button>
               <button
                 onClick={() => setActiveTab("xray")}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                   activeTab === "xray"
-                    ? "bg-[#B61F32] text-white shadow-md"
-                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                    ? "bg-[#B61F32] text-white shadow-xs"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200"
                 }`}
               >
                 Digital X-Ray
               </button>
               <button
                 onClick={() => setActiveTab("lab")}
-                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                   activeTab === "lab"
-                    ? "bg-[#B61F32] text-white shadow-md"
-                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                    ? "bg-[#B61F32] text-white shadow-xs"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200"
                 }`}
               >
                 Laboratory Tests
@@ -234,18 +236,18 @@ export default function PatientsPage() {
           </div>
 
           {/* Tab Content Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {prepGuides[activeTab].map((item, idx) => (
-              <div key={idx} className="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col justify-between">
+              <div key={idx} className="p-5 rounded-xl bg-slate-50 dark:bg-[#0E1A30] border border-slate-100 dark:border-slate-800 flex flex-col justify-between">
                 <div>
-                  <h3 className="text-base font-bold text-[#002047] mb-3 flex items-center gap-2">
+                  <h3 className="text-sm sm:text-base font-bold text-[#002047] dark:text-white mb-2.5 flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-[#B61F32]" />
                     <span>{item.title}</span>
                   </h3>
-                  <ul className="space-y-2">
+                  <ul className="space-y-1.5">
                     {item.rules.map((rule, rIdx) => (
-                      <li key={rIdx} className="text-xs text-slate-600 flex items-start gap-2.5 leading-relaxed">
-                        <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
+                      <li key={rIdx} className="text-xs text-slate-600 dark:text-slate-400 flex items-start gap-2 leading-relaxed">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0 mt-0.5" />
                         <span>{rule}</span>
                       </li>
                     ))}
@@ -256,19 +258,19 @@ export default function PatientsPage() {
           </div>
 
           {/* Quick Notice */}
-          <div className="mt-8 p-4 rounded-2xl bg-amber-50 border border-amber-200 flex items-start gap-3 text-xs text-amber-900">
-            <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+          <div className="mt-6 p-4 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 flex items-start gap-3 text-xs text-amber-900 dark:text-amber-200">
+            <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
             <div>
               <strong className="font-bold">Unsure about your doctor&apos;s requisition?</strong>
-              <p className="mt-0.5 text-amber-800">
-                Contact our triage desk at <a href="tel:0342409043" className="font-bold underline">03 42 40 90 43</a> prior to your appointment. Our nursing staff will clarify exact fasting or hydration protocols.
+              <p className="mt-0.5 text-amber-800 dark:text-amber-300">
+                Contact our triage desk at <a href={`tel:${CLINIC_INFO.primaryPhone.replace(/\s+/g, "")}`} className="font-bold underline">{CLINIC_INFO.primaryPhone}</a> prior to your appointment. Our nursing staff will clarify exact fasting or hydration protocols.
               </p>
             </div>
           </div>
         </section>
 
         {/* Results & Digital Reporting */}
-        <section className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm">
+        <section className="bg-white dark:bg-[#0A1324] rounded-2xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800/80 shadow-xs">
           <SectionHeading
             badge="Digital Health Access"
             title="Fast, Transparent"
@@ -276,43 +278,43 @@ export default function PatientsPage() {
             subtitle="Choose the most convenient way to receive your imaging results and formal radiological interpretations."
           />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100">
-              <span className="w-10 h-10 rounded-xl bg-red-100 text-[#B61F32] flex items-center justify-center font-bold text-sm mb-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#0E1A30] border border-slate-100 dark:border-slate-800">
+              <span className="w-8 h-8 rounded-lg bg-red-100 dark:bg-red-950/60 text-[#B61F32] flex items-center justify-center font-bold text-xs mb-2.5">
                 01
               </span>
-              <h4 className="font-bold text-[#002047] text-sm">Printed Films & Photos</h4>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+              <h4 className="font-bold text-[#002047] dark:text-white text-xs sm:text-sm">Printed Films & Photos</h4>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
                 High-definition physical glossy prints for ultrasound baby portraits and high-contrast digital X-ray film sheets.
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100">
-              <span className="w-10 h-10 rounded-xl bg-blue-100 text-[#002047] flex items-center justify-center font-bold text-sm mb-3">
+            <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#0E1A30] border border-slate-100 dark:border-slate-800">
+              <span className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-950/60 text-[#002047] dark:text-blue-300 flex items-center justify-center font-bold text-xs mb-2.5">
                 02
               </span>
-              <h4 className="font-bold text-[#002047] text-sm">WhatsApp Direct Dispatch</h4>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+              <h4 className="font-bold text-[#002047] dark:text-white text-xs sm:text-sm">WhatsApp Direct Dispatch</h4>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
                 Receive certified PDF reports and high-resolution images straight to your phone for rapid consultation.
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100">
-              <span className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-sm mb-3">
+            <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#0E1A30] border border-slate-100 dark:border-slate-800">
+              <span className="w-8 h-8 rounded-lg bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 flex items-center justify-center font-bold text-xs mb-2.5">
                 03
               </span>
-              <h4 className="font-bold text-[#002047] text-sm">DICOM Digital Disc</h4>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+              <h4 className="font-bold text-[#002047] dark:text-white text-xs sm:text-sm">DICOM Digital Disc</h4>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
                 Complete raw DICOM slice datasets burned to CD/DVD or flash drive for surgical teams and overseas specialists.
               </p>
             </div>
 
-            <div className="p-5 rounded-2xl bg-slate-50 border border-slate-100">
-              <span className="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-800 flex items-center justify-center font-bold text-sm mb-3">
+            <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#0E1A30] border border-slate-100 dark:border-slate-800">
+              <span className="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-950/60 text-indigo-800 dark:text-indigo-300 flex items-center justify-center font-bold text-xs mb-2.5">
                 04
               </span>
-              <h4 className="font-bold text-[#002047] text-sm">Physician Direct Call</h4>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
+              <h4 className="font-bold text-[#002047] dark:text-white text-xs sm:text-sm">Physician Direct Call</h4>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
                 For urgent or unexpected findings, our radiologist directly contacts your treating doctor immediately.
               </p>
             </div>
@@ -320,7 +322,7 @@ export default function PatientsPage() {
         </section>
 
         {/* FAQs Accordion */}
-        <section className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm">
+        <section className="bg-white dark:bg-[#0A1324] rounded-2xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800/80 shadow-xs">
           <SectionHeading
             badge="Common Questions"
             title="Frequently Asked"
@@ -329,30 +331,30 @@ export default function PatientsPage() {
             centered
           />
 
-          <div className="max-w-3xl mx-auto space-y-3 mt-6">
+          <div className="max-w-3xl mx-auto space-y-2.5 mt-6">
             {faqs.map((faq, i) => {
               const isOpen = openFaq === i;
               return (
                 <div
                   key={i}
-                  className="rounded-2xl border border-slate-200 overflow-hidden transition-colors"
+                  className="rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden transition-colors"
                 >
                   <button
                     onClick={() => setOpenFaq(isOpen ? null : i)}
-                    className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 bg-slate-50 hover:bg-slate-100 transition-colors"
+                    className="w-full p-3.5 sm:p-4 text-left flex items-center justify-between gap-4 bg-slate-50 dark:bg-[#0E1A30] hover:bg-slate-100 dark:hover:bg-[#12203d] transition-colors"
                   >
-                    <span className="font-bold text-[#002047] text-sm sm:text-base">
+                    <span className="font-bold text-[#002047] dark:text-white text-xs sm:text-sm">
                       {faq.q}
                     </span>
                     <ChevronDown
-                      className={`w-5 h-5 text-slate-400 shrink-0 transition-transform duration-200 ${
+                      className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200 ${
                         isOpen ? "rotate-180 text-[#B61F32]" : ""
                       }`}
                     />
                   </button>
 
                   {isOpen && (
-                    <div className="p-5 bg-white border-t border-slate-100 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                    <div className="p-4 bg-white dark:bg-[#0A1324] border-t border-slate-100 dark:border-slate-800 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                       {faq.a}
                     </div>
                   )}

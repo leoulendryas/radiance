@@ -1,20 +1,26 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-radiance-navy: #002047;
-  --color-radiance-navy-dark: #001533;
+  --color-radiance-navy-dark: #001229;
   --color-radiance-navy-light: #0d3164;
   --color-radiance-red: #B61F32;
-  --color-radiance-red-dark: #911624;
+  --color-radiance-red-dark: #8F1726;
   --color-radiance-red-light: #D62B41;
   --color-radiance-blue-soft: #F0F6FC;
   --color-radiance-blue-ice: #E2EEFB;
-  --color-radiance-teal: #0D9488;
 }
 
 :root {
-  --background: #ffffff;
+  --background: #fbfcfe;
   --foreground: #0f172a;
+}
+
+.dark {
+  --background: #050b14;
+  --foreground: #f1f5f9;
 }
 
 html {
@@ -22,46 +28,29 @@ html {
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   overflow-x: hidden;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  letter-spacing: -0.011em;
 }
 
-/* Custom medical scrollbar */
+/* Subtle clean scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
-  border-radius: 4px;
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
-}
-
-/* Subtle glow effects */
-.glow-red {
-  box-shadow: 0 0 25px -5px rgba(182, 31, 50, 0.35);
-}
-
-.glow-navy {
-  box-shadow: 0 10px 30px -10px rgba(0, 32, 71, 0.25);
-}
-
-/* Pulse animation for emergency / alert indicators */
-@keyframes heartPulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.08);
-  }
-}
-
-.animate-heart-pulse {
-  animation: heartPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
