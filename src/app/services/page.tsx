@@ -24,13 +24,13 @@ export default function ServicesPage() {
   const { t } = useLanguage();
 
   const categories = [
-    { id: "all", label: "All Services (50+)", icon: Sparkles },
-    { id: "ultrasound", label: "3G Ultrasound (27)", icon: Activity },
-    { id: "xray", label: "Digital X-Ray (24)", icon: Zap },
-    { id: "special-procedure", label: "Special Procedures (5)", icon: Sparkles },
-    { id: "ct-mri", label: "CT & MRI Reading", icon: FileCheck },
-    { id: "multispeciality", label: "Specialty Clinics", icon: Stethoscope },
-    { id: "laboratory", label: "Diagnostic Lab", icon: FlaskConical },
+    { id: "all", label: t.servicesPage.categories.all, icon: Sparkles },
+    { id: "ultrasound", label: t.servicesPage.categories.ultrasound, icon: Activity },
+    { id: "xray", label: t.servicesPage.categories.xray, icon: Zap },
+    { id: "special-procedure", label: t.servicesPage.categories.special, icon: Sparkles },
+    { id: "ct-mri", label: t.servicesPage.categories.ctMri, icon: FileCheck },
+    { id: "multispeciality", label: t.servicesPage.categories.clinic, icon: Stethoscope },
+    { id: "laboratory", label: t.servicesPage.categories.lab, icon: FlaskConical },
   ];
 
   const filteredServices = useMemo(() => {
@@ -58,13 +58,13 @@ export default function ServicesPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl space-y-3">
             <span className="inline-block px-2.5 py-1 rounded-md bg-[#B61F32] text-white text-[11px] font-semibold uppercase tracking-wider">
-              Diagnostic & Clinical Directory
+              {t.servicesPage.badge}
             </span>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight">
-              Medical & Diagnostic Services
+              {t.servicesPage.title}
             </h1>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Explore our complete directory of 27 ultrasound modalities, 24 digital X-rays, specialized contrast studies (HSG, IVU, Barium), CT/MRI readings, and clinical consultations.
+              {t.servicesPage.description}
             </p>
           </div>
         </div>
@@ -81,7 +81,7 @@ export default function ServicesPage() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search scans, organs, or symptoms (Doppler, HSG, Knee, Chest)..."
+                placeholder={t.servicesPage.searchPlaceholder}
                 className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50 focus:outline-none focus:ring-1 focus:ring-[#B61F32] text-xs text-slate-800 dark:text-slate-200 placeholder-slate-400"
               />
               {searchQuery && (
@@ -89,13 +89,13 @@ export default function ServicesPage() {
                   onClick={() => setSearchQuery("")}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-semibold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 bg-slate-200/60 dark:bg-slate-800 px-1.5 py-0.5 rounded"
                 >
-                  Clear
+                  {t.servicesPage.clearBtn}
                 </button>
               )}
             </div>
 
             <div className="text-xs text-slate-500 dark:text-slate-400 font-medium w-full md:w-auto text-right">
-              Showing <span className="text-[#B61F32] dark:text-red-400 font-bold">{filteredServices.length}</span> of {ALL_SERVICES.length} examinations
+              {t.servicesPage.showingText(filteredServices.length, ALL_SERVICES.length)}
             </div>
           </div>
 
@@ -208,7 +208,7 @@ export default function ServicesPage() {
                     </p>
 
                     <div className="mt-3.5 p-2.5 rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-100 dark:border-slate-800/60">
-                      <p className="text-[10px] font-bold text-[#002047] dark:text-slate-300 uppercase">Preparation:</p>
+                      <p className="text-[10px] font-bold text-[#002047] dark:text-slate-300 uppercase">{t.servicesPage.prepLabel}</p>
                       <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-0.5 line-clamp-2">
                         {service.preparation}
                       </p>
@@ -226,7 +226,7 @@ export default function ServicesPage() {
                       className="inline-flex items-center gap-1 text-xs font-semibold bg-[#B61F32] hover:bg-[#8F1726] text-white px-3 py-1.5 rounded-lg transition-colors"
                     >
                       <Calendar className="w-3 h-3" />
-                      <span>Book Exam</span>
+                      <span>{t.servicesPage.bookScanBtn}</span>
                     </Link>
                   </div>
                 </div>

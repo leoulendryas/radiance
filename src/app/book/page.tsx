@@ -130,10 +130,10 @@ function BookingWizard() {
                   {step > s ? <CheckCircle2 className="w-3.5 h-3.5" /> : s}
                 </div>
                 <span className="hidden sm:inline text-xs font-semibold text-slate-600 dark:text-slate-400">
-                  {s === 1 && "Service"}
-                  {s === 2 && "Examination"}
-                  {s === 3 && "Date & Time"}
-                  {s === 4 && "Patient Info"}
+                  {s === 1 && t.bookingWizard.steps.service}
+                  {s === 2 && t.bookingWizard.steps.examination}
+                  {s === 3 && t.bookingWizard.steps.dateTime}
+                  {s === 4 && t.bookingWizard.steps.patientInfo}
                 </span>
               </div>
             ))}
@@ -151,25 +151,25 @@ function BookingWizard() {
       {step === 1 && (
         <div className="bg-white dark:bg-[#0A1324] rounded-2xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800/80 shadow-xs space-y-6">
           <div className="text-center max-w-xl mx-auto">
-            <span className="text-xs font-bold text-[#B61F32] uppercase tracking-wider">Step 1 of 4</span>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-[#002047] dark:text-white mt-1">Select Service Category</h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Choose the type of diagnostic scan or clinical consultation you require.</p>
+            <span className="text-xs font-bold text-[#B61F32] uppercase tracking-wider">{t.bookingWizard.stepOf(1, 4)}</span>
+            <h2 className="text-xl sm:text-2xl font-extrabold text-[#002047] dark:text-white mt-1">{t.bookingWizard.step1Title}</h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{t.bookingWizard.step1Desc}</p>
           </div>
 
           {/* Mobile swipe hint */}
           <div className="sm:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 mb-2.5 px-0.5">
-            <span className="font-semibold uppercase tracking-wider">Service Categories</span>
+            <span className="font-semibold uppercase tracking-wider">{t.bookingWizard.steps.service}</span>
             <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe sideways &rarr;</span>
           </div>
 
           <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-3.5 overflow-x-auto sm:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 pb-2 sm:pb-0">
             {[
-              { id: "ultrasound", title: "3G Ultrasound", desc: "27 Scans (3D/4D, Doppler, MSK, TVS)", icon: Activity, count: "27 Scans" },
-              { id: "xray", title: "Digital X-Ray", desc: "24 Full-Body Skeletal Views", icon: Zap, count: "24 Views" },
-              { id: "special-procedure", title: "Special Fluoroscopy", desc: "HSG, IVU, CUG, Barium Studies", icon: Sparkles, count: "5 Procedures" },
-              { id: "ct-mri", title: "CT & MRI Reading", desc: "Consultant Radiologist Second Opinions", icon: FileCheck, count: "Tele-Radiology" },
-              { id: "multispeciality", title: "Doctor Consultation", desc: "Cardiology, OB/GYN, Pediatrics, Ortho", icon: Stethoscope, count: "8 Clinics" },
-              { id: "laboratory", title: "Diagnostic Lab", desc: "Automated CBC, Biochemistry, Hormones", icon: Sparkles, count: "Rapid Panels" },
+              { id: "ultrasound", title: t.bookingWizard.categories.ultrasound.title, desc: t.bookingWizard.categories.ultrasound.desc, icon: Activity, count: t.bookingWizard.categories.ultrasound.count },
+              { id: "xray", title: t.bookingWizard.categories.xray.title, desc: t.bookingWizard.categories.xray.desc, icon: Zap, count: t.bookingWizard.categories.xray.count },
+              { id: "special-procedure", title: t.bookingWizard.categories.special.title, desc: t.bookingWizard.categories.special.desc, icon: Sparkles, count: t.bookingWizard.categories.special.count },
+              { id: "ct-mri", title: t.bookingWizard.categories.ctMri.title, desc: t.bookingWizard.categories.ctMri.desc, icon: FileCheck, count: t.bookingWizard.categories.ctMri.count },
+              { id: "multispeciality", title: t.bookingWizard.categories.clinic.title, desc: t.bookingWizard.categories.clinic.desc, icon: Stethoscope, count: t.bookingWizard.categories.clinic.count },
+              { id: "laboratory", title: t.bookingWizard.categories.lab.title, desc: t.bookingWizard.categories.lab.desc, icon: Sparkles, count: t.bookingWizard.categories.lab.count },
             ].map((cat) => {
               const Icon = cat.icon;
               const isSelected = selectedCategory === cat.id;
@@ -208,7 +208,7 @@ function BookingWizard() {
               onClick={handleNext}
               className="inline-flex items-center gap-2 bg-[#B61F32] hover:bg-[#911624] text-white text-xs font-semibold px-5 py-2.5 rounded-lg shadow-xs transition-all"
             >
-              <span>Continue to Specific Scan</span>
+              <span>{t.bookingWizard.continueToScan}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -219,10 +219,10 @@ function BookingWizard() {
       {step === 2 && (
         <div className="bg-white dark:bg-[#0A1324] rounded-2xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800/80 shadow-xs space-y-6">
           <div className="text-center max-w-xl mx-auto">
-            <span className="text-xs font-bold text-[#B61F32] uppercase tracking-wider">Step 2 of 4</span>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-[#002047] dark:text-white mt-1">Select Your Specific Examination</h2>
+            <span className="text-xs font-bold text-[#B61F32] uppercase tracking-wider">{t.bookingWizard.stepOf(2, 4)}</span>
+            <h2 className="text-xl sm:text-2xl font-extrabold text-[#002047] dark:text-white mt-1">{t.bookingWizard.step2Title}</h2>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-              Select the exact examination specified on your doctor&apos;s request or referral.
+              {t.bookingWizard.step2Desc}
             </p>
           </div>
 
@@ -250,7 +250,7 @@ function BookingWizard() {
                     </div>
                     <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{srv.shortDescription}</p>
                     <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-1">
-                      <strong>Prep:</strong> {srv.preparation}
+                      <strong>{t.bookingWizard.prepLabel}</strong> {srv.preparation}
                     </p>
                   </div>
                   <div className={`w-4 h-4 rounded-full border flex items-center justify-center shrink-0 mt-1 ${
@@ -269,13 +269,13 @@ function BookingWizard() {
               className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-800 px-3 py-1.5"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span>Back</span>
+              <span>{t.bookingWizard.backBtn}</span>
             </button>
             <button
               onClick={handleNext}
               className="inline-flex items-center gap-2 bg-[#B61F32] hover:bg-[#911624] text-white text-xs font-semibold px-5 py-2.5 rounded-lg shadow-xs transition-all"
             >
-              <span>Continue to Schedule</span>
+              <span>{t.bookingWizard.continueToSchedule}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -286,15 +286,15 @@ function BookingWizard() {
       {step === 3 && (
         <div className="bg-white dark:bg-[#0A1324] rounded-2xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800/80 shadow-xs space-y-6">
           <div className="text-center max-w-xl mx-auto">
-            <span className="text-xs font-bold text-[#B61F32] uppercase tracking-wider">Step 3 of 4</span>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-[#002047] dark:text-white mt-1">Choose Location & Date</h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Select your preferred branch and convenient arrival time.</p>
+            <span className="text-xs font-bold text-[#B61F32] uppercase tracking-wider">{t.bookingWizard.stepOf(3, 4)}</span>
+            <h2 className="text-xl sm:text-2xl font-extrabold text-[#002047] dark:text-white mt-1">{t.bookingWizard.step3Title}</h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{t.bookingWizard.step3Desc}</p>
           </div>
 
           {/* Branch Selector */}
           <div>
             <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-2">
-              Select Clinic Center:
+              {t.bookingWizard.selectClinicLabel}
             </label>
             <div className="flex sm:grid sm:grid-cols-2 gap-3.5 overflow-x-auto sm:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 pb-2 sm:pb-0">
               <button
@@ -312,7 +312,7 @@ function BookingWizard() {
                     3G Imaging
                   </span>
                 </div>
-                <h4 className="font-bold text-xs sm:text-sm text-[#002047] dark:text-white">3G Diagnostic Imaging (Adi Dero)</h4>
+                <h4 className="font-bold text-xs sm:text-sm text-[#002047] dark:text-white">{t.branches.adiDeroTitle}</h4>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">
                   {t.branches.adiDeroAddress}
                 </p>
@@ -334,7 +334,7 @@ function BookingWizard() {
                     Multispeciality
                   </span>
                 </div>
-                <h4 className="font-bold text-xs sm:text-sm text-[#002047] dark:text-white">Radiance Clinic (Bahir Dar)</h4>
+                <h4 className="font-bold text-xs sm:text-sm text-[#002047] dark:text-white">{t.branches.bahirDarTitle}</h4>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-1">{t.branches.bahirDarAddress}</p>
                 <p className="text-[11px] font-bold text-[#002047] dark:text-blue-400 mt-2">Tel: {CLINIC_INFO.primaryPhone}</p>
               </button>
@@ -344,7 +344,7 @@ function BookingWizard() {
           {/* Date & Time Picker */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Preferred Date *</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{t.bookingWizard.preferredDateLabel}</label>
               <input
                 type="date"
                 required
@@ -355,17 +355,15 @@ function BookingWizard() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Preferred Time Window</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{t.bookingWizard.preferredTimeLabel}</label>
               <select
                 value={appointmentTime}
                 onChange={(e) => setAppointmentTime(e.target.value)}
                 className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#0E1A30] text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#B61F32]"
               >
-                <option>08:00 AM - 10:00 AM (Morning Slot)</option>
-                <option>10:00 AM - 12:00 PM (Midday Slot)</option>
-                <option>01:30 PM - 03:30 PM (Afternoon Slot)</option>
-                <option>03:30 PM - 06:00 PM (Evening Slot)</option>
-                <option>Urgent / Today Walk-In Triage</option>
+                {t.bookingWizard.timeSlots.map((slot, i) => (
+                  <option key={i} value={slot}>{slot}</option>
+                ))}
               </select>
             </div>
           </div>
@@ -376,13 +374,13 @@ function BookingWizard() {
               className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-800 px-3 py-1.5"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span>Back</span>
+              <span>{t.bookingWizard.backBtn}</span>
             </button>
             <button
               onClick={handleNext}
               className="inline-flex items-center gap-2 bg-[#B61F32] hover:bg-[#911624] text-white text-xs font-semibold px-5 py-2.5 rounded-lg shadow-xs transition-all"
             >
-              <span>Continue to Patient Details</span>
+              <span>{t.bookingWizard.continueToPatient}</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>
@@ -393,15 +391,15 @@ function BookingWizard() {
       {step === 4 && (
         <div className="bg-white dark:bg-[#0A1324] rounded-2xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800/80 shadow-xs space-y-6">
           <div className="text-center max-w-xl mx-auto">
-            <span className="text-xs font-bold text-[#B61F32] uppercase tracking-wider">Step 4 of 4</span>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-[#002047] dark:text-white mt-1">Patient Information</h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Provide contact details to receive your booking confirmation and preparation instructions.</p>
+            <span className="text-xs font-bold text-[#B61F32] uppercase tracking-wider">{t.bookingWizard.stepOf(4, 4)}</span>
+            <h2 className="text-xl sm:text-2xl font-extrabold text-[#002047] dark:text-white mt-1">{t.bookingWizard.step4Title}</h2>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">{t.bookingWizard.step4Desc}</p>
           </div>
 
           <div className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Patient Full Name *</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{t.bookingWizard.patientNameLabel}</label>
                 <input
                   type="text"
                   required
@@ -413,7 +411,7 @@ function BookingWizard() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Phone Number (WhatsApp for Report) *</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{t.bookingWizard.phoneLabel}</label>
                 <input
                   type="tel"
                   required
@@ -427,7 +425,7 @@ function BookingWizard() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Age / Gender</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{t.bookingWizard.ageLabel}</label>
                 <input
                   type="text"
                   value={patientAge}
@@ -438,7 +436,7 @@ function BookingWizard() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Referring Doctor / Hospital (Optional)</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{t.bookingWizard.doctorLabel}</label>
                 <input
                   type="text"
                   value={referringDoctor}
@@ -450,7 +448,7 @@ function BookingWizard() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Reason for Scan / Symptoms (Optional)</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">{t.bookingWizard.notesLabel}</label>
               <textarea
                 rows={3}
                 value={notes}
@@ -463,15 +461,15 @@ function BookingWizard() {
 
           {/* Booking Summary Box */}
           <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#0E1A30] border border-slate-200 dark:border-slate-800 text-xs space-y-1">
-            <p className="font-bold text-[#002047] dark:text-white">Summary:</p>
+            <p className="font-bold text-[#002047] dark:text-white">{t.bookingWizard.summaryLabel}</p>
             <p className="text-slate-600 dark:text-slate-400">
-              <strong className="text-slate-800 dark:text-slate-200">Exam:</strong> {currentService?.name}
+              <strong className="text-slate-800 dark:text-slate-200">{t.bookingWizard.examLabel}</strong> {currentService?.name}
             </p>
             <p className="text-slate-600 dark:text-slate-400">
-              <strong className="text-slate-800 dark:text-slate-200">Location:</strong> {selectedBranch === "adi-dero" ? "3G Diagnostic Imaging (Adi Dero)" : "Radiance Clinic (Bahir Dar)"}
+              <strong className="text-slate-800 dark:text-slate-200">{t.bookingWizard.locationLabel}</strong> {selectedBranch === "adi-dero" ? t.branches.adiDeroTitle : t.branches.bahirDarTitle}
             </p>
             <p className="text-slate-600 dark:text-slate-400">
-              <strong className="text-slate-800 dark:text-slate-200">Time:</strong> {appointmentDate || "Selected Day"} • {appointmentTime}
+              <strong className="text-slate-800 dark:text-slate-200">{t.bookingWizard.timeLabel}</strong> {appointmentDate || "Selected Day"} • {appointmentTime}
             </p>
           </div>
 
@@ -482,7 +480,7 @@ function BookingWizard() {
               className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-800 px-3 py-1.5"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span>Back</span>
+              <span>{t.bookingWizard.backBtn}</span>
             </button>
             <button
               onClick={handleNext}
@@ -492,12 +490,12 @@ function BookingWizard() {
               {isSubmitting ? (
                 <>
                   <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  <span>Submitting & Sending...</span>
+                  <span>{t.bookingWizard.submittingBtn}</span>
                 </>
               ) : (
                 <>
                   <CheckCircle2 className="w-4 h-4" />
-                  <span>Confirm & Book Appointment</span>
+                  <span>{t.bookingWizard.confirmBtn}</span>
                 </>
               )}
             </button>
@@ -514,31 +512,31 @@ function BookingWizard() {
 
           <div>
             <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 uppercase tracking-wider">
-              Booking Received & Registered
+              {t.bookingWizard.step5Badge}
             </span>
             <h2 className="text-xl sm:text-2xl font-extrabold text-[#002047] dark:text-white mt-2.5">
-              Appointment Scheduled Successfully!
+              {t.bookingWizard.step5Title}
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mt-1.5 max-w-lg mx-auto">
-              Your appointment request has been recorded in our clinical database. Send your booking details directly to our reception WhatsApp for instant priority confirmation.
+              {t.bookingWizard.step5Desc}
             </p>
           </div>
 
           {/* Reference badge */}
           <div className="inline-block p-4 rounded-xl bg-slate-50 dark:bg-[#0E1A30] border border-slate-200 dark:border-slate-800 text-left max-w-md mx-auto w-full">
             <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-2 mb-2">
-              <span className="text-xs text-slate-400 font-semibold uppercase">Booking Ref:</span>
+              <span className="text-xs text-slate-400 font-semibold uppercase">{t.bookingWizard.refLabel}</span>
               <span className="text-sm font-bold text-[#B61F32] tracking-wider">{bookingRef}</span>
             </div>
             <div className="space-y-1 text-xs text-slate-600 dark:text-slate-400">
-              <p><strong className="text-slate-800 dark:text-slate-200">Patient:</strong> {patientName}</p>
-              <p><strong className="text-slate-800 dark:text-slate-200">Service:</strong> {currentService?.name}</p>
+              <p><strong className="text-slate-800 dark:text-slate-200">{t.bookingWizard.patientLabel}</strong> {patientName}</p>
+              <p><strong className="text-slate-800 dark:text-slate-200">{t.bookingWizard.serviceLabel}</strong> {currentService?.name}</p>
               <p>
-                <strong className="text-slate-800 dark:text-slate-200">Branch:</strong>{" "}
-                {selectedBranch === "adi-dero" ? "3G Diagnostic Imaging (Adi Dero)" : "Radiance Clinic (Bahir Dar)"}
+                <strong className="text-slate-800 dark:text-slate-200">{t.bookingWizard.branchLabel}</strong>{" "}
+                {selectedBranch === "adi-dero" ? t.branches.adiDeroTitle : t.branches.bahirDarTitle}
               </p>
-              <p><strong className="text-slate-800 dark:text-slate-200">Scheduled Time:</strong> {appointmentDate || "Next Available"} • {appointmentTime}</p>
-              <p><strong className="text-slate-800 dark:text-slate-200">Database Status:</strong> <span className="text-emerald-600 dark:text-emerald-400 font-semibold">Logged in Clinical Registry</span></p>
+              <p><strong className="text-slate-800 dark:text-slate-200">{t.bookingWizard.scheduledTimeLabel}</strong> {appointmentDate || "Next Available"} • {appointmentTime}</p>
+              <p><strong className="text-slate-800 dark:text-slate-200">{t.bookingWizard.dbStatusLabel}</strong> <span className="text-emerald-600 dark:text-emerald-400 font-semibold">{t.bookingWizard.dbStatusValue}</span></p>
             </div>
           </div>
 
@@ -552,7 +550,7 @@ function BookingWizard() {
                 `• Patient Name: ${patientName}\n` +
                 `• Phone Number: ${patientPhone}\n` +
                 `• Service: ${currentService?.name}\n` +
-                `• Branch: ${selectedBranch === "adi-dero" ? "3G Diagnostic Imaging (Adi Dero)" : "Radiance Clinic (Bahir Dar)"}\n` +
+                `• Branch: ${selectedBranch === "adi-dero" ? t.branches.adiDeroTitle : t.branches.bahirDarTitle}\n` +
                 `• Preferred Date: ${appointmentDate || "Next Available"}\n` +
                 `• Preferred Time: ${appointmentTime}\n` +
                 (patientAge ? `• Age: ${patientAge}\n` : "") +
@@ -565,10 +563,10 @@ function BookingWizard() {
               className="w-full inline-flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs sm:text-sm font-bold px-6 py-3 rounded-xl shadow-md transition-all"
             >
               <Phone className="w-4 h-4" />
-              <span>Send Details to Reception WhatsApp</span>
+              <span>{t.bookingWizard.sendWhatsAppBtn}</span>
             </a>
             <p className="text-[11px] text-slate-400 mt-1">
-              Direct message to clinic line: +251 990 084 747
+              {t.bookingWizard.receptionNotice}
             </p>
           </div>
 
@@ -576,7 +574,7 @@ function BookingWizard() {
           <div className="p-4 rounded-xl bg-red-50/60 dark:bg-red-950/20 border border-red-200/70 dark:border-red-900/40 text-left max-w-md mx-auto">
             <div className="flex items-center gap-2 text-xs font-bold text-[#B61F32] uppercase mb-1">
               <AlertCircle className="w-3.5 h-3.5" />
-              <span>Important Preparation for {currentService?.name}:</span>
+              <span>{t.bookingWizard.prepAlertPrefix}{currentService?.name}:</span>
             </div>
             <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium">
               {currentService?.preparation}
@@ -589,7 +587,7 @@ function BookingWizard() {
               href="/"
               className="inline-flex items-center gap-2 bg-[#002047] dark:bg-slate-800 hover:bg-[#092f61] text-white text-xs font-semibold px-5 py-2.5 rounded-lg transition-colors"
             >
-              <span>Return to Home</span>
+              <span>{t.bookingWizard.returnHomeBtn}</span>
             </Link>
 
             <a
@@ -597,7 +595,7 @@ function BookingWizard() {
               className="inline-flex items-center gap-2 bg-white dark:bg-[#0E1A30] hover:bg-slate-100 dark:hover:bg-slate-800 text-[#002047] dark:text-white text-xs font-semibold px-5 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 transition-colors"
             >
               <Phone className="w-4 h-4 text-[#B61F32]" />
-              <span>Call Reception ({CLINIC_INFO.primaryPhone})</span>
+              <span>{t.bookingWizard.callReceptionBtn} ({CLINIC_INFO.primaryPhone})</span>
             </a>
           </div>
         </div>

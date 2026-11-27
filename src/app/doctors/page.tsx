@@ -7,15 +7,11 @@ import {
   Phone,
   Clock,
   Languages,
-  Award,
   GraduationCap,
-  MapPin,
-  CheckCircle2,
-  Stethoscope
+  MapPin
 } from "lucide-react";
 import { DOCTORS_DATA } from "@/data/doctorsData";
 import { CLINIC_INFO } from "@/data/clinicInfo";
-import SectionHeading from "@/components/SectionHeading";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function DoctorsPage() {
@@ -30,13 +26,13 @@ export default function DoctorsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl space-y-3">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B61F32] text-white text-xs font-bold uppercase tracking-wider">
-              Clinical Leadership
+              {t.doctorsPage.badge}
             </span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-              Medical Professionals & Healthcare Team
+              {t.doctorsPage.title}
             </h1>
             <p className="text-sm sm:text-base text-slate-200 leading-relaxed">
-              A dedicated team of skilled, fellowship-trained radiologists and compassionate specialists committed to your health and well-being in Adi Dero and Bahir Dar.
+              {t.doctorsPage.description}
             </p>
           </div>
         </div>
@@ -46,8 +42,8 @@ export default function DoctorsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 space-y-12">
         {/* Mobile swipe hint */}
         <div className="md:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 -mb-9 px-0.5">
-          <span className="font-semibold uppercase tracking-wider">Our Healthcare Team</span>
-          <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe profiles &rarr;</span>
+          <span className="font-semibold uppercase tracking-wider">{t.doctorsPage.badge}</span>
+          <span className="text-[#B61F32] dark:text-red-400 font-medium">{t.doctorsPage.swipeHint}</span>
         </div>
 
         <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-3 md:pb-0 pt-2 md:pt-0">
@@ -99,7 +95,7 @@ export default function DoctorsPage() {
 
                     <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                       <Languages className="w-4 h-4 text-slate-400 shrink-0" />
-                      <span>Languages: {doc.languages.join(", ")}</span>
+                      <span>{t.doctorsPage.languagesLabel}{doc.languages.join(", ")}</span>
                     </div>
 
                     <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
@@ -117,7 +113,7 @@ export default function DoctorsPage() {
                   className="w-full inline-flex items-center justify-center gap-2 bg-[#002047] dark:bg-slate-800 hover:bg-[#B61F32] dark:hover:bg-[#B61F32] text-white text-xs font-semibold py-2.5 rounded-lg transition-colors shadow-xs"
                 >
                   <Calendar className="w-3.5 h-3.5" />
-                  <span>Book Consultation With {doc.name.split(" ")[1]}</span>
+                  <span>{t.doctorsPage.bookConsultationWith(doc.name.split(" ")[1] || doc.name)}</span>
                 </Link>
               </div>
             </div>
@@ -128,13 +124,13 @@ export default function DoctorsPage() {
         <div className="bg-gradient-to-r from-[#001229] via-[#002047] to-[#0A2540] rounded-2xl p-6 sm:p-8 text-white shadow-md border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 max-w-2xl">
             <span className="px-2.5 py-0.5 rounded-full bg-[#B61F32] text-white text-xs font-bold">
-              Collaborative Diagnostics
+              {t.doctorsPage.collaborativeBadge}
             </span>
             <h3 className="text-lg sm:text-xl font-bold">
-              Direct Clinician-to-Radiologist Case Reviews
+              {t.doctorsPage.collaborativeTitle}
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              We work closely with referring clinicians across the region. Bring your requisition slip or contact our radiologist directly to coordinate urgent scans or patient case discussions.
+              {t.doctorsPage.collaborativeDesc}
             </p>
           </div>
 
@@ -143,7 +139,7 @@ export default function DoctorsPage() {
             className="shrink-0 inline-flex items-center gap-2 bg-[#B61F32] hover:bg-[#911624] text-white px-5 py-2.5 rounded-lg font-semibold text-xs sm:text-sm shadow-xs transition-all"
           >
             <Phone className="w-4 h-4" />
-            <span>Call Radiologist ({CLINIC_INFO.primaryPhone})</span>
+            <span>{t.doctorsPage.callDoctorBtn} ({CLINIC_INFO.primaryPhone})</span>
           </a>
         </div>
       </div>

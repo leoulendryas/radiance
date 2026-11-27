@@ -45,35 +45,35 @@ export default function Navbar() {
 
   const serviceItems = [
     {
-      name: t.nav.services + " Catalog",
+      name: t.nav.servicesCatalog,
       href: "/services",
-      desc: "50+ complete ultrasound, x-ray & lab list",
+      desc: t.nav.catalogDesc,
       icon: Sparkles
     },
     {
       name: t.nav.ultrasound,
       href: "/services/ultrasound",
-      desc: "27 sonography modalities & 4D imaging",
+      desc: t.nav.usDesc,
       icon: Activity,
       badge: "27 Scans"
     },
     {
       name: t.nav.xray,
       href: "/services/digital-xray",
-      desc: "24 digital views + HSG, IVU & Barium",
+      desc: t.nav.xrayDesc,
       icon: Zap,
       badge: "29 Views"
     },
     {
       name: t.nav.ctMri,
       href: "/services/ct-mri-consultation",
-      desc: "Consultant second opinions & tele-radiology",
+      desc: t.nav.ctDesc,
       icon: FileCheck
     },
     {
       name: t.nav.multispeciality,
       href: "/services/multispeciality",
-      desc: "Cardiology, OB/GYN, Pediatrics & Lab",
+      desc: t.nav.multiDesc,
       icon: Stethoscope
     }
   ];

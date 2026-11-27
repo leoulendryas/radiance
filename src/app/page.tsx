@@ -93,7 +93,7 @@ export default function HomePage() {
 
               {/* Stats Bar */}
               <div className="pt-6 sm:pt-8 border-t border-white/10 flex sm:grid sm:grid-cols-4 gap-4 sm:gap-6 text-left overflow-x-auto no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
-                {CLINIC_INFO.stats.map((st, i) => (
+                {t.hero.stats.map((st, i) => (
                   <div key={i} className="min-w-[120px] sm:min-w-0 shrink-0">
                     <p className="text-xl sm:text-2xl font-bold text-white font-mono">{st.value}</p>
                     <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5 whitespace-nowrap sm:whitespace-normal">{st.label}</p>
@@ -146,8 +146,8 @@ export default function HomePage() {
       <section className="py-14 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         {/* Mobile swipe hint */}
         <div className="sm:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 mb-2.5 px-0.5">
-          <span className="font-semibold uppercase tracking-wider">Core Clinical Pillars</span>
-          <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe sideways &rarr;</span>
+          <span className="font-semibold uppercase tracking-wider">{t.pillars.badge}</span>
+          <span className="text-[#B61F32] dark:text-red-400 font-medium">{t.pillars.swipeHint}</span>
         </div>
 
         <div className="flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 overflow-x-auto sm:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0 pb-3 sm:pb-0">
@@ -162,18 +162,18 @@ export default function HomePage() {
               </div>
               <div className="flex items-center justify-between">
                 <h3 className="font-bold text-sm sm:text-base text-[#002047] dark:text-white group-hover:text-[#B61F32] dark:group-hover:text-red-400 transition-colors">
-                  3G Ultrasound Suite
+                  {t.pillars.ultrasound.title}
                 </h3>
                 <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-                  27 Scans
+                  {t.pillars.ultrasound.count}
                 </span>
               </div>
               <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
-                Abdominal, vascular Doppler, 3D/4D fetal scans, MSK, pediatric hip screening, and echocardiography.
+                {t.pillars.ultrasound.desc}
               </p>
             </div>
             <div className="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-xs font-semibold text-[#B61F32] dark:text-red-400">
-              <span>View Ultrasound</span>
+              <span>{t.pillars.ultrasound.cta}</span>
               <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </div>
           </Link>
@@ -189,18 +189,18 @@ export default function HomePage() {
               </div>
               <div className="flex items-center justify-between">
                 <h3 className="font-bold text-sm sm:text-base text-[#002047] dark:text-white group-hover:text-[#B61F32] dark:group-hover:text-red-400 transition-colors">
-                  Digital X-Ray
+                  {t.pillars.xray.title}
                 </h3>
                 <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-                  24 Views
+                  {t.pillars.xray.count}
                 </span>
               </div>
               <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
-                High-definition digital skeletal imaging for chest, skull, spine, pelvis, and limbs with minimal radiation.
+                {t.pillars.xray.desc}
               </p>
             </div>
             <div className="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-xs font-semibold text-[#002047] dark:text-slate-300">
-              <span>Skeletal Catalog</span>
+              <span>{t.pillars.xray.cta}</span>
               <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </div>
           </Link>
@@ -216,18 +216,18 @@ export default function HomePage() {
               </div>
               <div className="flex items-center justify-between">
                 <h3 className="font-bold text-sm sm:text-base text-[#002047] dark:text-white group-hover:text-[#B61F32] dark:group-hover:text-red-400 transition-colors">
-                  Special Procedures
+                  {t.pillars.special.title}
                 </h3>
                 <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-                  Fluoroscopy
+                  {t.pillars.special.count}
                 </span>
               </div>
               <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
-                HSG fertility tubal patency evaluation, IVU/IVP urinary studies, CUG, and Barium swallow/enema.
+                {t.pillars.special.desc}
               </p>
             </div>
             <div className="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-xs font-semibold text-[#B61F32] dark:text-red-400">
-              <span>Fertility & GI</span>
+              <span>{t.pillars.special.cta}</span>
               <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </div>
           </Link>
@@ -243,18 +243,18 @@ export default function HomePage() {
               </div>
               <div className="flex items-center justify-between">
                 <h3 className="font-bold text-sm sm:text-base text-[#002047] dark:text-white group-hover:text-[#B61F32] dark:group-hover:text-red-400 transition-colors">
-                  CT & MRI Reading
+                  {t.pillars.ctMri.title}
                 </h3>
                 <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-                  Second Opinions
+                  {t.pillars.ctMri.count}
                 </span>
               </div>
               <p className="text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
-                Subspecialty tele-radiology interpretation and case discussions with Senior Consultant Radiologists.
+                {t.pillars.ctMri.desc}
               </p>
             </div>
             <div className="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-xs font-semibold text-[#002047] dark:text-slate-300">
-              <span>Request Review</span>
+              <span>{t.pillars.ctMri.cta}</span>
               <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </div>
           </Link>
@@ -267,17 +267,17 @@ export default function HomePage() {
       <section className="py-16 sm:py-20 bg-slate-100/60 dark:bg-[#070F1E] border-y border-slate-200/60 dark:border-slate-800/80 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="Diagnostic Sonography"
-            title="3G Ultrasound Services:"
-            highlightText="27 Precision Modalities"
-            subtitle="From obstetric 3D/4D scans and vascular Doppler to neonatal neuro-sonography and guided FNAC biopsy."
+            badge={t.usSection.badge}
+            title={t.usSection.title}
+            highlightText={t.usSection.highlight}
+            subtitle={t.usSection.subtitle}
             centered
           />
 
           {/* Mobile swipe hint */}
           <div className="md:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 mb-3 px-0.5">
-            <span className="font-semibold uppercase tracking-wider">Precision Modalities</span>
-            <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe sideways &rarr;</span>
+            <span className="font-semibold uppercase tracking-wider">{t.usSection.badge}</span>
+            <span className="text-[#B61F32] dark:text-red-400 font-medium">{t.usSection.swipeHint}</span>
           </div>
 
           <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-3 md:pb-0">
@@ -305,7 +305,7 @@ export default function HomePage() {
                   </p>
 
                   <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/60 text-xs text-slate-500 dark:text-slate-400">
-                    <strong className="text-slate-700 dark:text-slate-300">Prep: </strong>
+                    <strong className="text-slate-700 dark:text-slate-300">{t.usSection.prepLabel}</strong>
                     <span>{srv.preparation}</span>
                   </div>
                 </div>
@@ -315,7 +315,7 @@ export default function HomePage() {
                     href={`/services/ultrasound#${srv.id}`}
                     className="text-xs font-semibold text-[#002047] dark:text-slate-300 hover:text-[#B61F32] dark:hover:text-red-400 flex items-center gap-1"
                   >
-                    <span>Details</span>
+                    <span>{t.usSection.detailsBtn}</span>
                     <ChevronRight className="w-3.5 h-3.5" />
                   </Link>
 
@@ -323,7 +323,7 @@ export default function HomePage() {
                     href={`/book?service=${srv.id}`}
                     className="text-xs font-semibold bg-[#B61F32] hover:bg-[#8F1726] text-white px-3 py-1.5 rounded-lg transition-colors"
                   >
-                    Book Scan
+                    {t.usSection.bookScanBtn}
                   </Link>
                 </div>
               </div>
@@ -335,7 +335,7 @@ export default function HomePage() {
               href="/services/ultrasound"
               className="inline-flex items-center gap-2 bg-[#002047] dark:bg-slate-800 hover:bg-[#001838] dark:hover:bg-slate-700 text-white text-xs sm:text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors"
             >
-              <span>Explore All 27 Ultrasound Modalities</span>
+              <span>{t.usSection.exploreAllBtn}</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -349,16 +349,16 @@ export default function HomePage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-6 space-y-5">
             <span className="text-xs font-semibold px-2.5 py-1 rounded-md bg-red-50 dark:bg-red-950/40 text-[#B61F32] dark:text-red-400 border border-red-200/50 dark:border-red-900/40 uppercase tracking-wider">
-              Specialized Fluoroscopy
+              {t.specialSection.badge}
             </span>
 
             <h2 className="text-2xl sm:text-3xl font-bold text-[#002047] dark:text-white leading-tight">
-              Special Procedures: <br />
-              <span className="text-[#B61F32] dark:text-red-400">HSG, IVU, CUG & Barium Series</span>
+              {t.specialSection.title} <br />
+              <span className="text-[#B61F32] dark:text-red-400">{t.specialSection.highlight}</span>
             </h2>
 
             <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-              When standard non-contrast imaging requires functional visualization, our radiologists perform fluoroscopic investigations with patient dignity, comfort, and immediate report turnaround.
+              {t.specialSection.description}
             </p>
 
             <div className="space-y-3 pt-1">
@@ -375,7 +375,7 @@ export default function HomePage() {
                 href="/services/digital-xray#special-procedures"
                 className="inline-flex items-center gap-2 bg-[#B61F32] hover:bg-[#8F1726] text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-colors"
               >
-                <span>Preparation & Procedure Guides</span>
+                <span>{t.specialSection.prepBtn}</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
@@ -392,9 +392,9 @@ export default function HomePage() {
                 />
               </div>
               <div className="p-5">
-                <h4 className="text-sm font-bold text-[#002047] dark:text-white">Gentle, Dignified Patient Handling</h4>
+                <h4 className="text-sm font-bold text-[#002047] dark:text-white">{t.specialSection.suiteTitle}</h4>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  Private exam environments, compassionate clinical team, and direct coordination with your referring physician.
+                  {t.specialSection.suiteDesc}
                 </p>
               </div>
             </div>
@@ -410,17 +410,17 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-6 space-y-4">
               <span className="text-xs font-semibold px-2.5 py-1 rounded-md bg-red-50 dark:bg-red-950/40 text-[#B61F32] dark:text-red-400 border border-red-200/50 dark:border-red-900/40 uppercase tracking-wider">
-                04 • About the Clinic
+                {t.aboutSection.badge}
               </span>
               <h2 className="text-2xl sm:text-3xl font-bold text-[#002047] dark:text-white leading-tight">
-                Better Health. Brighter Tomorrow. <br />
-                <span className="text-[#B61F32] dark:text-red-400">Radiance Clinic & 3G Diagnostic Imaging</span>
+                {t.aboutSection.title} <br />
+                <span className="text-[#B61F32] dark:text-red-400">{t.aboutSection.highlight}</span>
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                Radiance Multispeciality Clinic and 3G Diagnostic Imaging Center was established with a singular mission: to provide accessible, reliable, and compassionate healthcare to our community.
+                {t.aboutSection.p1}
               </p>
               <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                Operating high-precision imaging hubs in Adi Dero and Bahir Dar, our centers bring together senior fellowship-trained radiologists, modern 3D/4D ultrasound systems, digital radiography, and an automated pathology lab.
+                {t.aboutSection.p2}
               </p>
 
               <div className="pt-2 flex flex-wrap items-center gap-3">
@@ -428,7 +428,7 @@ export default function HomePage() {
                   href="/about"
                   className="inline-flex items-center gap-2 bg-[#002047] dark:bg-slate-800 hover:bg-[#092f61] text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-colors"
                 >
-                  <span>Read Full Clinic Story</span>
+                  <span>{t.aboutSection.storyBtn}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
                 <Link
@@ -436,7 +436,7 @@ export default function HomePage() {
                   className="inline-flex items-center gap-2 bg-slate-100 dark:bg-slate-900 text-slate-700 dark:text-slate-300 hover:bg-slate-200 text-xs font-semibold px-4 py-2.5 rounded-xl transition-colors"
                 >
                   <Users className="w-3.5 h-3.5 text-[#B61F32]" />
-                  <span>Clinical Leadership</span>
+                  <span>{t.aboutSection.leadershipBtn}</span>
                 </Link>
               </div>
             </div>
@@ -453,11 +453,11 @@ export default function HomePage() {
                 </div>
                 <div className="p-4 bg-[#001533] text-white flex items-center justify-between">
                   <div>
-                    <p className="text-xs text-red-300 font-semibold">Flagship Facilities</p>
-                    <h4 className="text-xs sm:text-sm font-bold">Adi Dero & Bahir Dar Healthcare Hubs</h4>
+                    <p className="text-xs text-red-300 font-semibold">{t.aboutSection.flagshipSubtitle}</p>
+                    <h4 className="text-xs sm:text-sm font-bold">{t.aboutSection.flagshipTitle}</h4>
                   </div>
                   <span className="px-2 py-0.5 rounded bg-[#B61F32] text-white text-[10px] font-bold">
-                    Safe & Modern
+                    {t.aboutSection.safeModernBadge}
                   </span>
                 </div>
               </div>
@@ -472,59 +472,41 @@ export default function HomePage() {
       <section className="py-16 sm:py-20 bg-white dark:bg-[#050B14] transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="05 • Why Choose Us?"
-            title="The Radiance Standard:"
-            highlightText="Why Patients Trust Us"
-            subtitle="Guided by our healthcare philosophy: high standards of diagnostic accuracy, patient safety, and compassionate clinical care."
+            badge={t.whyUs.badge}
+            title={t.whyUs.title}
+            highlightText={t.whyUs.highlight}
+            subtitle={t.whyUs.subtitle}
             centered
           />
 
           {/* Mobile swipe hint */}
           <div className="md:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 mb-3 px-0.5">
-            <span className="font-semibold uppercase tracking-wider">Why Choose Us</span>
-            <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe sideways &rarr;</span>
+            <span className="font-semibold uppercase tracking-wider">{t.whyUs.badge}</span>
+            <span className="text-[#B61F32] dark:text-red-400 font-medium">{t.whyUs.swipeHint}</span>
           </div>
 
           <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-3 md:pb-0">
-            <div className="w-[78vw] max-w-[270px] md:w-auto shrink-0 snap-start p-5 sm:p-6 rounded-2xl bg-slate-50 dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80">
-              <div className="w-9 h-9 rounded-lg bg-red-50 dark:bg-red-950/40 text-[#B61F32] dark:text-red-400 flex items-center justify-center mb-3.5">
-                <Users className="w-4 h-4" />
-              </div>
-              <h3 className="font-bold text-sm text-[#002047] dark:text-white">Patient-First Care</h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
-                Prioritizing patient comfort, clear communication, gentle scan handling, and dignity at every step.
-              </p>
-            </div>
-
-            <div className="w-[78vw] max-w-[270px] md:w-auto shrink-0 snap-start p-5 sm:p-6 rounded-2xl bg-slate-50 dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80">
-              <div className="w-9 h-9 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-[#002047] dark:text-blue-400 flex items-center justify-center mb-3.5">
-                <ShieldCheck className="w-4 h-4" />
-              </div>
-              <h3 className="font-bold text-sm text-[#002047] dark:text-white">Quality & Safety</h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
-                Strict acoustic transducer hygiene, ALARA low-radiation X-ray protocols, and daily calibration controls.
-              </p>
-            </div>
-
-            <div className="w-[78vw] max-w-[270px] md:w-auto shrink-0 snap-start p-5 sm:p-6 rounded-2xl bg-slate-50 dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80">
-              <div className="w-9 h-9 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-3.5">
-                <Sparkles className="w-4 h-4" />
-              </div>
-              <h3 className="font-bold text-sm text-[#002047] dark:text-white">Modern Technology</h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
-                High-frequency linear and 3D/4D matrix transducers, digital flat-panel X-rays, and automated analyzers.
-              </p>
-            </div>
-
-            <div className="w-[78vw] max-w-[270px] md:w-auto shrink-0 snap-start p-5 sm:p-6 rounded-2xl bg-slate-50 dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80">
-              <div className="w-9 h-9 rounded-lg bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-3.5">
-                <Award className="w-4 h-4" />
-              </div>
-              <h3 className="font-bold text-sm text-[#002047] dark:text-white">Clinical Integrity</h3>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
-                Honest recommendations, transparent second opinions, and reliable written radiological reporting.
-              </p>
-            </div>
+            {t.whyUs.items.map((item, idx) => {
+              const icons = [Users, ShieldCheck, Sparkles, Award];
+              const IconComp = icons[idx] || ShieldCheck;
+              const colors = [
+                "bg-red-50 dark:bg-red-950/40 text-[#B61F32] dark:text-red-400",
+                "bg-blue-50 dark:bg-blue-950/40 text-[#002047] dark:text-blue-400",
+                "bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400",
+                "bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400"
+              ];
+              return (
+                <div key={idx} className="w-[78vw] max-w-[270px] md:w-auto shrink-0 snap-start p-5 sm:p-6 rounded-2xl bg-slate-50 dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80">
+                  <div className={`w-9 h-9 rounded-lg ${colors[idx % colors.length]} flex items-center justify-center mb-3.5`}>
+                    <IconComp className="w-4 h-4" />
+                  </div>
+                  <h3 className="font-bold text-sm text-[#002047] dark:text-white">{item.title}</h3>
+                  <p className="text-xs text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -536,24 +518,24 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
             <SectionHeading
-              badge="06 • Clinical Leadership"
-              title="Meet Our Doctors &"
-              highlightText="Consultant Radiologists"
-              subtitle="Fellowship-trained medical specialists dedicated to diagnostic accuracy and patient well-being."
+              badge={t.doctorsSection.badge}
+              title={t.doctorsSection.title}
+              highlightText={t.doctorsSection.highlight}
+              subtitle={t.doctorsSection.subtitle}
             />
             <Link
               href="/doctors"
               className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#B61F32] dark:text-red-400 hover:underline shrink-0"
             >
-              <span>View All Medical Specialists</span>
+              <span>{t.doctorsSection.viewAllBtn}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
 
           {/* Mobile swipe hint */}
           <div className="md:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 mb-3 px-0.5">
-            <span className="font-semibold uppercase tracking-wider">Medical Team</span>
-            <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe profiles &rarr;</span>
+            <span className="font-semibold uppercase tracking-wider">{t.doctorsSection.badge}</span>
+            <span className="text-[#B61F32] dark:text-red-400 font-medium">{t.doctorsSection.swipeHint}</span>
           </div>
 
           <div className="flex md:grid md:grid-cols-3 gap-5 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-3 md:pb-0">
@@ -606,7 +588,7 @@ export default function HomePage() {
                     className="w-full inline-flex items-center justify-center gap-1.5 bg-slate-100 dark:bg-slate-800 hover:bg-[#B61F32] dark:hover:bg-[#B61F32] text-[#002047] dark:text-white hover:text-white text-xs font-semibold py-2 rounded-lg transition-colors"
                   >
                     <Calendar className="w-3 h-3" />
-                    <span>Book Consultation</span>
+                    <span>{t.doctorsSection.bookConsultation}</span>
                   </Link>
                 </div>
               </div>
@@ -621,95 +603,55 @@ export default function HomePage() {
       <section className="py-16 sm:py-20 bg-white dark:bg-[#050B14] transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="07 • Modern Infrastructure"
-            title="Medical Facilities &"
-            highlightText="Diagnostic Technology"
-            subtitle="Advanced clinical imaging environments designed for patient safety, sterile comfort, and diagnostic clarity."
+            badge={t.facilitiesSection.badge}
+            title={t.facilitiesSection.title}
+            highlightText={t.facilitiesSection.highlight}
+            subtitle={t.facilitiesSection.subtitle}
             centered
           />
 
           {/* Mobile swipe hint */}
           <div className="md:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 mb-3 px-0.5">
-            <span className="font-semibold uppercase tracking-wider">Facility Tour</span>
-            <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe sideways &rarr;</span>
+            <span className="font-semibold uppercase tracking-wider">{t.facilitiesSection.badge}</span>
+            <span className="text-[#B61F32] dark:text-red-400 font-medium">{t.facilitiesSection.swipeHint}</span>
           </div>
 
           <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-3 md:pb-0">
-            {/* Facility 1 */}
-            <div className="w-[80vw] max-w-[290px] md:w-auto shrink-0 snap-start bg-slate-50 dark:bg-[#0A1324] rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between">
-              <div className="relative h-48 w-full bg-slate-200 dark:bg-slate-900">
-                <Image
-                  src="/images/photo-ultrasound.jpg"
-                  alt="3D/4D Ultrasound Suite"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-4 space-y-1">
-                <span className="text-[10px] font-bold uppercase text-[#B61F32] dark:text-red-400">Precision Imaging</span>
-                <h4 className="text-sm font-bold text-[#002047] dark:text-white">3G Ultrasound Suite</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                  High-frequency matrix probes with real-time 3D/4D fetal surface rendering and color Doppler hemodynamics.
-                </p>
-              </div>
-            </div>
-
-            {/* Facility 2 */}
-            <div className="w-[80vw] max-w-[290px] md:w-auto shrink-0 snap-start bg-slate-50 dark:bg-[#0A1324] rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between">
-              <div className="relative h-48 w-full bg-slate-200 dark:bg-slate-900">
-                <Image
-                  src="/images/photo-ct-mri.jpg"
-                  alt="Digital Radiography Suite"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-4 space-y-1">
-                <span className="text-[10px] font-bold uppercase text-blue-600 dark:text-blue-400">Radiology Suite</span>
-                <h4 className="text-sm font-bold text-[#002047] dark:text-white">Digital X-Ray Suite</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                  Flat-panel digital detectors providing instantaneous high-contrast bone views with minimal radiation exposure.
-                </p>
-              </div>
-            </div>
-
-            {/* Facility 3 */}
-            <div className="w-[80vw] max-w-[290px] md:w-auto shrink-0 snap-start bg-slate-50 dark:bg-[#0A1324] rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between">
-              <div className="relative h-48 w-full bg-slate-200 dark:bg-slate-900">
-                <Image
-                  src="/images/photo-lab.jpg"
-                  alt="Automated Pathology Laboratory"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-4 space-y-1">
-                <span className="text-[10px] font-bold uppercase text-emerald-600 dark:text-emerald-400">Rapid Pathology</span>
-                <h4 className="text-sm font-bold text-[#002047] dark:text-white">Clinical Pathology Lab</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                  Automated biochemistry and hematology analyzers with same-day digital result delivery in 30 minutes.
-                </p>
-              </div>
-            </div>
-
-            {/* Facility 4 */}
-            <div className="w-[80vw] max-w-[290px] md:w-auto shrink-0 snap-start bg-slate-50 dark:bg-[#0A1324] rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between">
-              <div className="relative h-48 w-full bg-slate-200 dark:bg-slate-900">
-                <Image
-                  src="/images/photo-reception.jpg"
-                  alt="Patient Triage & Front Desk"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-4 space-y-1">
-                <span className="text-[10px] font-bold uppercase text-amber-600 dark:text-amber-400">Patient Care</span>
-                <h4 className="text-sm font-bold text-[#002047] dark:text-white">Reception & Consultation</h4>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                  Spacious, welcoming waiting area, private doctor consultation suites, and 24/7 emergency triage desks.
-                </p>
-              </div>
-            </div>
+            {t.facilitiesSection.items.map((fac, idx) => {
+              const images = [
+                "/images/photo-ultrasound.jpg",
+                "/images/photo-ct-mri.jpg",
+                "/images/photo-lab.jpg",
+                "/images/photo-reception.jpg"
+              ];
+              const tagColors = [
+                "text-[#B61F32] dark:text-red-400",
+                "text-blue-600 dark:text-blue-400",
+                "text-emerald-600 dark:text-emerald-400",
+                "text-amber-600 dark:text-amber-400"
+              ];
+              return (
+                <div key={idx} className="w-[80vw] max-w-[290px] md:w-auto shrink-0 snap-start bg-slate-50 dark:bg-[#0A1324] rounded-2xl overflow-hidden border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between">
+                  <div className="relative h-48 w-full bg-slate-200 dark:bg-slate-900">
+                    <Image
+                      src={images[idx] || images[0]}
+                      alt={fac.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="p-4 space-y-1">
+                    <span className={`text-[10px] font-bold uppercase ${tagColors[idx % tagColors.length]}`}>
+                      {fac.category}
+                    </span>
+                    <h4 className="text-sm font-bold text-[#002047] dark:text-white">{fac.title}</h4>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                      {fac.desc}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -720,37 +662,35 @@ export default function HomePage() {
       <section className="py-16 sm:py-20 bg-slate-100/60 dark:bg-[#070F1E] border-y border-slate-200/60 dark:border-slate-800/80 transition-colors">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            badge="08 • Patient Reviews"
-            title="Patient Testimonials"
-            highlightText="(Verified Experiences)"
-            subtitle="Read what patients across Adi Dero, Bahir Dar, and the region say about our diagnostic accuracy and care."
+            badge={t.testimonialsSection.badge}
+            title={t.testimonialsSection.title}
+            highlightText={t.testimonialsSection.highlight}
+            subtitle={t.testimonialsSection.subtitle}
             centered
           />
 
           {/* Mobile swipe hint */}
           <div className="md:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 mb-3 px-0.5">
-            <span className="font-semibold uppercase tracking-wider">Verified Reviews</span>
-            <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe sideways &rarr;</span>
+            <span className="font-semibold uppercase tracking-wider">{t.testimonialsSection.badge}</span>
+            <span className="text-[#B61F32] dark:text-red-400 font-medium">{t.testimonialsSection.swipeHint}</span>
           </div>
 
           <div className="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-3 md:pb-0">
-            {TESTIMONIALS_DATA.map((rev) => (
+            {t.testimonialsSection.items.map((rev, idx) => (
               <div
-                key={rev.id}
+                key={idx}
                 className="w-[80vw] max-w-[290px] md:w-auto shrink-0 snap-start p-5 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between shadow-xs"
               >
                 <div>
                   <div className="flex items-center justify-between mb-2.5">
                     <div className="flex items-center gap-1 text-amber-500">
-                      {[...Array(rev.rating)].map((_, i) => (
+                      {[...Array(5)].map((_, i) => (
                         <Star key={i} className="w-3.5 h-3.5 fill-current" />
                       ))}
                     </div>
-                    {rev.verified && (
-                      <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60">
-                        Verified
-                      </span>
-                    )}
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60">
+                      {t.testimonialsSection.verifiedBadge}
+                    </span>
                   </div>
 
                   <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed italic">
@@ -774,17 +714,17 @@ export default function HomePage() {
       {/* ======================================================== */}
       <section className="py-16 sm:py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <SectionHeading
-          badge="09 • Branches & Google Maps"
-          title="Visit Our Diagnostic Hubs in"
-          highlightText="Adi Dero & Bahir Dar"
-          subtitle="Direct phone lines, verified Google Maps directions, and coordinated patient care across both facilities."
+          badge={t.branchesSection.badge}
+          title={t.branchesSection.title}
+          highlightText={t.branchesSection.highlight}
+          subtitle={t.branchesSection.subtitle}
           centered
         />
 
         {/* Mobile swipe hint */}
         <div className="md:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 mb-3 px-0.5">
-          <span className="font-semibold uppercase tracking-wider">Our Clinic Hubs</span>
-          <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe sideways &rarr;</span>
+          <span className="font-semibold uppercase tracking-wider">{t.branchesSection.badge}</span>
+          <span className="text-[#B61F32] dark:text-red-400 font-medium">{t.branchesSection.swipeHint}</span>
         </div>
 
         <div className="flex md:grid md:grid-cols-2 gap-5 md:gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-4 px-4 md:mx-0 md:px-0 pb-3 md:pb-0">
@@ -792,7 +732,7 @@ export default function HomePage() {
           <div className="w-[86vw] max-w-[360px] md:w-auto shrink-0 snap-start p-6 sm:p-7 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between">
             <div className="space-y-3">
               <span className="text-[11px] font-bold text-[#B61F32] dark:text-red-400 uppercase tracking-wider block">
-                Branch 1 • Flagship Diagnostic Center
+                {t.branches.adiDeroBranchName}
               </span>
               <h3 className="text-lg sm:text-xl font-bold text-[#002047] dark:text-white">
                 {t.branches.adiDeroTitle}
@@ -810,7 +750,7 @@ export default function HomePage() {
 
               <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800">
                 <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">
-                  Location & Directions:
+                  {t.branchesSection.locationDirectionsLabel}
                 </p>
                 <p className="text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 leading-relaxed">
                   {t.branches.adiDeroAddress}
@@ -827,7 +767,7 @@ export default function HomePage() {
                 </p>
                 <p className="flex items-center gap-2">
                   <Clock className="w-3.5 h-3.5 text-slate-400" />
-                  <span>Mon - Sun: 7:30 AM - 8:30 PM (24/7 Emergency Support)</span>
+                  <span>{t.branches.adiDeroHours}</span>
                 </p>
               </div>
             </div>
@@ -837,7 +777,7 @@ export default function HomePage() {
                 href={`tel:${CLINIC_INFO.phone1.replace(/\s+/g, "")}`}
                 className="flex-1 text-center bg-[#B61F32] hover:bg-[#8F1726] text-white text-xs font-semibold py-2.5 rounded-lg transition-colors"
               >
-                Call {CLINIC_INFO.phone1}
+                {t.branchesSection.callBtn} {CLINIC_INFO.phone1}
               </a>
               <a
                 href="https://www.google.com/maps/search/?api=1&query=Adi+Dero+Raphael+Hospital"
@@ -845,14 +785,14 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 className="px-3.5 py-2.5 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/60 rounded-lg transition-colors inline-flex items-center gap-1.5"
               >
-                <span>Google Maps</span>
+                <span>{t.branchesSection.mapsBtn}</span>
                 <ExternalLink className="w-3 h-3" />
               </a>
               <Link
                 href="/book?branch=adi-dero"
                 className="px-3.5 py-2.5 bg-[#002047] dark:bg-slate-800 text-white text-xs font-semibold rounded-lg hover:bg-[#092f61] transition-colors"
               >
-                Book
+                {t.branchesSection.bookBtn}
               </Link>
             </div>
           </div>
@@ -861,7 +801,7 @@ export default function HomePage() {
           <div className="w-[86vw] max-w-[360px] md:w-auto shrink-0 snap-start p-6 sm:p-7 rounded-2xl bg-white dark:bg-[#0A1324] border border-slate-200/80 dark:border-slate-800/80 flex flex-col justify-between">
             <div className="space-y-3">
               <span className="text-[11px] font-bold text-[#002047] dark:text-slate-400 uppercase tracking-wider block">
-                Branch 2 • Multispeciality Medical Hub
+                {t.branches.bahirDarBranchName}
               </span>
               <h3 className="text-lg sm:text-xl font-bold text-[#002047] dark:text-white">
                 {t.branches.bahirDarTitle}
@@ -879,7 +819,7 @@ export default function HomePage() {
 
               <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/60 dark:border-slate-800">
                 <p className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">
-                  Location & Address:
+                  {t.branchesSection.locationAddressLabel}
                 </p>
                 <p className="text-xs sm:text-sm font-medium text-slate-800 dark:text-slate-200 leading-relaxed">
                   {t.branches.bahirDarAddress}
@@ -896,7 +836,7 @@ export default function HomePage() {
                 </p>
                 <p className="flex items-center gap-2">
                   <Clock className="w-3.5 h-3.5 text-slate-400" />
-                  <span>Mon - Sat: 8:00 AM - 8:00 PM | Sun: 8:30 AM - 5:00 PM</span>
+                  <span>{t.branches.bahirDarHours}</span>
                 </p>
               </div>
             </div>
@@ -906,7 +846,7 @@ export default function HomePage() {
                 href={`tel:${CLINIC_INFO.phone2.replace(/\s+/g, "")}`}
                 className="flex-1 text-center bg-[#002047] dark:bg-slate-800 hover:bg-[#092f61] text-white text-xs font-semibold py-2.5 rounded-lg transition-colors"
               >
-                Call {CLINIC_INFO.phone2}
+                {t.branchesSection.callBtn} {CLINIC_INFO.phone2}
               </a>
               <a
                 href="https://www.google.com/maps/search/?api=1&query=Bahir+Dar+Kebele+14+Ethiopia"
@@ -914,14 +854,14 @@ export default function HomePage() {
                 rel="noopener noreferrer"
                 className="px-3.5 py-2.5 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800/60 rounded-lg transition-colors inline-flex items-center gap-1.5"
               >
-                <span>Google Maps</span>
+                <span>{t.branchesSection.mapsBtn}</span>
                 <ExternalLink className="w-3 h-3" />
               </a>
               <Link
                 href="/book?branch=bahir-dar"
                 className="px-3.5 py-2.5 bg-[#B61F32] hover:bg-[#8F1726] text-white text-xs font-semibold rounded-lg transition-colors"
               >
-                Book
+                {t.branchesSection.bookBtn}
               </Link>
             </div>
           </div>
@@ -935,13 +875,13 @@ export default function HomePage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
           <EcgDivider />
           <span className="inline-block px-3 py-1 rounded-full bg-[#B61F32] text-white text-xs font-bold uppercase tracking-wider">
-            10 • Appointment & Direct Contact
+            {t.ctaSection.badge}
           </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
-            Schedule an Ultrasound, Digital X-Ray or Doctor Consultation
+            {t.ctaSection.title}
           </h2>
           <p className="text-slate-200 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed">
-            Fast online appointment booking, clear preparation checklists, seasoned consultant radiologists, and same-day digital report delivery to your mobile phone.
+            {t.ctaSection.description}
           </p>
 
           <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
@@ -950,7 +890,7 @@ export default function HomePage() {
               className="inline-flex items-center gap-2 bg-[#B61F32] hover:bg-[#8F1726] text-white text-xs sm:text-sm font-semibold px-6 py-3 rounded-xl shadow-md transition-all"
             >
               <Calendar className="w-4 h-4" />
-              <span>Book Appointment Online</span>
+              <span>{t.ctaSection.bookBtn}</span>
             </Link>
 
             <a
@@ -966,7 +906,7 @@ export default function HomePage() {
               className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-semibold px-5 py-3 rounded-xl border border-white/20 transition-all"
             >
               <MapPin className="w-4 h-4 text-red-400" />
-              <span>Contact Locations</span>
+              <span>{t.ctaSection.contactBtn}</span>
             </Link>
           </div>
         </div>

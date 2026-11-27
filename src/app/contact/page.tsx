@@ -3,23 +3,19 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  MapPin,
   Phone,
   Mail,
   Clock,
   HeartPulse,
   Send,
   CheckCircle2,
-  AlertCircle,
-  Building2,
-  Calendar
+  Building2
 } from "lucide-react";
 import { CLINIC_INFO } from "@/data/clinicInfo";
-import SectionHeading from "@/components/SectionHeading";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function ContactPage() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -57,13 +53,13 @@ export default function ContactPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl space-y-3">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B61F32] text-white text-xs font-bold uppercase tracking-wider">
-              Locations & Assistance
+              {t.contactPage.badge}
             </span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-              Contact & Clinic Locations
+              {t.contactPage.title}
             </h1>
             <p className="text-sm sm:text-base text-slate-200 leading-relaxed">
-              We operate two dedicated centers in Adi Dero and Bahir Dar. Reach out via direct phone, submit an appointment request, or visit our front desk.
+              {t.contactPage.description}
             </p>
           </div>
         </div>
@@ -72,8 +68,8 @@ export default function ContactPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 space-y-12">
         {/* Mobile swipe hint */}
         <div className="lg:hidden flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500 -mb-9 px-0.5">
-          <span className="font-semibold uppercase tracking-wider">Our Clinic Locations</span>
-          <span className="text-[#B61F32] dark:text-red-400 font-medium">Swipe sideways &rarr;</span>
+          <span className="font-semibold uppercase tracking-wider">{t.contactPage.title}</span>
+          <span className="text-[#B61F32] dark:text-red-400 font-medium">{t.contactPage.swipeHint}</span>
         </div>
 
         {/* Dual Location Detailed Cards */}
@@ -83,15 +79,15 @@ export default function ContactPage() {
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B61F32] text-white text-xs font-bold tracking-wide mb-3">
                 <HeartPulse className="w-3.5 h-3.5" />
-                <span>3G Diagnostic Imaging • Adi Dero</span>
+                <span>{t.branches.adiDeroTitle}</span>
               </div>
 
               <h2 className="text-xl sm:text-2xl font-extrabold text-[#002047] dark:text-white">
-                3G Diagnostic Imaging Center
+                {t.branches.adiDeroTitle}
               </h2>
 
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Specialized Ultrasound, Digital X-Ray & Contrast Procedures
+                {t.branches.adiDeroTagline}
               </p>
 
               {/* Localized directions box */}
@@ -113,7 +109,7 @@ export default function ContactPage() {
                     <Phone className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 uppercase font-semibold block">Primary Telephone</span>
+                    <span className="text-[10px] text-slate-400 uppercase font-semibold block">{t.contactPage.primaryPhoneLabel}</span>
                     <div className="flex flex-wrap items-center gap-2">
                       <a href={`tel:${CLINIC_INFO.primaryPhone.replace(/\s+/g, "")}`} className="text-sm font-bold text-[#002047] dark:text-white hover:text-[#B61F32]">
                         {CLINIC_INFO.primaryPhone}
@@ -131,8 +127,8 @@ export default function ContactPage() {
                     <Clock className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 uppercase font-semibold block">Opening Hours</span>
-                    <span className="font-medium text-slate-700 dark:text-slate-300">Monday – Sunday: 7:30 AM – 8:30 PM (24/7 Emergency Support)</span>
+                    <span className="text-[10px] text-slate-400 uppercase font-semibold block">{t.contactPage.hoursLabel}</span>
+                    <span className="font-medium text-slate-700 dark:text-slate-300">{t.branches.adiDeroHours}</span>
                   </div>
                 </div>
               </div>
@@ -143,13 +139,13 @@ export default function ContactPage() {
                 href={`tel:${CLINIC_INFO.primaryPhone.replace(/\s+/g, "")}`}
                 className="flex-1 text-center bg-[#B61F32] hover:bg-[#911624] text-white text-xs font-semibold py-2.5 rounded-lg transition-colors shadow-xs"
               >
-                Call {CLINIC_INFO.primaryPhone}
+                {t.contactPage.callBranch1}
               </a>
               <Link
                 href="/book?branch=adi-dero"
                 className="flex-1 text-center bg-[#002047] dark:bg-slate-800 hover:bg-[#092f61] text-white text-xs font-semibold py-2.5 rounded-lg transition-colors"
               >
-                Book Scan in Adi Dero
+                {t.contactPage.bookBranch1}
               </Link>
             </div>
           </div>
@@ -159,15 +155,15 @@ export default function ContactPage() {
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#002047] dark:bg-slate-800 text-white text-xs font-bold tracking-wide mb-3">
                 <Building2 className="w-3.5 h-3.5 text-red-400" />
-                <span>Multispeciality Medical Hub • Bahir Dar</span>
+                <span>{t.branches.bahirDarTitle}</span>
               </div>
 
               <h2 className="text-xl sm:text-2xl font-extrabold text-[#002047] dark:text-white">
-                Radiance Multispeciality Clinic
+                {t.branches.bahirDarTitle}
               </h2>
 
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Clinical Consultations, Pathology Lab & Diagnostic Radiology
+                {t.branches.bahirDarTagline}
               </p>
 
               <div className="mt-4 p-4 rounded-xl bg-blue-50/60 dark:bg-blue-950/20 border border-blue-200/70 dark:border-blue-900/40">
@@ -188,7 +184,7 @@ export default function ContactPage() {
                     <Phone className="w-4 h-4 text-[#B61F32]" />
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 uppercase font-semibold block">Direct Mobile Lines</span>
+                    <span className="text-[10px] text-slate-400 uppercase font-semibold block">{t.contactPage.mobileLinesLabel}</span>
                     <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-bold text-[#002047] dark:text-white">
                       <a href={`tel:${CLINIC_INFO.primaryPhone.replace(/\s+/g, "")}`} className="hover:text-[#B61F32]">{CLINIC_INFO.primaryPhone}</a>
                       <span className="text-slate-400">•</span>
@@ -202,7 +198,7 @@ export default function ContactPage() {
                     <Mail className="w-4 h-4 text-[#B61F32]" />
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 uppercase font-semibold block">Email Inquiries</span>
+                    <span className="text-[10px] text-slate-400 uppercase font-semibold block">{t.contactPage.emailLabel}</span>
                     <a href={`mailto:${CLINIC_INFO.email}`} className="font-semibold text-slate-700 dark:text-slate-300 hover:text-[#B61F32]">
                       {CLINIC_INFO.email}
                     </a>
@@ -214,8 +210,8 @@ export default function ContactPage() {
                     <Clock className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 uppercase font-semibold block">Hours</span>
-                    <span className="font-medium text-slate-700 dark:text-slate-300">Mon – Sat: 8:00 AM – 8:00 PM | Sun: 8:30 AM – 5:00 PM</span>
+                    <span className="text-[10px] text-slate-400 uppercase font-semibold block">{t.contactPage.hoursLabel}</span>
+                    <span className="font-medium text-slate-700 dark:text-slate-300">{t.branches.bahirDarHours}</span>
                   </div>
                 </div>
               </div>
@@ -226,13 +222,13 @@ export default function ContactPage() {
                 href={`tel:${CLINIC_INFO.primaryPhone.replace(/\s+/g, "")}`}
                 className="flex-1 text-center bg-[#002047] dark:bg-slate-800 hover:bg-[#092f61] text-white text-xs font-semibold py-2.5 rounded-lg transition-colors shadow-xs"
               >
-                Call Bahir Dar
+                {t.contactPage.callBranch2}
               </a>
               <Link
                 href="/book?branch=bahir-dar"
                 className="flex-1 text-center bg-[#B61F32] hover:bg-[#911624] text-white text-xs font-semibold py-2.5 rounded-lg transition-colors"
               >
-                Book in Bahir Dar
+                {t.contactPage.bookBranch2}
               </Link>
             </div>
           </div>
@@ -242,17 +238,17 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* Contact Form */}
           <div className="lg:col-span-7 bg-white dark:bg-[#0A1324] rounded-2xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800/80 shadow-xs">
-            <h3 className="text-lg sm:text-xl font-bold text-[#002047] dark:text-white mb-1">Send Us an Inquiry</h3>
+            <h3 className="text-lg sm:text-xl font-bold text-[#002047] dark:text-white mb-1">{t.contactPage.formTitle}</h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 mb-5">
-              Our clinical care coordinators typically respond within 1-2 hours during working hours.
+              {t.contactPage.formDesc}
             </p>
 
             {submitted ? (
               <div className="p-6 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/50 text-center space-y-3">
                 <CheckCircle2 className="w-8 h-8 text-emerald-600 mx-auto" />
-                <h4 className="font-bold text-emerald-900 dark:text-emerald-200 text-sm">Inquiry Received & Logged</h4>
+                <h4 className="font-bold text-emerald-900 dark:text-emerald-200 text-sm">{t.contactPage.successTitle}</h4>
                 <p className="text-xs text-emerald-700 dark:text-emerald-300 max-w-sm mx-auto leading-relaxed">
-                  Thank you, <strong>{formData.name}</strong>. Your inquiry has been sent to our clinical team. We will call you at <strong>{formData.phone}</strong> shortly.
+                  {t.contactPage.successDesc(formData.name, formData.phone)}
                 </p>
                 <div className="pt-2">
                   <a
@@ -269,14 +265,14 @@ export default function ContactPage() {
                     className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs font-bold px-4 py-2 rounded-lg shadow-xs transition-colors"
                   >
                     <Phone className="w-3.5 h-3.5" />
-                    <span>Also Send to WhatsApp (+251 990 084 747)</span>
+                    <span>{t.contactPage.alsoWhatsAppBtn}</span>
                   </a>
                 </div>
                 <button
                   onClick={() => setSubmitted(false)}
                   className="block mx-auto text-xs font-semibold text-emerald-800 dark:text-emerald-300 underline pt-1"
                 >
-                  Send another message
+                  {t.contactPage.sendAnotherBtn}
                 </button>
               </div>
             ) : (
@@ -284,7 +280,7 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                      Full Name *
+                      {t.contactPage.fullNameLabel}
                     </label>
                     <input
                       type="text"
@@ -298,7 +294,7 @@ export default function ContactPage() {
 
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                      Phone Number *
+                      {t.contactPage.phoneLabel}
                     </label>
                     <input
                       type="tel"
@@ -314,40 +310,40 @@ export default function ContactPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                      Preferred Clinic Center
+                      {t.contactPage.clinicLabel}
                     </label>
                     <select
                       value={formData.location}
                       onChange={(e) => setFormData({ ...formData, location: e.target.value })}
                       className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#0E1A30] text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#B61F32]"
                     >
-                      <option value="adi-dero">3G Diagnostic Imaging (Adi Dero)</option>
-                      <option value="bahir-dar">Radiance Multispeciality (Bahir Dar)</option>
+                      <option value="adi-dero">{t.branches.adiDeroTitle}</option>
+                      <option value="bahir-dar">{t.branches.bahirDarTitle}</option>
                     </select>
                   </div>
 
                   <div>
                     <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                      Service of Interest
+                      {t.contactPage.serviceLabel}
                     </label>
                     <select
                       value={formData.serviceInterest}
                       onChange={(e) => setFormData({ ...formData, serviceInterest: e.target.value })}
                       className="w-full px-3.5 py-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#0E1A30] text-xs text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#B61F32]"
                     >
-                      <option value="ultrasound">3G Ultrasound (3D/4D, Doppler)</option>
-                      <option value="xray">Digital X-Ray (24 Views)</option>
-                      <option value="special">Special Procedure (HSG, IVU, Barium)</option>
-                      <option value="ct-mri">CT / MRI Scan Reading</option>
-                      <option value="clinic">Doctor Consultation</option>
-                      <option value="lab">Laboratory Blood Testing</option>
+                      <option value="ultrasound">{t.nav.ultrasound}</option>
+                      <option value="xray">{t.nav.xray}</option>
+                      <option value="special">Special Fluoroscopy (HSG, IVU)</option>
+                      <option value="ct-mri">{t.nav.ctMri}</option>
+                      <option value="clinic">{t.nav.multispeciality}</option>
+                      <option value="lab">Diagnostic Lab</option>
                     </select>
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                    Your Message / Questions
+                    {t.contactPage.messageLabel}
                   </label>
                   <textarea
                     rows={4}
@@ -360,10 +356,11 @@ export default function ContactPage() {
 
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#B61F32] hover:bg-[#911624] text-white text-xs font-semibold px-5 py-2.5 rounded-lg transition-all shadow-xs"
                 >
                   <Send className="w-3.5 h-3.5" />
-                  <span>Send Message</span>
+                  <span>{t.contactPage.sendBtn}</span>
                 </button>
               </form>
             )}
@@ -373,11 +370,11 @@ export default function ContactPage() {
           <div className="lg:col-span-5 space-y-5">
             <div className="bg-[#001533] text-white p-6 rounded-2xl border border-white/10 shadow-md space-y-3">
               <span className="px-2.5 py-0.5 rounded-full bg-red-600 text-white text-[10px] font-bold uppercase tracking-wide">
-                24/7 Acute Triage
+                {t.contactPage.emergencyBadge}
               </span>
-              <h3 className="text-lg font-bold">Emergency Ultrasound & X-Ray</h3>
+              <h3 className="text-lg font-bold">{t.contactPage.emergencyTitle}</h3>
               <p className="text-xs text-slate-300 leading-relaxed">
-                For acute abdominal emergencies, suspected testicular torsion, deep vein thrombosis (DVT), acute fractures, or severe respiratory distress, our imaging center operates round-the-clock emergency on-call sonographers.
+                {t.contactPage.emergencyDesc}
               </p>
 
               <div className="pt-2">
@@ -386,15 +383,15 @@ export default function ContactPage() {
                   className="w-full inline-flex items-center justify-center gap-2 bg-[#B61F32] hover:bg-[#911624] text-white font-semibold text-xs sm:text-sm py-2.5 rounded-lg shadow-xs transition-all"
                 >
                   <Phone className="w-4 h-4" />
-                  <span>Call Emergency Line: {CLINIC_INFO.primaryPhone}</span>
+                  <span>{t.contactPage.callEmergencyBtn}: {CLINIC_INFO.primaryPhone}</span>
                 </a>
               </div>
             </div>
 
             <div className="bg-white dark:bg-[#0A1324] p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 shadow-xs space-y-2.5">
-              <h4 className="text-xs sm:text-sm font-bold text-[#002047] dark:text-white">Referring Physician Inquiries</h4>
+              <h4 className="text-xs sm:text-sm font-bold text-[#002047] dark:text-white">{t.contactPage.referringTitle}</h4>
               <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                Clinicians wishing to coordinate urgent tele-radiology readings or discuss anomalous ultrasound findings may request a direct transfer to our Senior Consultant Radiologist.
+                {t.contactPage.referringDesc}
               </p>
               <div className="pt-1 flex items-center gap-2 text-xs font-bold text-[#002047] dark:text-slate-200">
                 <Phone className="w-3.5 h-3.5 text-[#B61F32]" />

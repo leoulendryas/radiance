@@ -1,28 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import {
-  FileText,
-  Clock,
   CheckCircle2,
   AlertTriangle,
-  HelpCircle,
-  ChevronDown,
-  ShieldCheck,
-  Calendar,
-  Phone,
-  Waves,
-  Zap,
-  Sparkles,
-  FlaskConical
+  ChevronDown
 } from "lucide-react";
 import { CLINIC_INFO } from "@/data/clinicInfo";
 import SectionHeading from "@/components/SectionHeading";
 import { useLanguage } from "@/context/LanguageContext";
 
 export default function PatientsPage() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [activeTab, setActiveTab] = useState<"ultrasound" | "xray" | "special" | "lab">("ultrasound");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -129,7 +118,7 @@ export default function PatientsPage() {
     ]
   };
 
-  const faqs = [
+  const faqsEn = [
     {
       q: "Is ultrasound safe during pregnancy?",
       a: "Yes, diagnostic ultrasound uses high-frequency sound waves, not ionizing radiation. It is completely safe for both mother and developing fetus when performed by certified sonologists."
@@ -156,6 +145,62 @@ export default function PatientsPage() {
     }
   ];
 
+  const faqsTi = [
+    {
+      q: "ኣልትራሳውንድ ኣብ ግዜ ጥንሲ ድሕንነቱ ዝተሓለወ ድዩ?",
+      a: "እወ፣ ዲያግኖስቲክ ኣልትራሳውንድ ልዑል ድምጺ ማዕበል እዩ ዝጥቀም፣ ጐዳኢ ጨረር የብሉን። ንኣደን ንዕሸልን ምሉእ ብምሉእ ውሑስ እዩ።"
+    },
+    {
+      q: "ኣልትራሳውንድ ወይ ኤክስሬይ ንምግባር ናይ ሓኪም ወረቐት የድልየኒ ድዩ?",
+      a: "ናይ ሓኪም ወረቐት ምህላዉ ዝምረጽ እኳ እንተኾነ፣ ንልሙድ ናይ ጥዕና ምርመራን ንናይ ጥንሲ ምክትታልን ብናጻ ድሌትኩም መጺእኩም ክትምርመሩ ትኽእሉ ኢኹም።"
+    },
+    {
+      q: "ናይ መርመራይ ውጽኢትን ሪፖርትን መዓስ ይበጽሓኒ?",
+      a: "መብዛሕትኦም ኣልትራሳውንድን ዲጂታል ኤክስሬይን ብኡብኡ ይረኣዩ፣ ዝተጻሕፈ ሪፖርት ድማ ኣብ ውሽጢ 1 ክሳብ 2 ሰዓት ይወሃብ። ብዋትስኣፕ ወይ ኢሜይል ድማ ናብ ስልክኹም ይስደድ።"
+    },
+    {
+      q: "ናይ 3D/4D ኣልትራሳውንድ ንምግባር ዝበለጸ ናይ ጥንሲ እዋን መዓስ እዩ?",
+      a: "ዝበለጸ እዋን ካብ 26 ክሳብ 30 ሳምንቲ ዘሎ ግዜ እዩ። ኣብዚ እዋን ቆልዓ ገጹ ብግቡእ ስለዝስራሕን እኹል ፈሳሲ ስለዝህልውን ንጹር ገጽ ንምርኣይ ምቹእ እዩ።"
+    },
+    {
+      q: "ቅድሚ ከብዲ ኣልትራሳውንድ ስለምንታይ እየ ዝጸውም?",
+      a: "ምግቢ ምብላዕ ሐሞት ከም ዝጨማደድ ስለ ዝገብር ጸጸር ንምርኣይ የጸግም። ከምኡ'ውን ምግቢ ኣብ ከብዲ ጋዝ ስለ ዝፈጥር ቆላሕታ የጸግም።"
+    },
+    {
+      q: "ኣብ መዓልቲ ቆጸራይ እንታይ ሒዘ ክመጽእ ኣለኒ?",
+      a: "መታወቂያ፣ ናይ ሓኪም ወረቐት (እንተሃልዩ)፣ ናይ ቀደም መርመራ ውጽኢታት፣ ከምኡ'ውን ምቹእን ዝላላን ክልተ-ክፋል ክዳውንቲ ተኸዲንኩም ምምጻእ ይመረጽ።"
+    }
+  ];
+
+  const faqsAm = [
+    {
+      q: "አልትራሳውንድ በእርግዝና ወቅት ደህንነቱ የተጠበቀ ነው?",
+      a: "አዎ፣ ዲያግኖስቲክ አልትራሳውንድ ከፍተኛ የድምፅ ሞገድ እንጂ ምንም አይነት ጎጂ ጨረር አይጠቀምም። በሰለጠነ ባለሙያ ሲደረግ ለእናትም ሆነ ለፅንሱ ሙሉ በሙሉ ደህንነቱ የተጠበቀ ነው።"
+    },
+    {
+      q: "አልትራሳውንድ ወይም ኤክስሬይ ለማድረግ የሐኪም ማዘዣ ያስፈልገኛል?",
+      a: "የሐኪም ማዘዣ ወረቀት ይዞ መምጣት የሚመረጥ ቢሆንም፣ ለመደበኛ የጤና ምርመራ እና ለቅድመ ወሊድ ክትትል ያለ ማዘዣም መጥተው መመርመር ይችላሉ።"
+    },
+    {
+      q: "የምርመራ ውጤቴ እና ሪፖርቴ በምን ያህል ጊዜ ውስጥ ይደርሰኛል?",
+      a: "አብዛኞቹ የአልትራሳውንድ እና የዲጂታል ኤክስሬይ ውጤቶች ወዲያውኑ የሚታዩ ሲሆን፣ የተሟላ የፅሁፍ ሪፖርት በ1-2 ሰዓት ውስጥ ይሰጣል። በዋትስአፕ ወይም በኢሜይልም በቀጥታ ወደ ስልክዎ ይላካል።"
+    },
+    {
+      q: "3D/4D አልትራሳውንድ ለማድረግ የተሻለው የእርግዝና ወቅት መቼ ነው?",
+      a: "ተመራጩ ጊዜ በእርግዝና ከ26 እስከ 30 ሳምንታት ባለው ጊዜ ውስጥ ነው። በዚህ ወቅት የፅንሱ ፊት በደንብ ስለሚቀረጽ እና በቂ ፈሳሽ ስለሚኖር የጠራ ምስል ለማየት ምቹ ነው።"
+    },
+    {
+      q: "የሆድ አልትራሳውንድ ከመደረጉ በፊት መጾም ለምን አስፈለገ?",
+      a: "ምግብ መመገብ የሀሞት ከረጢት እንዲኮማተር ስለሚያደርግ የሀሞት ጠጠርን ለማየት ያዳግታል። በተጨማሪም የምግብ መፈጨት ጋዝ ስለሚፈጥር የቆሽት እና የደም ስሮችን እይታ ይጋርዳል።"
+    },
+    {
+      q: "በቀጠሮዬ ቀን ምን ይዤ መምጣት አለብኝ?",
+      a: "መታወቂያ፣ የሐኪም ማዘዣ (ካለ)፣ የቀድሞ የምርመራ ውጤቶች፣ እንዲሁም ምቹ እና ልል ያለ ባለሁለት ቁራጭ ልብስ ለብሰው መምጣት ይመረጣል።"
+    }
+  ];
+
+  const currentFaqs = language === "ti" ? faqsTi : language === "am" ? faqsAm : faqsEn;
+
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#070D18] pb-24 text-slate-800 dark:text-slate-100 transition-colors">
       {/* Header */}
@@ -165,13 +210,13 @@ export default function PatientsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl space-y-3">
             <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#B61F32] text-white text-xs font-bold uppercase tracking-wider">
-              Patient Care & Preparation
+              {t.patientsPage.badge}
             </span>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-              Patient Preparation & Guide
+              {t.patientsPage.title}
             </h1>
             <p className="text-sm sm:text-base text-slate-200 leading-relaxed">
-              Proper preparation ensures crisp diagnostic clarity and reduces unnecessary scan repeats. Review our step-by-step instructions before your scan.
+              {t.patientsPage.description}
             </p>
           </div>
         </div>
@@ -183,10 +228,10 @@ export default function PatientsPage() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
             <div>
               <span className="text-xs font-bold text-[#B61F32] uppercase tracking-wider">
-                Pre-Examination Instructions
+                {t.patientsPage.badge}
               </span>
               <h2 className="text-xl sm:text-2xl font-extrabold text-[#002047] dark:text-white mt-1">
-                How to Prepare for Your Examination
+                {t.patientsPage.title}
               </h2>
             </div>
 
@@ -200,7 +245,7 @@ export default function PatientsPage() {
                     : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200"
                 }`}
               >
-                Ultrasound (27 Scans)
+                {t.patientsPage.tabs.ultrasound}
               </button>
               <button
                 onClick={() => setActiveTab("special")}
@@ -210,7 +255,7 @@ export default function PatientsPage() {
                     : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200"
                 }`}
               >
-                Special Procedures (HSG/Barium)
+                {t.patientsPage.tabs.special}
               </button>
               <button
                 onClick={() => setActiveTab("xray")}
@@ -220,7 +265,7 @@ export default function PatientsPage() {
                     : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200"
                 }`}
               >
-                Digital X-Ray
+                {t.patientsPage.tabs.xray}
               </button>
               <button
                 onClick={() => setActiveTab("lab")}
@@ -230,7 +275,7 @@ export default function PatientsPage() {
                     : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200"
                 }`}
               >
-                Laboratory Tests
+                {t.patientsPage.tabs.lab}
               </button>
             </div>
           </div>
@@ -330,15 +375,15 @@ export default function PatientsPage() {
         {/* FAQs Accordion */}
         <section className="bg-white dark:bg-[#0A1324] rounded-2xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800/80 shadow-xs">
           <SectionHeading
-            badge="Common Questions"
-            title="Frequently Asked"
-            highlightText="Questions"
-            subtitle="Answers to common patient inquiries regarding scan safety, turnaround times, and preparation."
+            badge={t.patientsPage.badge}
+            title={t.patientsPage.faqsTitle}
+            highlightText=""
+            subtitle={t.patientsPage.faqsSubtitle}
             centered
           />
 
           <div className="max-w-3xl mx-auto space-y-2.5 mt-6">
-            {faqs.map((faq, i) => {
+            {currentFaqs.map((faq, i) => {
               const isOpen = openFaq === i;
               return (
                 <div

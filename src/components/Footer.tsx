@@ -17,8 +17,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useTheme } from "@/context/ThemeContext";
 
 export default function Footer() {
-  const { t, language } = useLanguage();
-  const { theme } = useTheme();
+  const { t } = useLanguage();
 
   return (
     <footer className="bg-[#001026] dark:bg-[#03060C] text-slate-300 pt-14 pb-8 border-t border-slate-800 transition-colors">
@@ -72,25 +71,25 @@ export default function Footer() {
             </Link>
 
             <p className="text-xs text-slate-400 leading-relaxed">
-              Patient-centered diagnostic imaging and multispeciality healthcare committed to international clinical standards, precision diagnosis, and compassionate care.
+              {t.footer.aboutDesc}
             </p>
 
             <div className="flex items-center gap-2 text-xs text-slate-400 pt-1">
               <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span>Certified Radiation Safety & Diagnostic Sonography</span>
+              <span>{t.footer.safetyCertified}</span>
             </div>
           </div>
 
           {/* Column 2: 3G Imaging */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-3.5">
-              3G Diagnostic Imaging
+              {t.footer.imagingTitle}
             </h4>
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
                 <Link href="/services/ultrasound" className="hover:text-white transition-colors flex items-center gap-1.5">
                   <ChevronRight className="w-3 h-3 text-[#B61F32]" />
-                  <span>3D/4D Fetal & Obstetric Sonography</span>
+                  <span>{t.nav.ultrasound}</span>
                 </Link>
               </li>
               <li>
@@ -108,19 +107,19 @@ export default function Footer() {
               <li>
                 <Link href="/services/digital-xray" className="hover:text-white transition-colors flex items-center gap-1.5">
                   <ChevronRight className="w-3 h-3 text-[#B61F32]" />
-                  <span>24 Digital Skeletal X-Ray Views</span>
+                  <span>{t.nav.xray}</span>
                 </Link>
               </li>
               <li>
                 <Link href="/services/digital-xray#special-procedures" className="hover:text-white transition-colors flex items-center gap-1.5">
                   <ChevronRight className="w-3 h-3 text-[#B61F32]" />
-                  <span>HSG (Hysterosalpingography) for Infertility</span>
+                  <span>HSG (Hysterosalpingography)</span>
                 </Link>
               </li>
               <li>
                 <Link href="/services/ct-mri-consultation" className="hover:text-white transition-colors flex items-center gap-1.5">
                   <ChevronRight className="w-3 h-3 text-[#B61F32]" />
-                  <span>CT & MRI Second Opinions</span>
+                  <span>{t.nav.ctMri}</span>
                 </Link>
               </li>
             </ul>
@@ -129,43 +128,37 @@ export default function Footer() {
           {/* Column 3: Quick Links */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-3.5">
-              Patient Care & Navigation
+              {t.footer.navTitle}
             </h4>
             <ul className="space-y-2 text-xs text-slate-400">
               <li>
                 <Link href="/services/multispeciality" className="hover:text-white transition-colors flex items-center gap-1.5">
                   <ChevronRight className="w-3 h-3 text-[#B61F32]" />
-                  <span>Specialty Outpatient Clinics</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/multispeciality#laboratory" className="hover:text-white transition-colors flex items-center gap-1.5">
-                  <ChevronRight className="w-3 h-3 text-[#B61F32]" />
-                  <span>Automated Diagnostic Laboratory</span>
+                  <span>{t.nav.multispeciality}</span>
                 </Link>
               </li>
               <li>
                 <Link href="/patients" className="hover:text-white transition-colors flex items-center gap-1.5">
                   <ChevronRight className="w-3 h-3 text-[#B61F32]" />
-                  <span>Preparation Guidelines (Fasting/Bladder)</span>
+                  <span>{t.nav.patients}</span>
                 </Link>
               </li>
               <li>
                 <Link href="/doctors" className="hover:text-white transition-colors flex items-center gap-1.5">
                   <ChevronRight className="w-3 h-3 text-[#B61F32]" />
-                  <span>Consultant Radiologists & Doctors</span>
+                  <span>{t.nav.doctors}</span>
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="hover:text-white transition-colors flex items-center gap-1.5">
                   <ChevronRight className="w-3 h-3 text-[#B61F32]" />
-                  <span>Vision, Mission & Core Values</span>
+                  <span>{t.nav.about}</span>
                 </Link>
               </li>
               <li>
                 <Link href="/book" className="hover:text-white transition-colors flex items-center gap-1.5">
                   <ChevronRight className="w-3 h-3 text-[#B61F32]" />
-                  <span>Schedule Online Appointment</span>
+                  <span>{t.nav.book}</span>
                 </Link>
               </li>
             </ul>
@@ -174,7 +167,7 @@ export default function Footer() {
           {/* Column 4: Contact & Locations */}
           <div className="space-y-3.5">
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200 mb-3.5">
-              Centers & Contacts
+              {t.footer.centersTitle}
             </h4>
 
             {/* Adi Dero */}
@@ -207,13 +200,13 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-slate-400">
-          <p>© 2026 Radiance Multispeciality Clinic & 3G Diagnostic Imaging. All rights reserved.</p>
+          <p>{t.footer.copyright}</p>
           <div className="flex items-center gap-4 text-[11px]">
-            <Link href="/patients" className="hover:text-white transition-colors">Patient Privacy</Link>
+            <Link href="/patients" className="hover:text-white transition-colors">{t.footer.privacy}</Link>
             <span>•</span>
-            <Link href="/contact" className="hover:text-white transition-colors">Directions</Link>
+            <Link href="/contact" className="hover:text-white transition-colors">{t.footer.directions}</Link>
             <span>•</span>
-            <Link href="/book" className="text-red-400 hover:text-red-300 font-medium transition-colors">Online Booking</Link>
+            <Link href="/book" className="text-red-400 hover:text-red-300 font-medium transition-colors">{t.footer.onlineBooking}</Link>
           </div>
         </div>
       </div>
